@@ -85,4 +85,9 @@ export function initTimeline(element, data) {
 
   const items = element.querySelectorAll(".timeline-item");
   items.forEach((item) => observer.observe(item));
+
+  const title = element.querySelector(".section-title");
+  if (title) {
+    observer.observe(title);
+  }
 }
