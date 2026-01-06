@@ -2,11 +2,12 @@
   --color-primary: #ee75f4;
   --color-secondary: #9487ff;
   --color-accent: #ee75f4;
-  --color-background: #373245;
+  --color-background: #252e5c;
   --color-text: #f1f5f9;
   --color-text-light: #94a3b8;
   --color-white: #ffffff;
-  --color-card-bg: #1e293b;
+  --color-card-bg: #354076;
+  --color-card-secondary-bg: #3b467f;
   --color-border: #334155;
 
   --font-heading: "Fredoka", system-ui, -apple-system, sans-serif;

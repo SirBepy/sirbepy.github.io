@@ -44,7 +44,7 @@
 }
 
 .tech-list li {
-  background: var(--color-background);
+  background: var(--color-card-secondary-bg);
   padding: 4px 12px;
   border-radius: 9999px;
   font-size: 0.875rem;
@@ -163,7 +163,7 @@
 
 .nav-btn:hover {
   color: var(--color-primary);
-  background-color: var(--color-background);
+  background-color: var(--color-card-secondary-bg);
 }
 
 .nav-dots {
