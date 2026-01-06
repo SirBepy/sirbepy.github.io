@@ -32,7 +32,6 @@ const skillsData = [
       "I am a versatile developer with a passion for building immersive digital experiences. My journey spans from web and mobile development to game design, always aiming to create polished, high-performance applications that delight users.",
     languages: ["JavaScript", "TypeScript", "Dart", "Lua"],
     frameworks: ["React", "Flutter", "Node.js"],
-    projectCount: 15,
   },
   {
     id: "web",
@@ -41,8 +40,33 @@ const skillsData = [
       "Specializing in modern web applications using React, Next.js, and Gatsby. I focus on performance, SEO, and creating intuitive user interfaces that work seamlessly across devices.",
     languages: ["JavaScript", "TypeScript", "HTML/CSS"],
     frameworks: ["React", "Next.js", "Gatsby", "TailwindCSS", "Node.js"],
-    projectCount: 8,
     hackathons: 2,
+    projects: [
+      {
+        name: "KTO Website Redesign",
+        company: "KTO",
+        length: 12,
+        year: 2024,
+        description:
+          "Led the complete overhaul of the main corporate website using Gatsby and modern SEO practices.",
+      },
+      {
+        name: "Internal Management Tool",
+        company: "Best Technology",
+        length: 6,
+        year: 2022,
+        description:
+          "Developed a custom dashboard for internal operations with real-time data visualization.",
+      },
+      {
+        name: "E-commerce Platform",
+        company: "ArsSacra",
+        length: 4,
+        year: 2019,
+        description:
+          "Built a full-stack e-commerce solution with React and Node.js featuring a chat-based purchasing system.",
+      },
+    ],
   },
   {
     id: "mobile",
@@ -51,9 +75,34 @@ const skillsData = [
       "Building cross-platform mobile applications with Flutter. I have experience with complex state management, real-time features, and integrating with various backend services.",
     languages: ["Dart"],
     frameworks: ["Flutter", "Firebase", "GraphQL", "Provider/Riverpod"],
-    projectCount: 4,
     hackathons: 1,
     hackathonNote: "Even won this one",
+    projects: [
+      {
+        name: "KTO Mobile App",
+        company: "KTO",
+        length: 18,
+        year: 2024,
+        description:
+          "Developed a cross-platform Flutter app architected to sync seamlessly with the Gatsby web platform.",
+      },
+      {
+        name: "Operations Management App",
+        company: "Best Technology",
+        length: 5,
+        year: 2021,
+        description:
+          "Built a Flutter app for internal management using GraphQL and Auth0 for secure access.",
+      },
+      {
+        name: "Unisport App",
+        company: "Bebabit",
+        length: 6,
+        year: 2021,
+        description:
+          "Created a Flutter app for real-time sports tracking and referee management during tournaments.",
+      },
+    ],
   },
   {
     id: "gamedev",
@@ -62,8 +111,33 @@ const skillsData = [
       "Creating engaging games on the Roblox platform using Lua and Roact. My games have reached over 900k visits, featuring custom mechanics and optimized performance.",
     languages: ["Lua"],
     frameworks: ["Roblox API", "Roact", "Rodux"],
-    projectCount: 3,
     gamejams: 2,
+    projects: [
+      {
+        name: "Shroomshire Restoration",
+        company: "Tabs Labs",
+        length: 8,
+        year: 2025,
+        description:
+          "Developing a complex restoration simulator on Roblox with custom physics and building mechanics.",
+      },
+      {
+        name: "Mystery Adventure",
+        company: "Tabs Labs",
+        length: 10,
+        year: 2024,
+        description:
+          "Developed a highly successful Roblox game with over 900k visits and deep player engagement.",
+      },
+      {
+        name: "Game Jam Prototype",
+        company: "Solo",
+        length: 1,
+        year: 2023,
+        description:
+          "Created a physics-based puzzle game prototype during a 48-hour game jam.",
+      },
+    ],
   },
 ];
 

@@ -3,9 +3,55 @@ import "../styles/skillsBanner.css";
 export class SkillsBanner {
   constructor(container, data) {
     this.container = container;
-    this.data = data;
-    this.activeTabId = data[0].id; // Default to first tab
+    this.rawData = data;
+    this.processData();
+    this.activeTabId = this.data[0].id; // Default to first tab
     this.init();
+  }
+
+  processData() {
+    // Create a deep copy of the data to avoid mutating the original
+    this.data = JSON.parse(JSON.stringify(this.rawData));
+
+    // Helper to sort projects by year (desc) then length (desc)
+    const sortProjects = (projects) => {
+      return projects.sort((a, b) => {
+        if (b.year !== a.year) {
+          return b.year - a.year;
+        }
+        return b.length - a.length;
+      });
+    };
+
+    // Calculate project counts and sort projects for specific categories
+    this.data.forEach((item) => {
+      if (item.projects) {
+        item.projectCount = item.projects.length;
+        sortProjects(item.projects);
+      }
+    });
+
+    // Handle Overview pooling and global sorting
+    const overview = this.data.find((item) => item.id === "overview");
+    if (overview) {
+      const webProjects =
+        this.data.find((item) => item.id === "web")?.projects || [];
+      const mobileProjects =
+        this.data.find((item) => item.id === "mobile")?.projects || [];
+      const gamedevProjects =
+        this.data.find((item) => item.id === "gamedev")?.projects || [];
+
+      // Pool all projects together
+      const allProjects = [
+        ...webProjects,
+        ...mobileProjects,
+        ...gamedevProjects,
+      ];
+
+      // Sort the entire pool globally by year then length
+      overview.projects = sortProjects(allProjects);
+      overview.projectCount = overview.projects.length;
+    }
   }
 
   init() {
@@ -87,11 +133,38 @@ export class SkillsBanner {
                   ${
                     item.projectCount !== undefined
                       ? `
-                    <div class="stat-group">
+                    <div class="stat-group experience-trigger">
                       <h4>Experience</h4>
                       <div class="stat-value-row">
                         <span class="stat-number">${item.projectCount}</span>
                         <span class="stat-unit">Projects Completed</span>
+                      </div>
+                      
+                      <div class="project-list-tooltip">
+                        <div class="tooltip-header">Projects</div>
+                        <div class="tooltip-content">
+                          ${
+                            item.projects
+                              ? item.projects
+                                  .map(
+                                    (proj) => `
+                            <div class="project-item">
+                              <span class="project-name">${proj.name}</span>
+                              <div class="project-item-sub">
+                                <span class="project-company">${proj.company}</span>
+                                <span class="project-separator">•</span>
+                                <span class="project-length">${proj.length} mo</span>
+                                <span class="project-separator">•</span>
+                                <span class="project-year">${proj.year}</span>
+                              </div>
+                              <p class="project-item-desc">${proj.description}</p>
+                            </div>
+                          `
+                                  )
+                                  .join("")
+                              : '<div class="no-projects">No detailed projects listed.</div>'
+                          }
+                        </div>
                       </div>
                     </div>
                   `
