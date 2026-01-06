@@ -1,4 +1,5 @@
 import { heroContent } from "../data/portfolioData.js";
+import { setupSeamlessLoop } from "../utils/video.js";
 
 export function initHero(element) {
   if (!element) return;
@@ -9,9 +10,7 @@ export function initHero(element) {
 
   element.innerHTML = `
     <div class="hero-container">
-      <video class="hero-video" autoplay muted loop playsinline>
-        <source src="/videos/hero-video.mp4" type="video/mp4">
-      </video>
+      <div class="hero-video-container"></div>
       <div class="hero-content">
         <h1>Hello, I'm <span id="hero-name" style="display: inline-block">${heroContent.name}</span></h1>
         <p class="subheading">
@@ -31,6 +30,15 @@ export function initHero(element) {
       </div>
     </div>
   `;
+
+  const videoContainer = element.querySelector(".hero-video-container");
+  setupSeamlessLoop(
+    videoContainer,
+    "/videos/hero-video.mp4",
+    "hero-video",
+    1.0,
+    0.1
+  );
 
   // Attach event listeners to text links
   const links = element.querySelectorAll(".hero-text-link");

@@ -10,14 +10,24 @@
   overflow: hidden;
 }
 
-.hero-video {
-  position: fixed; /* Fixed for global parallax */
+.hero-video-container {
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.hero-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 110%; /* Extra height for parallax movement */
   object-fit: cover;
-  z-index: -1; /* Behind everything */
+  will-change: transform;
 }
 
 /* Overlay to ensure text readability if image is bright */

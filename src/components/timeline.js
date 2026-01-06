@@ -1,3 +1,5 @@
+import { setupSeamlessLoop } from "../utils/video.js";
+
 export function initTimeline(element, data) {
   if (!element || !data) return;
 
@@ -56,12 +58,7 @@ export function initTimeline(element, data) {
     .join("");
 
   element.innerHTML = `
-    <div class="timeline-video-container">
-      <video class="timeline-video" autoplay muted loop playsinline>
-        <source src="/videos/bottom-video.mp4" type="video/mp4">
-      </video>
-      <div class="timeline-overlay"></div>
-    </div>
+    <div class="timeline-video-container"></div>
     <div class="timeline-container">
       <h2 class="section-title">Past Experiences</h2>
       <div class="timeline-line"></div>
@@ -69,7 +66,19 @@ export function initTimeline(element, data) {
     </div>
   `;
 
-  // Intersection Observer for animations
+  const videoContainer = element.querySelector(".timeline-video-container");
+  setupSeamlessLoop(
+    videoContainer,
+    "/videos/bottom-video.mp4",
+    "timeline-video",
+    1.0,
+    0.05
+  );
+
+  // Add overlay back as it was removed from innerHTML for setupSeamlessLoop to work cleanly
+  const overlay = document.createElement("div");
+  overlay.className = "timeline-overlay";
+  videoContainer.appendChild(overlay);
   const observerOptions = {
     root: null,
     rootMargin: "0px",
