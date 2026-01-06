@@ -1,7 +1,9 @@
+import { heroContent } from "../data/portfolioData.js";
+
 export function initHero(element) {
   if (!element) return;
 
-  const startYear = 2019;
+  const startYear = heroContent.subheading.experienceStartYear;
   const currentYear = new Date().getFullYear();
   const yearsOfExperience = currentYear - startYear;
 
@@ -11,18 +13,18 @@ export function initHero(element) {
         <source src="/videos/hero-video.mp4" type="video/mp4">
       </video>
       <div class="hero-content">
-        <h1>Hello, I'm <span id="hero-name" style="display: inline-block">Josip Mužić</span></h1>
+        <h1>Hello, I'm <span id="hero-name" style="display: inline-block">${heroContent.name}</span></h1>
         <p class="subheading">
-          <span class="hero-text-link" data-target="web">Web</span> & 
-          <span class="hero-text-link" data-target="mobile">Mobile</span> Developer with ${yearsOfExperience}+ years of experience 
+          <span class="hero-text-link" data-target="web">${heroContent.subheading.web}</span> & 
+          <span class="hero-text-link" data-target="mobile">${heroContent.subheading.mobile}</span> Developer with ${yearsOfExperience}+ years of experience 
           <br>
-          and a <span class="hero-text-link" data-target="gamedev">Game Dev</span> addiction.
+          and a <span class="hero-text-link" data-target="gamedev">${heroContent.subheading.gamedev}</span> addiction.
         </p>
         
         <div class="hero-nav-buttons">
-          <button class="hero-btn" data-target="web">Web Dev</button>
-          <button class="hero-btn" data-target="mobile">Mobile Dev</button>
-          <button class="hero-btn" data-target="gamedev">Game Dev</button>
+          <button class="hero-btn" data-target="web">${heroContent.subheading.web} Dev</button>
+          <button class="hero-btn" data-target="mobile">${heroContent.subheading.mobile} Dev</button>
+          <button class="hero-btn" data-target="gamedev">${heroContent.subheading.gamedev} Dev</button>
         </div>
 
         <div id="hero-links"></div>
@@ -55,7 +57,7 @@ export function initHero(element) {
   const stickyHeader = document.createElement("div");
   stickyHeader.id = "sticky-header";
   stickyHeader.innerHTML = `
-    <div class="sticky-logo">Josip Mužić</div>
+    <div class="sticky-logo">${heroContent.name}</div>
     <div class="sticky-links"></div>
   `;
   document.body.appendChild(stickyHeader);

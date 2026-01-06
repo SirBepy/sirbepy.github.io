@@ -134,7 +134,7 @@ export class SkillsBanner {
                     item.projectCount !== undefined
                       ? `
                     <div class="stat-group experience-trigger">
-                      <h4>Experience</h4>
+                      <h4>Projects</h4>
                       <div class="stat-value-row">
                         <span class="stat-number">${item.projectCount}</span>
                         <span class="stat-unit">Projects Completed</span>
