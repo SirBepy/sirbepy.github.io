@@ -8,7 +8,7 @@ export function initHero(element) {
   element.innerHTML = `
     <div class="hero-container">
       <video class="hero-video" autoplay muted loop playsinline>
-        <source src="/videos/hero-image.mp4" type="video/mp4">
+        <source src="/videos/hero-video.mp4" type="video/mp4">
       </video>
       <div class="hero-content">
         <h1>Hello, I'm <span id="hero-name" style="display: inline-block">Josip Mužić</span></h1>
