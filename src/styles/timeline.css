@@ -99,14 +99,12 @@
 
 .timeline-title {
   font-size: 1.25rem;
-  margin-bottom: 4px;
   color: var(--color-primary);
 }
 
 .timeline-company {
   font-size: 1rem;
   color: var(--color-text);
-  margin-bottom: var(--spacing-xs);
   font-weight: 500;
 }
 
@@ -117,6 +115,12 @@
   display: flex;
   align-items: center;
   gap: 4px;
+  display: none;
+}
+
+.timeline-date {
+  font-size: 0.875rem;
+  color: var(--color-text-light);
 }
 
 .timeline-item.left .timeline-location {
@@ -127,6 +131,7 @@
   font-size: 0.95rem;
   color: var(--color-text);
   line-height: 1.6;
+  margin-top: var(--spacing-sm);
 }
 
 /* Responsive */

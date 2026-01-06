@@ -42,12 +42,12 @@ export function initTimeline(element, data) {
     <div class="timeline-item ${index % 2 === 0 ? "right" : "left"}">
       <div class="timeline-dot"></div>
       <div class="timeline-content">
-        <div class="timeline-date">${
-          item.date
-        } <span class="duration">${calculateDuration(item.date)}</span></div>
         <h3 class="timeline-title">${item.position}</h3>
         <h4 class="timeline-company">${item.company}</h4>
         <div class="timeline-location">${item.location}</div>
+        <div class="timeline-date">${
+          item.date
+        } <span class="duration">${calculateDuration(item.date)}</span></div>
         <p class="timeline-description">${item.description}</p>
       </div>
     </div>
