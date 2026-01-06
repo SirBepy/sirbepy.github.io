@@ -253,6 +253,7 @@ class StarCursor {
     });
 
     document.addEventListener("mousedown", (e) => {
+      if (e.button !== 0) return; // Only left-click
       this.isMouseDown = true;
 
       // Gather existing particles first!
@@ -266,7 +267,8 @@ class StarCursor {
       }, 20);
     });
 
-    document.addEventListener("mouseup", () => {
+    document.addEventListener("mouseup", (e) => {
+      if (e.button !== 0) return; // Only left-click
       this.isMouseDown = false;
       if (this.gatherTimer) clearInterval(this.gatherTimer);
       this.explode();
