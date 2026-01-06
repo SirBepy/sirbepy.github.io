@@ -17,9 +17,6 @@ export function initHero(element) {
           <br>
           and a <b>Game Dev</b> addiction.
         </p>
-        <p>
-          I solve business challenges by day and creative ones by night.
-        </p>
         <div id="hero-links"></div>
       </div>
     </div>

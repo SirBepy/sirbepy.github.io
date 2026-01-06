@@ -1,0 +1,20 @@
+.star-particle {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  display: none;
+
+  /* Use mask to color the white star image */
+  -webkit-mask-image: url("/images/star.png");
+  mask-image: url("/images/star.png");
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+
+  will-change: transform, opacity;
+}

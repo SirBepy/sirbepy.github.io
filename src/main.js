@@ -2,10 +2,12 @@ import "./styles/main.css";
 import "./styles/hero.css";
 import "./styles/skills.css";
 import "./styles/timeline.css";
+import "./styles/cursor.css";
 
 import { initHero } from "./components/hero.js";
 import { initLinks } from "./components/links.js";
 import { createSkillCard } from "./components/skillCard.js";
+import { initCursor } from "./components/cursor.js";
 
 document.querySelector("#app").innerHTML = `
   <main>
@@ -19,6 +21,7 @@ document.querySelector("#app").innerHTML = `
 
 initHero(document.querySelector("#hero-section"));
 initLinks(document.querySelector("#hero-links"));
+initCursor();
 
 const skillsData = [
   {
