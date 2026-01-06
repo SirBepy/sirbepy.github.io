@@ -1,7 +1,42 @@
 #timeline-section {
   padding: var(--spacing-xxl) var(--spacing-md);
-  background-color: var(--color-background);
-  overflow: hidden; /* Prevent horizontal scroll from animations */
+  position: relative;
+  overflow: hidden;
+  clip-path: inset(0);
+}
+
+.timeline-video-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.timeline-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.timeline-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(55, 50, 69, 0.9) 0%,
+    rgba(55, 50, 69, 0.7) 50%,
+    rgba(55, 50, 69, 0.9) 100%
+  );
+  z-index: 1;
 }
 
 .timeline-container {

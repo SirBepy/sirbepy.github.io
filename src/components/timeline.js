@@ -56,6 +56,12 @@ export function initTimeline(element, data) {
     .join("");
 
   element.innerHTML = `
+    <div class="timeline-video-container">
+      <video class="timeline-video" autoplay muted loop playsinline>
+        <source src="/videos/bottom-video.mp4" type="video/mp4">
+      </video>
+      <div class="timeline-overlay"></div>
+    </div>
     <div class="timeline-container">
       <h2 class="section-title">Past Experiences</h2>
       <div class="timeline-line"></div>
