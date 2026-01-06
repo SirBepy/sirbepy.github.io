@@ -13,18 +13,37 @@ export function initHero(element) {
       <div class="hero-content">
         <h1>Hello, I'm Josip Mužić</h1>
         <p class="subheading">
-          <b>Frontend Developer</b> with ${yearsOfExperience}+ years of experience 
+          <span class="hero-text-link" data-target="web">Web</span> & 
+          <span class="hero-text-link" data-target="mobile">Mobile</span> Developer with ${yearsOfExperience}+ years of experience 
           <br>
-          and a <b>Game Dev</b> addiction.
+          and a <span class="hero-text-link" data-target="gamedev">Game Dev</span> addiction.
         </p>
+        
         <div id="hero-links"></div>
       </div>
     </div>
   `;
 
-  // Parallax effect
-  // Parallax effect
-  const video = element.querySelector(".hero-video");
+  // Attach event listeners to text links
+  const links = element.querySelectorAll(".hero-text-link");
+  links.forEach((link) => {
+    link.addEventListener("click", () => {
+      const targetId = link.dataset.target;
+
+      // Scroll to skills section
+      const skillsSection = document.querySelector("#skills-section");
+      skillsSection.scrollIntoView({ behavior: "smooth" });
+
+      // Dispatch event to switch tab
+      setTimeout(() => {
+        document.dispatchEvent(
+          new CustomEvent("switch-skill-tab", {
+            detail: { tabId: targetId },
+          })
+        );
+      }, 100);
+    });
+  });
   window.addEventListener("scroll", () => {
     // Since video is fixed, we don't need to move it much.
     // But to give a "slow scroll" feel (moving up slowly), we translate it up.
