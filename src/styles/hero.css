@@ -49,6 +49,16 @@
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
+#hero-name {
+  cursor: pointer;
+  transition: color var(--transition-fast), transform var(--transition-fast);
+}
+
+#hero-name:hover {
+  color: var(--color-primary);
+  transform: scale(1.05);
+}
+
 .hero-content p:not(.subheading) {
   opacity: 0.5;
 }
@@ -227,6 +237,12 @@
   display: inline-block;
   will-change: transform;
   opacity: 0; /* Hidden until FLIP triggers */
+  cursor: pointer;
+  transition: color var(--transition-fast), opacity 0.3s ease;
+}
+
+.sticky-logo:hover {
+  color: var(--color-primary);
 }
 
 .sticky-logo.visible {

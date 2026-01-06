@@ -83,6 +83,28 @@ export function initHero(element) {
   const stickyLogo = stickyHeader.querySelector(".sticky-logo");
   const stickyLinksContainer = stickyHeader.querySelector(".sticky-links");
 
+  // Add click handler for hero name
+  heroName.addEventListener("click", () => {
+    const skillsSection = document.querySelector("#skills-section");
+    if (skillsSection) {
+      skillsSection.scrollIntoView({ behavior: "smooth" });
+
+      // Dispatch event to switch to overview tab
+      setTimeout(() => {
+        document.dispatchEvent(
+          new CustomEvent("switch-skill-tab", {
+            detail: { tabId: "overview" },
+          })
+        );
+      }, 100);
+    }
+  });
+
+  // Add click handler for sticky logo
+  stickyLogo.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
   let isNameSticky = false;
   let stickyLinksState = []; // Track sticky state of each link
   let stickyHeaderTimeout = null;
