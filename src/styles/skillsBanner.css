@@ -84,19 +84,31 @@
   max-width: 600px;
 }
 
-.skill-stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: var(--spacing-lg);
-  margin-top: auto;
+.skill-details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
 }
 
-.stat-group h4 {
-  font-size: 0.875rem;
+.tech-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.tech-group {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.tech-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text-light);
+  min-width: 100px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--color-text-light);
-  margin-bottom: var(--spacing-sm);
 }
 
 .tech-tags {
@@ -107,23 +119,70 @@
 
 .tech-tag {
   background: var(--color-background);
-  padding: 6px 12px;
+  padding: 4px 12px;
   border-radius: 9999px;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: var(--color-text);
   border: 1px solid var(--color-border);
+  transition: all var(--transition-fast);
 }
 
-.project-count {
+.tech-tag:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  transform: translateY(-1px);
+}
+
+.skill-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xl);
+  margin-top: var(--spacing-md);
+}
+
+.stat-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.stat-group h4 {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-light);
+  font-weight: 600;
+  margin: 0;
+}
+
+.stat-value-row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-sm);
+}
+
+.stat-number {
   font-size: 2.5rem;
   font-weight: 700;
   color: var(--color-primary);
+  line-height: 1;
 }
 
-.project-count-label {
-  font-size: 1rem;
+.stat-unit {
+  font-size: 0.9rem;
   color: var(--color-text-light);
-  margin-left: var(--spacing-xs);
+}
+
+.won-tag {
+  background: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 @keyframes fadeIn {

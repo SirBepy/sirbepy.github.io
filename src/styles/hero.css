@@ -158,3 +158,129 @@
     justify-content: center;
   }
 }
+
+.hero-nav-buttons {
+  display: none;
+}
+
+.hero-text-link {
+  color: var(--color-primary);
+  cursor: pointer;
+  position: relative;
+  font-weight: 700;
+  transition: all var(--transition-fast);
+  display: inline-block;
+}
+
+.hero-text-link::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--color-primary);
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease-out;
+}
+
+.hero-text-link:hover {
+  color: var(--color-accent);
+  transform: translateY(-2px);
+}
+
+.hero-text-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+/* Sticky Header Styles */
+#sticky-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(12px);
+  z-index: 1000;
+  transform: translateY(-100%);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#sticky-header.show-sticky {
+  transform: translateY(0);
+}
+
+.sticky-logo {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-white);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  display: inline-block;
+  will-change: transform;
+  opacity: 0; /* Hidden until FLIP triggers */
+}
+
+.sticky-logo.visible {
+  opacity: 1;
+}
+
+.sticky-links {
+  display: flex;
+  gap: var(--spacing-sm);
+  will-change: transform;
+}
+
+/* Individual sticky link visibility */
+.sticky-links .social-link {
+  width: 36px;
+  height: 36px;
+  opacity: 0; /* Hidden until FLIP triggers */
+}
+
+.sticky-links .social-link.visible {
+  opacity: 1;
+}
+
+.sticky-links .social-link svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Hide Hero Elements State */
+.hero-container.hide-hero-elements .hero-content .subheading,
+.hero-container.hide-hero-elements .hero-content .hero-nav-buttons {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Individual element hiding for FLIP */
+.hero-name-hidden {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none;
+}
+
+.hero-link-hidden {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none;
+}
+
+/* Ensure transitions are smooth when reappearing */
+.hero-content h1,
+.hero-content .subheading,
+.hero-content .hero-nav-buttons,
+#hero-links,
+.social-link {
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}

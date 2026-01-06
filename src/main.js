@@ -6,7 +6,6 @@ import "./styles/cursor.css";
 
 import { initHero } from "./components/hero.js";
 import { initLinks } from "./components/links.js";
-import { createSkillCard } from "./components/skillCard.js";
 import { initCursor } from "./components/cursor.js";
 
 document.querySelector("#app").innerHTML = `
@@ -23,93 +22,62 @@ initHero(document.querySelector("#hero-section"));
 initLinks(document.querySelector("#hero-links"));
 initCursor();
 
+import { initSkillsBanner } from "./components/skillsBanner.js";
+
 const skillsData = [
   {
-    title: "Mobile Development",
-    technologies: ["Flutter", "Firebase"],
-    projects: [
-      {
-        name: "Safari Duha",
-        description:
-          "Flutter app featuring video streaming, real-time chat, journaling, and social features with complex state management.",
-        badge: "Current",
-      },
-      {
-        name: "KTO Mobile App",
-        image: "/images/kto-app.jpg",
-        description:
-          "Cross-platform betting app synchronized with web platform. Architected seamless data flow between mobile and web.",
-      },
-      {
-        name: "Unisport",
-        image: "/images/unisport-app.png",
-        description:
-          "Sports tracking app with play-by-play features, team/competition viewing, and real-time updates.",
-      },
-      {
-        name: "Best Technology",
-        image: "/images/best-technology.jpg",
-        description:
-          "Cross-platform Flutter app for web and mobile using GraphQL and Auth0 for internal operations management.",
-      },
-    ],
+    id: "overview",
+    title: "Overview",
+    description:
+      "I am a versatile developer with a passion for building immersive digital experiences. My journey spans from web and mobile development to game design, always aiming to create polished, high-performance applications that delight users.",
+    languages: ["JavaScript", "TypeScript", "Dart", "Lua"],
+    frameworks: ["React", "Flutter", "Node.js"],
+    projectCount: 15,
   },
   {
+    id: "web",
     title: "Web Development",
-    technologies: ["React", "Next.js", "Gatsby"],
-    projects: [
-      {
-        name: "GoRide",
-        image: "/images/goride.png",
-        description:
-          "Complex React application with large development team. Learned to navigate large codebases and maintain consistency.",
-      },
-      {
-        name: "KTO Web Platform",
-        image: "/images/kto.png",
-        description:
-          "Led multiple redesigns of high-traffic betting platform. Improved Lighthouse scores by 40+ points through optimization.",
-      },
-      {
-        name: "Unisport Dashboard",
-        image: "/images/unisport.png",
-        description:
-          "React PWA allowing referees to track sports events in real-time for mobile app consumption.",
-      },
-    ],
+    description:
+      "Specializing in modern web applications using React, Next.js, and Gatsby. I focus on performance, SEO, and creating intuitive user interfaces that work seamlessly across devices.",
+    languages: ["JavaScript", "TypeScript", "HTML/CSS"],
+    frameworks: ["React", "Next.js", "Gatsby", "TailwindCSS", "Node.js"],
+    projectCount: 8,
+    hackathons: 2,
   },
   {
+    id: "mobile",
+    title: "Mobile Development",
+    description:
+      "Building cross-platform mobile applications with Flutter. I have experience with complex state management, real-time features, and integrating with various backend services.",
+    languages: ["Dart"],
+    frameworks: ["Flutter", "Firebase", "GraphQL", "Provider/Riverpod"],
+    projectCount: 4,
+    hackathons: 1,
+    hackathonNote: "Even won this one",
+  },
+  {
+    id: "gamedev",
     title: "Game Development",
-    technologies: ["Roblox (Lua)", "Roact"],
-    projects: [
-      {
-        name: "Save Sahur Obby",
-        description:
-          "Published Roblox game that achieved over 900,000 visits. Features custom mechanics and engaging gameplay.",
-        image: "/images/sahur.png",
-        badge: "900k+ plays",
-      },
-      {
-        name: "Shroomshire Restoration",
-        description:
-          "Commercially planned adventure tycoon game launching April 2025. Managing full dev lifecycle including team coordination.",
-        image: "/images/shroomshire.png",
-        badge: "In Development",
-      },
-      {
-        name: "Twine to Lua Parser",
-        image: "/images/twine.png",
-        description:
-          "JavaScript tool that converts Twine narrative format into Lua scripts for complex dialogue systems in Roblox games.",
-      },
-    ],
+    description:
+      "Creating engaging games on the Roblox platform using Lua and Roact. My games have reached over 900k visits, featuring custom mechanics and optimized performance.",
+    languages: ["Lua"],
+    frameworks: ["Roblox API", "Roact", "Rodux"],
+    projectCount: 3,
+    gamejams: 2,
   },
 ];
 
-const skillsGrid = document.querySelector(".skills-grid");
-skillsData.forEach((skill) => {
-  skillsGrid.appendChild(createSkillCard(skill));
-});
+const skillsSection = document.querySelector("#skills-section");
+// Clear existing content
+skillsSection.innerHTML = "";
+// Create container for banner
+const bannerContainer = document.createElement("div");
+bannerContainer.className = "skills-banner-container";
+bannerContainer.style.maxWidth = "1200px";
+bannerContainer.style.margin = "0 auto";
+skillsSection.appendChild(bannerContainer);
+
+initSkillsBanner(bannerContainer, skillsData);
 
 import { initTimeline } from "./components/timeline.js";
 

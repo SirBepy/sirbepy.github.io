@@ -46,35 +46,89 @@ export class SkillsBanner {
               <h2 class="skill-title">${item.title}</h2>
               <p class="skill-description">${item.description}</p>
               
-              <div class="skill-stats">
-                ${
-                  item.technologies
-                    ? `
-                  <div class="stat-group">
-                    <h4>Technologies</h4>
-                    <div class="tech-tags">
-                      ${item.technologies
-                        .map((tech) => `<span class="tech-tag">${tech}</span>`)
-                        .join("")}
+              <div class="skill-details">
+                <div class="tech-stack">
+                  ${
+                    item.frameworks
+                      ? `
+                    <div class="tech-group">
+                      <span class="tech-label">Frameworks:</span>
+                      <div class="tech-tags">
+                        ${item.frameworks
+                          .map(
+                            (tech) => `<span class="tech-tag">${tech}</span>`
+                          )
+                          .join("")}
+                      </div>
                     </div>
-                  </div>
-                `
-                    : ""
-                }
+                  `
+                      : ""
+                  }
+
+                  ${
+                    item.languages
+                      ? `
+                    <div class="tech-group">
+                      <span class="tech-label">Languages:</span>
+                      <div class="tech-tags">
+                        ${item.languages
+                          .map(
+                            (tech) => `<span class="tech-tag">${tech}</span>`
+                          )
+                          .join("")}
+                      </div>
+                    </div>
+                  `
+                      : ""
+                  }
+                </div>
                 
-                ${
-                  item.projectCount !== undefined
-                    ? `
-                  <div class="stat-group">
-                    <h4>Experience</h4>
-                    <div>
-                      <span class="project-count">${item.projectCount}</span>
-                      <span class="project-count-label">Projects Completed</span>
+                <div class="skill-stats">
+                  ${
+                    item.projectCount !== undefined
+                      ? `
+                    <div class="stat-group">
+                      <h4>Experience</h4>
+                      <div class="stat-value-row">
+                        <span class="stat-number">${item.projectCount}</span>
+                        <span class="stat-unit">Projects Completed</span>
+                      </div>
                     </div>
-                  </div>
-                `
-                    : ""
-                }
+                  `
+                      : ""
+                  }
+
+                  ${
+                    item.hackathons !== undefined
+                      ? `
+                    <div class="stat-group">
+                      <h4>Hackathons</h4>
+                      <div class="stat-value-row">
+                        <span class="stat-number">${item.hackathons}</span>
+                        ${
+                          item.hackathonNote
+                            ? `<span class="won-tag">${item.hackathonNote}</span>`
+                            : ""
+                        }
+                      </div>
+                    </div>
+                  `
+                      : ""
+                  }
+
+                  ${
+                    item.gamejams !== undefined
+                      ? `
+                    <div class="stat-group">
+                      <h4>Gamejams</h4>
+                      <div class="stat-value-row">
+                        <span class="stat-number">${item.gamejams}</span>
+                      </div>
+                    </div>
+                  `
+                      : ""
+                  }
+                </div>
               </div>
             </div>
           `
