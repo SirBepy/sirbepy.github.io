@@ -1,0 +1,32 @@
+:root {
+  --color-primary: #ee75f4;
+  --color-secondary: #9487ff;
+  --color-accent: #ee75f4;
+  --color-background: #373245;
+  --color-text: #f1f5f9;
+  --color-text-light: #94a3b8;
+  --color-white: #ffffff;
+  --color-card-bg: #1e293b;
+  --color-border: #334155;
+
+  --font-heading: "Fredoka", system-ui, -apple-system, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "Fira Code", monospace;
+
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+  --spacing-xxl: 5rem;
+
+  --mobile: 0px;
+  --tablet: 768px;
+  --desktop: 1024px;
+  --wide: 1440px;
+
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  --transition-bounce: cubic-bezier(0.4, 0, 0.2, 1);
+}

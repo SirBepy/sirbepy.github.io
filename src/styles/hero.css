@@ -1,0 +1,160 @@
+.hero-container {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* Fixed height for full screen */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background-image: url('/images/hero-image.png'); Removed image */
+  background-color: transparent; /* Transparent to show fixed video */
+  overflow: hidden;
+}
+
+.hero-video {
+  position: fixed; /* Fixed for global parallax */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1; /* Behind everything */
+}
+
+/* Overlay to ensure text readability if image is bright */
+.hero-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.6); /* Darker overlay for video */
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  color: var(--color-white);
+  padding: var(--spacing-md);
+  max-width: 800px;
+  animation: fadeIn var(--transition-slow) forwards;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  margin-bottom: var(--spacing-md);
+  color: var(--color-white);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero-content p:not(.subheading) {
+  opacity: 0.5;
+}
+
+.hero-content .subheading {
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.4;
+  opacity: 0.9;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.hero-content .subheading b {
+  color: var(--color-primary);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+
+  .hero-content .subheading {
+    font-size: 1.1rem;
+  }
+}
+
+/* Links Section Styles */
+.links-container {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-sm); /* Reduced gap */
+  padding-top: var(--spacing-md); /* Reduced padding */
+  box-shadow: none; /* Removed shadow from container as buttons have their own */
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(4px);
+  color: var(--color-white);
+  transition: all var(--transition-fast);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+}
+
+.social-link span {
+  position: absolute;
+  bottom: -30px; /* Position below */
+  left: 50%;
+  transform: translateX(-50%) translateY(-10px);
+  background-color: var(--color-card-bg);
+  color: var(--color-white);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transition-fast);
+  pointer-events: none;
+  border: 1px solid var(--color-border);
+}
+
+.social-link:hover span {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+.social-link:hover {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.social-link svg {
+  width: 20px;
+  height: 20px;
+}
+
+@media (max-width: 768px) {
+  .links-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-sm);
+  }
+
+  .social-link {
+    justify-content: center;
+  }
+}
