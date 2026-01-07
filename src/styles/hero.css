@@ -29,11 +29,30 @@
 #hero-name {
   cursor: pointer;
   transition: color var(--transition-fast), transform var(--transition-fast);
+  position: relative;
+}
+
+#hero-name::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--color-primary);
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease-out;
 }
 
 #hero-name:hover {
   color: var(--color-primary);
   transform: scale(1.05);
+}
+
+#hero-name:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
 }
 
 .hero-content p:not(.subheading) {
@@ -136,7 +155,6 @@
 
 @media (max-width: 768px) {
   .links-container {
-    flex-direction: column;
     align-items: stretch;
     gap: var(--spacing-sm);
   }
@@ -216,10 +234,29 @@
   opacity: 0; /* Hidden until FLIP triggers */
   cursor: pointer;
   transition: color var(--transition-fast), opacity 0.3s ease;
+  position: relative;
+}
+
+.sticky-logo::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--color-primary);
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease-out;
 }
 
 .sticky-logo:hover {
   color: var(--color-primary);
+}
+
+.sticky-logo:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
 }
 
 .sticky-logo.visible {
