@@ -41,7 +41,7 @@ export const skillsData = [
     id: "overview",
     title: "Overview",
     description:
-      "Versatile developer shipping web, mobile, and game projects since 2019. Built high-traffic platforms, cross-platform apps, and games with 900k+ visits.",
+      "Full-stack developer shipping web and mobile projects since 2019. Built high-traffic platforms, cross-platform apps, and Roblox games with 880k+ visits.",
     languages: ["JavaScript", "TypeScript", "Dart", "Lua"],
     frameworks: ["React", "Flutter", "Node.js"],
   },
@@ -49,16 +49,9 @@ export const skillsData = [
     id: "web",
     title: "Web Development",
     description:
-      "Building modern web applications with React, Next.js, and Gatsby. Improved Lighthouse scores by 40+ points, implemented technical SEO strategies, and shipped responsive interfaces for high-traffic platforms.",
+      "Building modern web applications with React, Next.js, and Gatsby. Added cool animations, improved Lighthouse scores, implemented technical SEO strategies, and shipped responsive interfaces for high-traffic platforms.",
     languages: ["JavaScript", "TypeScript", "HTML/CSS"],
-    frameworks: [
-      "React",
-      "Next.js",
-      "Gatsby",
-      "TailwindCSS",
-      "Node.js",
-      "Angular",
-    ],
+    frameworks: ["React", "Next.js", "Gatsby", "Node.js", "Angular"],
     hackathons: 2,
     projects: [
       {
@@ -67,7 +60,7 @@ export const skillsData = [
         length: 36,
         year: 2022,
         description:
-          "Improved Lighthouse performance scores by 40+ points and owned technical SEO strategy for high-traffic betting platform.",
+          "Improved Lighthouse performance scores and owned technical SEO strategy for high-traffic betting platform.",
       },
       {
         name: "Unisport Consumer Website",
@@ -101,15 +94,23 @@ export const skillsData = [
         description:
           "Built full-stack e-commerce solution with React and Node.js featuring chat-based purchasing system instead of traditional checkout.",
       },
+      {
+        name: "Twine-to-Lua Parser",
+        company: "Tabs Labs",
+        length: 1,
+        year: 2025,
+        description:
+          "JavaScript parser converting Twine's narrative format to Lua-compatible scripts. Streamlines integration of branching dialogues into Roblox games.",
+      },
     ],
   },
   {
     id: "mobile",
     title: "Mobile Development",
     description:
-      "Cross-platform Flutter apps with complex state management and real-time features. Shipped apps with 5k+ downloads, managed video streaming with chat systems, and integrated GraphQL/Firebase backends.",
+      "Cross-platform Flutter apps with complex state management and real-time features. Managed video streaming with chat systems and integrated GraphQL/Firebase/Custom backends.",
     languages: ["Dart"],
-    frameworks: ["Flutter", "Firebase", "GraphQL", "Provider/Riverpod"],
+    frameworks: ["Flutter"],
     hackathons: 1,
     hackathonNote: "Even won this one",
     projects: [
@@ -136,7 +137,7 @@ export const skillsData = [
         length: 6,
         year: 2021,
         description:
-          "Achieved 5k+ downloads. Real-time sports tracking with play-by-play features, team viewing, competitions, and news.",
+          "Real-time sports tracking with play-by-play features, team viewing, competitions, and news. Achieved 5k+ downloads.",
       },
       {
         name: "Best Technology IoT Dashboard",
@@ -160,7 +161,7 @@ export const skillsData = [
         length: 3,
         year: 2021,
         description:
-          "Mood tracking app with biofeedback integration. Performance-optimized animations for B2B mental health platform deployed to employee wellness programs.",
+          "Mood tracking app with biofeedback integration. B2B mental health platform deployed to employee wellness programs with performance-optimized animations.",
       },
       {
         name: "Hello Bear",
@@ -168,7 +169,7 @@ export const skillsData = [
         length: 3,
         year: 2020,
         description:
-          "Anonymous messaging safe space with heavy animations. Messages float as paper planes that open when tapped, maintaining smooth performance.",
+          "Anonymous messaging safe space. Messages appear as floating paper planes that open when tapped. Heavy animations optimized for smooth performance.",
       },
       {
         name: "Romb Customer Feedback",
@@ -184,9 +185,9 @@ export const skillsData = [
     id: "gamedev",
     title: "Game Development",
     description:
-      "Roblox games built with Lua and Roact. Shipped games with 900k+ visits, developed custom mechanics and progression systems, and managed full development lifecycle with hired artists and composers.",
+      "Roblox games built with Lua and Roact. Shipped game with 880k+ visits and developed custom dev tools (Twine-to-Lua parser, Roblox plugins) to streamline development workflows.",
     languages: ["Lua"],
-    frameworks: ["Roblox API", "Roact", "Rodux"],
+    frameworks: ["Roblox", "Roact", "Rodux"],
     gamejams: 2,
     projects: [
       {
@@ -199,13 +200,13 @@ export const skillsData = [
           "Commercially planned adventure tycoon game scheduled for April 2026 release. Managing full development lifecycle including team coordination with hired artists and composers.",
       },
       {
-        name: "Find Sahuurs",
+        name: "Find All Sahur Morphs",
         company: "Tabs Labs",
         length: 8,
         year: 2024,
         isOngoing: true,
         description:
-          "Achieved 900k+ visits through collectathon gameplay featuring Brainy Broc character from Italy. Each suhoor collectible grants different player abilities.",
+          "Achieved 880k+ visits. Collectathon obby where each Sahur collectible grants different player abilities.",
       },
       {
         name: "Untitled Castle Game",
@@ -214,15 +215,15 @@ export const skillsData = [
         year: 2023,
         isOngoing: true,
         description:
-          "Story-based puzzle game developed with team of 3. Started 2 years ago, paused, and recently restarted development.",
+          "Story-based castle restoration game developed with team of 3. Started 2 years ago, paused, and recently restarted development.",
       },
       {
         name: "Pass the Planets or Die",
-        company: "Solo",
-        length: 0.1,
+        company: "Goober Game Jam",
+        length: 0.25,
         year: 2025,
         description:
-          "Goober Game Jam 2025 submission made in one weekend. Celestial hot potato where players fly around passing planets with different boosts before one explodes.",
+          "Game jam submission made in one weekend. Celestial hot potato where players fly around passing planets with different boosts before one explodes.",
       },
     ],
   },
@@ -235,7 +236,7 @@ export const timelineData = [
     date: "February 2025 - Present",
     location: "Zagreb",
     description:
-      "Founded solo development company for commercial game development and client projects. Developed multiple Roblox games including one with 900k+ visits. Currently developing Shroomshire Restoration for April 2026 release.",
+      "Quit previous job to start game development company. Taking contract work to stay afloat while building commercial Roblox games. Published game with 880k+ visits. Currently developing Shroomshire Restoration for April 2026 release.",
   },
   {
     company: "KTO",
@@ -243,7 +244,7 @@ export const timelineData = [
     date: "March 2022 - February 2025",
     location: "Remote",
     description:
-      "Led multiple web app redesigns, improved Lighthouse scores by 40+ points. Architected data synchronization between Gatsby web and Flutter mobile app. Owned technical SEO strategy.",
+      "Led multiple web app redesigns, improved Lighthouse scores. Architected data synchronization between Gatsby web and Flutter mobile app. Owned technical SEO strategy.",
   },
   {
     company: "Best Technology",
@@ -267,7 +268,7 @@ export const timelineData = [
     date: "May 2020 - May 2021",
     location: "Zagreb",
     description:
-      "Contributed to large-scale applications in Flutter/React/Next.js. Solo-developed 3 apps: Flutter, Vanilla JS, and WordPress.",
+      "Contributed to large-scale team projects and solo projects using React, Flutter, Next.js, Vanilla JS, and WordPress.",
   },
   {
     company: "RIT Croatia",
