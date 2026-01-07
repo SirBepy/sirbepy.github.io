@@ -1,50 +1,17 @@
 .hero-container {
   position: relative;
   width: 100%;
-  height: 100vh; /* Fixed height for full screen */
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  /* background-image: url('/images/hero-image.png'); Removed image */
-  background-color: transparent; /* Transparent to show fixed video */
+  background-color: transparent;
   overflow: hidden;
-}
-
-.hero-video-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  pointer-events: none;
-}
-
-.hero-video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 110%; /* Extra height for parallax movement */
-  object-fit: cover;
-  will-change: transform;
-}
-
-/* Overlay to ensure text readability if image is bright */
-.hero-container::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(15, 23, 42, 0.6); /* Darker overlay for video */
-  z-index: 1;
 }
 
 .hero-content {
   position: relative;
-  z-index: 3;
+  z-index: 2;
   text-align: center;
   color: var(--color-white);
   padding: var(--spacing-md);

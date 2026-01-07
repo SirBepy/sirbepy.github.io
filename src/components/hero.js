@@ -1,7 +1,7 @@
 import { heroContent } from "../data/portfolioData.js";
-import { setupSeamlessLoop } from "../utils/video.js";
+import { performFlip } from "../utils/flipAnimation.js";
 
-export function initHero(element) {
+export function initHero(element, locomotiveScroll) {
   if (!element) return;
 
   const startYear = heroContent.subheading.experienceStartYear;
@@ -10,7 +10,6 @@ export function initHero(element) {
 
   element.innerHTML = `
     <div class="hero-container">
-      <div class="hero-video-container"></div>
       <div class="hero-content">
         <h1>Hello, I'm <span id="hero-name" style="display: inline-block">${heroContent.name}</span></h1>
         <p class="subheading">
@@ -31,33 +30,50 @@ export function initHero(element) {
     </div>
   `;
 
-  const videoContainer = element.querySelector(".hero-video-container");
-  setupSeamlessLoop(
-    videoContainer,
-    "/videos/hero-video.mp4",
-    "hero-video",
-    1.0,
-    0.1
-  );
+  // Helper function to scroll to skills section and center it vertically
+  const scrollToSkillsCenter = (targetTabId) => {
+    const skillsSection = document.querySelector("#skills-section");
+    if (!skillsSection) return;
+
+    // Get current scroll position and viewport height
+    const viewportHeight = window.innerHeight;
+
+    // Get skills section dimensions and position
+    const skillsRect = skillsSection.getBoundingClientRect();
+    const skillsAbsoluteTop = skillsRect.top + window.scrollY;
+    const skillsHeight = skillsRect.height;
+
+    // Calculate the scroll position that centers the skills section
+    const centeredScrollPosition = skillsAbsoluteTop - (viewportHeight - skillsHeight) / 2;
+
+    // Scroll to the centered position
+    locomotiveScroll.scrollTo(centeredScrollPosition);
+
+    // Dispatch event to switch tab
+    setTimeout(() => {
+      document.dispatchEvent(
+        new CustomEvent("switch-skill-tab", {
+          detail: { tabId: targetTabId },
+        })
+      );
+    }, 100);
+  };
 
   // Attach event listeners to text links
   const links = element.querySelectorAll(".hero-text-link");
   links.forEach((link) => {
     link.addEventListener("click", () => {
       const targetId = link.dataset.target;
+      scrollToSkillsCenter(targetId);
+    });
+  });
 
-      // Scroll to skills section
-      const skillsSection = document.querySelector("#skills-section");
-      skillsSection.scrollIntoView({ behavior: "smooth" });
-
-      // Dispatch event to switch tab
-      setTimeout(() => {
-        document.dispatchEvent(
-          new CustomEvent("switch-skill-tab", {
-            detail: { tabId: targetId },
-          })
-        );
-      }, 100);
+  // Attach event listeners to buttons
+  const buttons = element.querySelectorAll(".hero-btn");
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const targetId = button.dataset.target;
+      scrollToSkillsCenter(targetId);
     });
   });
 
@@ -71,11 +87,6 @@ export function initHero(element) {
   document.body.appendChild(stickyHeader);
 
   // Clone links into sticky header
-  // We can reuse initLinks if we import it, or just clone the innerHTML if it's static enough.
-  // Since initLinks is imported in main.js, we can't easily call it here without changing signature or imports.
-  // Let's just wait for links to be populated in the main DOM, then clone them.
-  // Or better, let's just use the same logic to populate it.
-  // For simplicity and robustness, let's clone the links container content after a short delay or just grab it.
   setTimeout(() => {
     const originalLinks = element.querySelector(".links-container");
     if (originalLinks) {
@@ -93,19 +104,7 @@ export function initHero(element) {
 
   // Add click handler for hero name
   heroName.addEventListener("click", () => {
-    const skillsSection = document.querySelector("#skills-section");
-    if (skillsSection) {
-      skillsSection.scrollIntoView({ behavior: "smooth" });
-
-      // Dispatch event to switch to overview tab
-      setTimeout(() => {
-        document.dispatchEvent(
-          new CustomEvent("switch-skill-tab", {
-            detail: { tabId: "overview" },
-          })
-        );
-      }, 100);
-    }
+    scrollToSkillsCenter("overview");
   });
 
   // Add click handler for sticky logo
@@ -113,95 +112,19 @@ export function initHero(element) {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 
+  let lastScrollY = 0;
   let isNameSticky = false;
   let stickyLinksState = []; // Track sticky state of each link
   let stickyHeaderTimeout = null;
-  const activeFlipTimeouts = new WeakMap();
 
-  // Helper for FLIP animation
-  const performFlip = (heroEl, stickyEl, showSticky, delay = 0) => {
-    // Clear any existing timeout for these elements to prevent race conditions
-    if (activeFlipTimeouts.has(heroEl))
-      clearTimeout(activeFlipTimeouts.get(heroEl));
-    if (activeFlipTimeouts.has(stickyEl))
-      clearTimeout(activeFlipTimeouts.get(stickyEl));
-
-    // 1. FIRST: Capture position of the element that is currently visible
-    const firstEl = showSticky ? heroEl : stickyEl;
-    const firstRect = firstEl.getBoundingClientRect();
-
-    // 2. LAST: Temporarily toggle states to capture final position
-    if (showSticky) {
-      stickyEl.classList.add("visible");
-      heroEl.classList.add(
-        heroEl.id === "hero-name" ? "hero-name-hidden" : "hero-link-hidden"
-      );
-    } else {
-      stickyEl.classList.remove("visible");
-      heroEl.classList.remove(
-        heroEl.id === "hero-name" ? "hero-name-hidden" : "hero-link-hidden"
-      );
-    }
-
-    // Capture position of the element that will be visible
-    const lastEl = showSticky ? stickyEl : heroEl;
-    const lastRect = lastEl.getBoundingClientRect();
-
-    // REVERT: Immediately revert to initial state so it stays hidden/visible until delay
-    if (showSticky) {
-      stickyEl.classList.remove("visible");
-      heroEl.classList.remove(
-        heroEl.id === "hero-name" ? "hero-name-hidden" : "hero-link-hidden"
-      );
-    } else {
-      stickyEl.classList.add("visible");
-      heroEl.classList.add(
-        heroEl.id === "hero-name" ? "hero-name-hidden" : "hero-link-hidden"
-      );
-    }
-
-    // 3. INVERT: Calculate deltas
-    const deltaX = firstRect.left - lastRect.left;
-    const deltaY = firstRect.top - lastRect.top;
-    const scaleX = firstRect.width / lastRect.width;
-    const scaleY = firstRect.height / lastRect.height;
-
-    // 4. PLAY (Delayed)
-    const timeoutId = setTimeout(() => {
-      // Apply final state
-      if (showSticky) {
-        stickyEl.classList.add("visible");
-        heroEl.classList.add(
-          heroEl.id === "hero-name" ? "hero-name-hidden" : "hero-link-hidden"
-        );
-      } else {
-        stickyEl.classList.remove("visible");
-        heroEl.classList.remove(
-          heroEl.id === "hero-name" ? "hero-name-hidden" : "hero-link-hidden"
-        );
-      }
-
-      lastEl.style.transformOrigin = "top left";
-      lastEl.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(${scaleX}, ${scaleY})`;
-      lastEl.style.transition = "none";
-
-      requestAnimationFrame(() => {
-        lastEl.offsetHeight; // force reflow
-        lastEl.style.transition =
-          "transform 1s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease";
-        lastEl.style.transform = "translate(0, 0) scale(1)";
-      });
-
-      activeFlipTimeouts.delete(heroEl);
-      activeFlipTimeouts.delete(stickyEl);
-    }, delay);
-
-    activeFlipTimeouts.set(heroEl, timeoutId);
-    activeFlipTimeouts.set(stickyEl, timeoutId);
-  };
-
-  window.addEventListener("scroll", () => {
+  // Use Locomotive Scroll's scroll event instead of native window scroll
+  const handleScroll = (args) => {
     if (!heroTitle || !heroName) return;
+
+    // Handle both Locomotive args and native scroll events
+    const currentScrollY = args && args.scroll ? args.scroll.y : window.scrollY;
+    const isScrollingDown = currentScrollY > lastScrollY;
+    lastScrollY = currentScrollY;
 
     const heroLinksInner = heroLinksContainer.querySelector(".links-container");
     const heroLinks = heroLinksInner
@@ -218,10 +141,12 @@ export function initHero(element) {
 
     // 1. Handle Name Sticky State
     const nameRect = heroName.getBoundingClientRect();
-    const nameThreshold = -nameRect.height / 2;
-    const shouldNameBeSticky = nameRect.top < nameThreshold;
+    // Threshold for when the name is considered "at the top" (near its original position)
+    const nameThreshold = 100; // Buffer zone near top
+    const isNearTop = currentScrollY < nameThreshold;
 
-    if (shouldNameBeSticky && !isNameSticky) {
+    if (isScrollingDown && nameRect.top < 0 && !isNameSticky) {
+      // Show sticky header when scrolling DOWN past the hero name
       isNameSticky = true;
       if (stickyHeaderTimeout) {
         clearTimeout(stickyHeaderTimeout);
@@ -230,12 +155,11 @@ export function initHero(element) {
       stickyHeader.classList.add("show-sticky");
       element.classList.add("hide-hero-elements");
       performFlip(heroName, stickyLogo, true);
-    } else if (!shouldNameBeSticky && isNameSticky) {
+    } else if (!isScrollingDown && isNearTop && isNameSticky) {
+      // Hide sticky header ONLY when scrolling UP and near the top
       isNameSticky = false;
       element.classList.remove("hide-hero-elements");
-      // Only hide header if no links are sticky either
       if (!stickyLinksState.some((s) => s)) {
-        // Delay hiding the header to allow reverse animations to finish
         const maxDelay = (heroLinks.length - 1) * 150 + 200;
         if (stickyHeaderTimeout) clearTimeout(stickyHeaderTimeout);
         stickyHeaderTimeout = setTimeout(() => {
@@ -249,11 +173,11 @@ export function initHero(element) {
     // 2. Handle Individual Links Sticky State
     heroLinks.forEach((link, index) => {
       const linkRect = link.getBoundingClientRect();
-      const linkThreshold = -linkRect.height / 2;
-      const shouldLinkBeSticky = linkRect.top < linkThreshold;
+      const shouldLinkBeSticky = linkRect.top < 0;
       const sLink = stickyLinks[index];
 
-      if (shouldLinkBeSticky && !stickyLinksState[index]) {
+      if (isScrollingDown && shouldLinkBeSticky && !stickyLinksState[index]) {
+        // Show link
         stickyLinksState[index] = true;
         if (stickyHeaderTimeout) {
           clearTimeout(stickyHeaderTimeout);
@@ -261,11 +185,10 @@ export function initHero(element) {
         }
         stickyHeader.classList.add("show-sticky");
         if (sLink) performFlip(link, sLink, true, index * 150);
-      } else if (!shouldLinkBeSticky && stickyLinksState[index]) {
+      } else if (!isScrollingDown && isNearTop && stickyLinksState[index]) {
+        // Hide link only when scrolling back to top
         stickyLinksState[index] = false;
-        // Only hide header if name is not sticky and no other links are sticky
         if (!isNameSticky && !stickyLinksState.some((s) => s)) {
-          // Delay hiding the header to allow reverse animations to finish
           const maxDelay = (heroLinks.length - 1) * 150 + 1000;
           if (stickyHeaderTimeout) clearTimeout(stickyHeaderTimeout);
           stickyHeaderTimeout = setTimeout(() => {
@@ -277,9 +200,12 @@ export function initHero(element) {
           performFlip(link, sLink, false, (heroLinks.length - 1 - index) * 150);
       }
     });
+  };
 
-    // Parallax effect
-    const scrollY = window.scrollY;
-    // video.style.transform = `translateY(-${scrollY * 0.2}px)`;
-  });
+  // Listen to Locomotive Scroll events if available, otherwise fallback to native scroll
+  if (locomotiveScroll) {
+    locomotiveScroll.on("scroll", handleScroll);
+  } else {
+    window.addEventListener("scroll", handleScroll);
+  }
 }

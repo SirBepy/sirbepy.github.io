@@ -1,7 +1,4 @@
 /**
-/**
-/**
-/**
  * Sets up a seamless video loop by cross-fading between two video elements.
  * @param {HTMLElement} container - The container to inject the videos into.
  * @param {string} videoSrc - The source URL of the video.
@@ -12,8 +9,7 @@ export function setupSeamlessLoop(
   container,
   videoSrc,
   className,
-  fadeDuration = 1.0,
-  parallaxFactor = 0.15
+  fadeDuration = 1.0
 ) {
   if (!container) return;
 
@@ -29,23 +25,14 @@ export function setupSeamlessLoop(
   const videos = container.querySelectorAll(`.${className}`);
   let currentIdx = 0;
   let isTransitioning = false;
-
   const playVideo = (video) => {
     video.play().catch((err) => console.error("Video play failed:", err));
   };
 
   // Initialize first video
   videos[0].style.opacity = "1";
-  videos[0].style.zIndex = "2";
+  videos[0].style.zIndex = "1";
   playVideo(videos[0]);
-
-  const updateParallax = () => {
-    const scrollY = window.scrollY;
-    const transform = `translateY(-${scrollY * parallaxFactor}px)`;
-    videos.forEach((v) => {
-      v.style.transform = transform;
-    });
-  };
 
   const checkLoop = () => {
     const video = videos[currentIdx];
@@ -63,27 +50,26 @@ export function setupSeamlessLoop(
 
       // Prepare next video
       nextVideo.currentTime = 0;
-      nextVideo.style.zIndex = "1"; // Place it behind the current one
+      nextVideo.style.zIndex = "0"; // Place it behind the current one
       nextVideo.style.opacity = "1";
       playVideo(nextVideo);
 
       // Fade out current video
-      video.style.transition = `opacity ${fadeDuration}s ease-in-out, transform 0.1s linear`;
+      video.style.transition = `opacity ${fadeDuration}s ease-in-out`;
       video.style.opacity = "0";
 
       // After fade completes
       setTimeout(() => {
         video.pause();
         video.style.transition = "none";
-        video.style.zIndex = "0";
+        video.style.zIndex = "-1";
 
-        nextVideo.style.zIndex = "2"; // Move next video to front
+        nextVideo.style.zIndex = "1"; // Move next video to front
         currentIdx = nextIdx;
         isTransitioning = false;
       }, fadeDuration * 1000);
     }
 
-    updateParallax();
     requestAnimationFrame(checkLoop);
   };
 

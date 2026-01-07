@@ -1,42 +1,8 @@
 import { setupSeamlessLoop } from "../utils/video.js";
+import { calculateDuration } from "../utils/dateHelpers.js";
 
-export function initTimeline(element, data) {
+export function initTimeline(element, data, locomotiveScroll) {
   if (!element || !data) return;
-
-  const calculateDuration = (dateString) => {
-    const [start, end] = dateString.split(" - ");
-    const startDate = new Date(start);
-    const endDate = end === "Present" ? new Date() : new Date(end);
-
-    // Calculate total months
-    let months = (endDate.getFullYear() - startDate.getFullYear()) * 12;
-    months -= startDate.getMonth();
-    months += endDate.getMonth();
-    // Add 1 month to include the starting month
-    months += 1;
-
-    let years = Math.floor(months / 12);
-    let remainingMonths = months % 12;
-
-    // Rounding logic: 1 month -> 0, 11 months -> 1 year
-    if (remainingMonths === 1) {
-      remainingMonths = 0;
-    } else if (remainingMonths === 11) {
-      years += 1;
-      remainingMonths = 0;
-    }
-
-    let duration = "";
-    if (years > 0) {
-      duration += `${years} yr${years > 1 ? "s" : ""}`;
-    }
-    if (remainingMonths > 0) {
-      if (years > 0) duration += " & ";
-      duration += `${remainingMonths} mo`;
-    }
-
-    return `(${duration})`;
-  };
 
   const itemsHtml = data
     .map(
@@ -58,7 +24,6 @@ export function initTimeline(element, data) {
     .join("");
 
   element.innerHTML = `
-    <div class="timeline-video-container"></div>
     <div class="timeline-container">
       <h2 class="section-title">Past Experiences</h2>
       <div class="timeline-line"></div>
@@ -66,19 +31,6 @@ export function initTimeline(element, data) {
     </div>
   `;
 
-  const videoContainer = element.querySelector(".timeline-video-container");
-  setupSeamlessLoop(
-    videoContainer,
-    "/videos/bottom-video.mp4",
-    "timeline-video",
-    1.0,
-    0.05
-  );
-
-  // Add overlay back as it was removed from innerHTML for setupSeamlessLoop to work cleanly
-  const overlay = document.createElement("div");
-  overlay.className = "timeline-overlay";
-  videoContainer.appendChild(overlay);
   const observerOptions = {
     root: null,
     rootMargin: "0px",

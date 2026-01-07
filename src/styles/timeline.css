@@ -5,47 +5,12 @@
   clip-path: inset(0);
 }
 
-.timeline-video-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  pointer-events: none;
-}
-
-.timeline-video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 110%; /* Extra height for parallax movement */
-  object-fit: cover;
-  pointer-events: none;
-  will-change: transform;
-}
-
-.timeline-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    to bottom,
-    rgba(55, 50, 69, 0.9) 0%,
-    rgba(55, 50, 69, 0.7) 50%,
-    rgba(55, 50, 69, 0.9) 100%
-  );
-  z-index: 2; /* Above videos */
-}
-
 .timeline-container {
   position: relative;
   max-width: 1000px;
   margin: 0 auto;
   padding: var(--spacing-lg) 0;
+  z-index: 2; /* Above overlay */
 }
 
 .section-title {
@@ -76,6 +41,7 @@
 .timeline-line {
   position: absolute;
   top: var(--spacing-xl);
+  height: 200%;
   bottom: 0;
   left: 50%;
   width: 2px;
@@ -189,6 +155,7 @@
     padding-left: 50px;
     padding-right: 0;
     text-align: left;
+    margin-bottom: var(--spacing-xl);
   }
 
   .timeline-item.left,

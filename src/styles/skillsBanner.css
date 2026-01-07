@@ -49,7 +49,7 @@
 /* Right Side - Content */
 .skills-content {
   flex: 1;
-  padding: var(--spacing-xl);
+  padding: var(--spacing-xl) var(--spacing-xl) 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -64,9 +64,32 @@
   display: block;
 }
 
+/* Two Column Layout */
+.skill-panel-layout {
+  display: flex;
+  gap: var(--spacing-xl);
+  height: 100%;
+  min-height: 500px;
+}
+
+.skill-info-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.skill-projects-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid var(--color-border);
+  padding-left: var(--spacing-xl);
+  max-height: 600px;
+}
+
 .skill-title {
   font-size: 2rem;
-  margin-bottom: var(--spacing-md);
   color: var(--color-text);
   background: linear-gradient(
     135deg,
@@ -82,7 +105,6 @@
   font-size: 1.1rem;
   line-height: 1.6;
   color: var(--color-text-light);
-  margin-bottom: var(--spacing-xl);
   max-width: 600px;
 }
 
@@ -100,15 +122,14 @@
 
 .tech-group {
   display: flex;
-  align-items: center;
-  gap: var(--spacing-md);
+  flex-direction: column;
+  gap: var(--spacing-sm);
 }
 
 .tech-label {
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--color-text-light);
-  min-width: 100px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -139,7 +160,6 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--spacing-xl);
-  margin-top: var(--spacing-md);
 }
 
 .stat-group {
@@ -159,7 +179,7 @@
 
 .stat-value-row {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: var(--spacing-sm);
 }
 
@@ -309,6 +329,128 @@
   font-style: italic;
 }
 
+/* Projects Column Styles */
+.projects-header {
+  margin-bottom: var(--spacing-md);
+}
+
+.projects-header h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin: 0;
+}
+
+.projects-list {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  padding: 0 var(--spacing-sm) var(--spacing-xl) 0;
+}
+
+/* Custom Scrollbar for Projects List */
+.projects-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.projects-list::-webkit-scrollbar-track {
+  background: var(--color-card-secondary-bg);
+  border-radius: 3px;
+}
+
+.projects-list::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+  transition: background var(--transition-fast);
+}
+
+.projects-list::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* Project Card Styles */
+.project-card {
+  background: var(--color-card-secondary-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: var(--spacing-md);
+  transition: all var(--transition-fast);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.project-card:hover {
+  border-color: var(--color-primary);
+  transform: translateX(4px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.project-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-sm);
+}
+
+.project-card .project-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.ongoing-badge {
+  background: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.project-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.project-card .project-company {
+  font-size: 0.75rem;
+  color: var(--color-text-light);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+.project-card .project-separator {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.project-card .project-length {
+  font-size: 0.75rem;
+  color: var(--color-text-light);
+}
+
+.project-card .project-year {
+  font-size: 0.75rem;
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.project-description {
+  font-size: 0.85rem;
+  color: var(--color-text-light);
+  line-height: 1.5;
+  margin: 0;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -321,6 +463,21 @@
 }
 
 /* Responsive */
+@media (max-width: 1024px) {
+  .skill-panel-layout {
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  .skill-projects-column {
+    border-left: none;
+    border-top: 1px solid var(--color-border);
+    padding-left: 0;
+    padding-top: var(--spacing-lg);
+    max-height: 400px;
+  }
+}
+
 @media (max-width: 768px) {
   .skills-banner {
     flex-direction: column;
@@ -350,5 +507,17 @@
 
   .skills-content {
     padding: var(--spacing-lg);
+  }
+
+  .skill-panel-layout {
+    gap: var(--spacing-lg);
+  }
+
+  .skill-info-column {
+    gap: var(--spacing-md);
+  }
+
+  .projects-list {
+    max-height: 300px;
   }
 }

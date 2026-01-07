@@ -10,8 +10,15 @@ import { initLinks } from "./components/links.js";
 import { initCursor } from "./components/cursor.js";
 import LocomotiveScroll from "locomotive-scroll";
 
+import { setupSeamlessLoop } from "./utils/video.js";
+
 const appElement = document.querySelector("#app");
 appElement.innerHTML = `
+  <div class="fixed-backgrounds">
+    <div id="bg-hero" class="bg-container"></div>
+    <div id="bg-timeline" class="bg-container"></div>
+    <div class="global-video-overlay"></div>
+  </div>
   <div data-scroll-container>
     <main>
       <section id="hero-section" data-scroll-section></section>
@@ -23,28 +30,23 @@ appElement.innerHTML = `
   </div>
 `;
 
-initHero(document.querySelector("#hero-section"));
-initLinks(document.querySelector("#hero-links"));
-initCursor();
-
 import { initSkillsBanner } from "./components/skillsBanner.js";
 import { skillsData, timelineData } from "./data/portfolioData.js";
-
-const skillsSection = document.querySelector("#skills-section");
-// Clear existing content
-skillsSection.innerHTML = "";
-// Create container for banner
-const bannerContainer = document.createElement("div");
-bannerContainer.className = "skills-banner-container";
-bannerContainer.style.maxWidth = "1200px";
-bannerContainer.style.margin = "0 auto";
-skillsSection.appendChild(bannerContainer);
-
-initSkillsBanner(bannerContainer, skillsData);
-
 import { initTimeline } from "./components/timeline.js";
 
-initTimeline(document.querySelector("#timeline-section"), timelineData);
+// Initialize Backgrounds
+setupSeamlessLoop(
+  document.querySelector("#bg-hero"),
+  "/videos/hero-video.mp4",
+  "hero-video",
+  1.0
+);
+setupSeamlessLoop(
+  document.querySelector("#bg-timeline"),
+  "/videos/bottom-video.mp4",
+  "timeline-video",
+  1.0
+);
 
 // Initialize Locomotive Scroll
 const scroll = new LocomotiveScroll({
@@ -54,7 +56,54 @@ const scroll = new LocomotiveScroll({
   lerp: 0.1,
 });
 
-// Update scroll on content changes or window resize
+initHero(document.querySelector("#hero-section"), scroll);
+initLinks(document.querySelector("#hero-links"));
+initCursor();
+
+const skillsSection = document.querySelector("#skills-section");
+skillsSection.innerHTML = "";
+const bannerContainer = document.createElement("div");
+bannerContainer.className = "skills-banner-container";
+bannerContainer.style.maxWidth = "1200px";
+bannerContainer.style.margin = "0 auto";
+skillsSection.appendChild(bannerContainer);
+
+initSkillsBanner(bannerContainer, skillsData);
+initTimeline(document.querySelector("#timeline-section"), timelineData, scroll);
+
+const bgHero = document.querySelector("#bg-hero");
+const bgTimeline = document.querySelector("#bg-timeline");
+
+const updateVideoClipping = (scrollY) => {
+  if (!skillsSection || !bgHero || !bgTimeline) return;
+
+  // Get skills banner position relative to viewport
+  const skillsRect = skillsSection.getBoundingClientRect();
+  const skillsTopInViewport = skillsRect.top;
+  const viewportHeight = window.innerHeight;
+
+  // Calculate the split point as a percentage (where skills banner is in viewport)
+  // 0% = skills at top of viewport, 100% = skills at bottom of viewport
+  const splitPercent = Math.max(
+    0,
+    Math.min(100, (skillsTopInViewport / viewportHeight) * 100)
+  );
+
+  // Hero video: clip from bottom based on split point
+  // When split is at 100% (skills at bottom/top of page) = show full hero
+  // When split is at 0% (skills at top/scrolled past) = hide hero
+  bgHero.style.clipPath = `inset(0 0 ${100 - splitPercent}% 0)`;
+
+  // Timeline video: clip from top based on split point
+  // When split is at 100% (top of page) = hide timeline
+  // When split is at 0% (scrolled past skills) = show full timeline
+  bgTimeline.style.clipPath = `inset(${splitPercent}% 0 0 0)`;
+};
+
+scroll.on("scroll", (args) => updateVideoClipping(args.scroll.y));
+updateVideoClipping(0);
+setTimeout(() => scroll.update(), 200);
+
 window.addEventListener("load", () => {
   scroll.update();
 });
