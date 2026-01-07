@@ -109,7 +109,7 @@ export function initHero(element, locomotiveScroll) {
 
   // Add click handler for sticky logo
   stickyLogo.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    locomotiveScroll.scrollTo(0);
   });
 
   let lastScrollY = 0;
