@@ -90,15 +90,7 @@
 
 .skill-title {
   font-size: 2rem;
-  color: var(--color-text);
-  background: linear-gradient(
-    135deg,
-    var(--color-primary),
-    var(--color-accent)
-  );
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--color-primary);
 }
 
 .skill-description {
