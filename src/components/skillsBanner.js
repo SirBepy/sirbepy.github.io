@@ -1,4 +1,5 @@
 import "../styles/skillsBanner.css";
+import { technologyLinks } from "../data/portfolioData.js";
 
 export class SkillsBanner {
   constructor(container, data) {
@@ -7,6 +8,14 @@ export class SkillsBanner {
     this.processData();
     this.activeTabId = this.data[0].id; // Default to first tab
     this.init();
+  }
+
+  renderTechTag(tech) {
+    const url = technologyLinks[tech];
+    if (url) {
+      return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="tech-tag tech-tag-link">${tech}</a>`;
+    }
+    return `<span class="tech-tag">${tech}</span>`;
   }
 
   processData() {
@@ -86,6 +95,7 @@ export class SkillsBanner {
     if (githubContainer && !githubContainer.hasChildNodes()) {
       import("./github.js").then(({ initGithub }) => {
         initGithub(githubContainer, "SirBepy");
+        // GitHub component handles scroll update after image loads
       });
     }
   }
@@ -189,7 +199,7 @@ export class SkillsBanner {
                 <span class="tech-label">Frameworks:</span>
                 <div class="tech-tags">
                   ${item.frameworks
-                    .map((tech) => `<span class="tech-tag">${tech}</span>`)
+                    .map((tech) => this.renderTechTag(tech))
                     .join("")}
                 </div>
               </div>
@@ -204,7 +214,7 @@ export class SkillsBanner {
                 <span class="tech-label">Languages:</span>
                 <div class="tech-tags">
                   ${item.languages
-                    .map((tech) => `<span class="tech-tag">${tech}</span>`)
+                    .map((tech) => this.renderTechTag(tech))
                     .join("")}
                 </div>
               </div>

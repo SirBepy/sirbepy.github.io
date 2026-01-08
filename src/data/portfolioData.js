@@ -1,3 +1,24 @@
+// Technology links mapping for clickable skill tags
+export const technologyLinks = {
+  // Languages
+  JavaScript: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+  TypeScript: "https://www.typescriptlang.org/",
+  Dart: "https://dart.dev/",
+  Lua: "https://www.lua.org/",
+  "HTML/CSS": "https://developer.mozilla.org/en-US/docs/Web/HTML",
+
+  // Frameworks & Libraries
+  React: "https://react.dev/",
+  Flutter: "https://flutter.dev/",
+  "Node.js": "https://nodejs.org/",
+  "Next.js": "https://nextjs.org/",
+  Gatsby: "https://www.gatsbyjs.com/",
+  Angular: "https://angular.dev/",
+  Roblox: "https://create.roblox.com/docs/studio",
+  ReactLua: "https://react-luau.dev/",
+  Rodux: "https://github.com/Roblox/rodux",
+};
+
 export const heroContent = {
   name: "Josip Mužić",
   subheading: {
@@ -185,9 +206,9 @@ export const skillsData = [
     id: "gamedev",
     title: "Game Development",
     description:
-      "Roblox games built with Lua and Roact. Shipped game with <b>880k+</b> visits and developed <b>custom dev tools</b> (Twine-to-Lua parser, Roblox plugins) to <b>streamline</b> development workflows.",
+      "Roblox games built with Lua and ReactLua. Shipped game with <b>880k+</b> visits and developed <b>custom dev tools</b> (Twine-to-Lua parser, Roblox plugins) to <b>streamline</b> development workflows.",
     languages: ["Lua"],
-    frameworks: ["Roblox", "Roact", "Rodux"],
+    frameworks: ["Roblox", "ReactLua", "Rodux"],
     gamejams: 2,
     projects: [
       {
