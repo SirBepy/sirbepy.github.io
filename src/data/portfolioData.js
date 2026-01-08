@@ -139,7 +139,7 @@ export const skillsData = [
         name: "Safari Duha",
         company: "Cinnamon Agency",
         length: 6,
-        year: 2024,
+        year: 2025,
         isOngoing: true,
         description:
           "Managing complex state across video streaming, real-time chat, journaling, and social features while maintaining performance standards.",
