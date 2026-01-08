@@ -72,6 +72,48 @@
   min-height: 500px;
 }
 
+/* Overview Layout */
+.overview-layout {
+  flex-direction: column;
+  gap: var(--spacing-md);
+  min-height: auto;
+}
+
+.overview-layout .skill-title {
+  margin-bottom: var(--spacing-sm);
+}
+
+.overview-content-row {
+  display: flex;
+  gap: var(--spacing-xl);
+  align-items: flex-start;
+}
+
+.overview-content-row .skill-description {
+  flex: 1;
+  margin: 0;
+}
+
+.overview-stats {
+  display: flex;
+  gap: var(--spacing-xl);
+  flex-shrink: 0;
+  align-items: flex-start;
+}
+
+.overview-github-row {
+  width: 100%;
+  margin-top: var(--spacing-sm);
+}
+
+#overview-github-container {
+  margin-bottom: var(--spacing-xl);
+}
+#overview-github-container .github-card {
+  margin: 0;
+  padding: var(--spacing-sm) 0;
+}
+
 .skill-info-column {
   flex: 1;
   display: flex;
@@ -386,12 +428,6 @@
   gap: var(--spacing-xs);
 }
 
-.project-card:hover {
-  border-color: var(--color-primary);
-  transform: translateX(4px);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-}
-
 .project-card-header {
   display: flex;
   align-items: center;
@@ -479,6 +515,17 @@
     padding-left: 0;
     padding-top: var(--spacing-lg);
     max-height: 400px;
+  }
+
+  .overview-content-row {
+    flex-direction: column;
+    gap: var(--spacing-lg);
+  }
+
+  .overview-stats {
+    width: 100%;
+    flex-direction: row;
+    gap: var(--spacing-xl);
   }
 }
 

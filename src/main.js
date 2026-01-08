@@ -36,7 +36,6 @@ appElement.innerHTML = `
 import { initSkillsBanner } from "./components/skillsBanner.js";
 import { skillsData, timelineData } from "./data/portfolioData.js";
 import { initTimeline } from "./components/timeline.js";
-import { initGithub } from "./components/github.js";
 import { initFooter } from "./components/footer.js";
 
 // Initialize Backgrounds
@@ -73,12 +72,7 @@ bannerContainer.style.maxWidth = "1200px";
 bannerContainer.style.margin = "0 auto";
 skillsSection.appendChild(bannerContainer);
 
-const githubContainer = document.createElement("div");
-githubContainer.className = "github-card-container";
-skillsSection.appendChild(githubContainer);
-
 initSkillsBanner(bannerContainer, skillsData);
-initGithub(githubContainer, "SirBepy");
 initTimeline(document.querySelector("#timeline-section"), timelineData, scroll);
 initFooter(document.querySelector("#footer-section"));
 

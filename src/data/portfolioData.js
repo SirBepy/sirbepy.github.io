@@ -41,7 +41,7 @@ export const skillsData = [
     id: "overview",
     title: "Overview",
     description:
-      "<b>Full-Stack</b> developer shipping web and mobile projects since 2019. RIT BSC Web&Mobile Computing graduate with <b>Magna Cum Laude</b>, Built high-traffic platforms, cross-platform apps, and Roblox games with <b>880k+</b> visits.",
+      "<b>Full-Stack</b> developer shipping web and mobile projects since 2019. BSC Web&Mobile Computing graduate from RIT with <b>Magna Cum Laude</b>, Built high-traffic platforms, cross-platform apps, and Roblox games with <b>880k+</b> visits.",
     languages: ["JavaScript", "TypeScript", "Dart", "Lua"],
     frameworks: ["React", "Flutter", "Node.js"],
   },
