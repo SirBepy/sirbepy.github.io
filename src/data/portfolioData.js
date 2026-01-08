@@ -41,7 +41,7 @@ export const skillsData = [
     id: "overview",
     title: "Overview",
     description:
-      "Full-stack developer shipping web and mobile projects since 2019. Built high-traffic platforms, cross-platform apps, and Roblox games with 880k+ visits.",
+      "<b>Full-Stack</b> developer shipping web and mobile projects since 2019. RIT BSC Web&Mobile Computing graduate with <b>Magna Cum Laude</b>, Built high-traffic platforms, cross-platform apps, and Roblox games with <b>880k+</b> visits.",
     languages: ["JavaScript", "TypeScript", "Dart", "Lua"],
     frameworks: ["React", "Flutter", "Node.js"],
   },
@@ -49,7 +49,7 @@ export const skillsData = [
     id: "web",
     title: "Web Development",
     description:
-      "Building modern web applications with React, Next.js, and Gatsby. Added cool animations, improved Lighthouse scores, implemented technical SEO strategies, and shipped responsive interfaces for high-traffic platforms.",
+      "Building modern web applications with React, Next.js, and Gatsby. Added fancy <b>animations</b>, improved Lighthouse scores, implemented technical <b>SEO strategies</b>, and shipped <b>responsive</b> interfaces for high-traffic platforms.",
     languages: ["JavaScript", "TypeScript", "HTML/CSS"],
     frameworks: ["React", "Next.js", "Gatsby", "Node.js", "Angular"],
     hackathons: 2,
@@ -108,7 +108,7 @@ export const skillsData = [
     id: "mobile",
     title: "Mobile Development",
     description:
-      "Cross-platform Flutter apps with complex state management and real-time features. Managed video streaming with chat systems and integrated GraphQL/Firebase/Custom backends.",
+      "Cross-platform Flutter apps with <b>complex</b> state management and real-time features. Prioritized clean architecture and <b>performance optimization</b>. Managed video streaming with chat systems and integrated GraphQL/Firebase/Custom backends.",
     languages: ["Dart"],
     frameworks: ["Flutter"],
     hackathons: 1,
@@ -185,7 +185,7 @@ export const skillsData = [
     id: "gamedev",
     title: "Game Development",
     description:
-      "Roblox games built with Lua and Roact. Shipped game with 880k+ visits and developed custom dev tools (Twine-to-Lua parser, Roblox plugins) to streamline development workflows.",
+      "Roblox games built with Lua and Roact. Shipped game with <b>880k+</b> visits and developed <b>custom dev tools</b> (Twine-to-Lua parser, Roblox plugins) to <b>streamline</b> development workflows.",
     languages: ["Lua"],
     frameworks: ["Roblox", "Roact", "Rodux"],
     gamejams: 2,
