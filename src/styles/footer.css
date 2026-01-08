@@ -3,7 +3,6 @@
   position: relative;
   z-index: 20;
   padding: var(--spacing-lg) var(--spacing-md) var(--spacing-md);
-  min-height: 20vh;
 }
 
 .footer {
@@ -86,7 +85,6 @@
 @media (max-width: 768px) {
   #footer-section {
     padding: var(--spacing-md) var(--spacing-sm);
-    min-height: 15vh;
   }
 
   .footer-content {
