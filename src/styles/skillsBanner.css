@@ -124,12 +124,18 @@
   gap: var(--spacing-sm);
 }
 
-.tech-label {
+.tech-label,
+.github-contributions-title {
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--color-text-light);
   text-transform: uppercase;
   letter-spacing: 0.05em;
+}
+
+.github-contributions-title {
+  text-align: center;
+  margin: auto;
 }
 
 .tech-tags {

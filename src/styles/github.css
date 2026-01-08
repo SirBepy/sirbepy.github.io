@@ -1,0 +1,107 @@
+.github-card-container {
+  max-width: 800px;
+  margin: var(--spacing-sm) auto 0;
+  padding: 0 var(--spacing-md);
+}
+
+.github-card {
+  display: block;
+  padding: var(--spacing-md);
+  border-radius: 12px;
+  text-decoration: none;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+}
+
+.github-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.github-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  border-color: var(--color-accent);
+}
+
+.github-card:active {
+  transform: translateY(-1px);
+}
+
+.github-tooltip {
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-10px);
+  background-color: var(--color-card-bg);
+  color: var(--color-text);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: 8px;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 100;
+  transition: all var(--transition-fast);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.github-tooltip::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 0;
+  right: 0;
+  height: 10px;
+}
+
+.github-card:hover .github-tooltip,
+.github-tooltip:hover {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+.github-title {
+  font-size: 1rem;
+  color: var(--color-primary);
+  margin: 0 0 var(--spacing-sm) 0;
+  font-weight: 600;
+}
+
+.github-chart-wrapper {
+  overflow-x: auto;
+  overflow-y: hidden;
+  border-radius: 6px;
+  padding: var(--spacing-xs);
+}
+
+.github-chart {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 4px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .github-card-container {
+    max-width: 100%;
+  }
+
+  .github-card {
+    padding: var(--spacing-sm);
+  }
+
+  .github-title {
+    font-size: 0.95rem;
+  }
+
+  .github-chart-wrapper {
+    overflow-x: scroll;
+  }
+}

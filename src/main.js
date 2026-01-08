@@ -1,6 +1,7 @@
 import "./styles/main.css";
 import "./styles/hero.css";
 import "./styles/skills.css";
+import "./styles/github.css";
 import "./styles/timeline.css";
 import "./styles/cursor.css";
 import "locomotive-scroll/dist/locomotive-scroll.css";
@@ -68,7 +69,12 @@ bannerContainer.style.maxWidth = "1200px";
 bannerContainer.style.margin = "0 auto";
 skillsSection.appendChild(bannerContainer);
 
+const githubContainer = document.createElement("div");
+githubContainer.className = "github-card-container";
+skillsSection.appendChild(githubContainer);
+
 initSkillsBanner(bannerContainer, skillsData);
+initGithub(githubContainer, "SirBepy");
 initTimeline(document.querySelector("#timeline-section"), timelineData, scroll);
 
 const bgHero = document.querySelector("#bg-hero");
