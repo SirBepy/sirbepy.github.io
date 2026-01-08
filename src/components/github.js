@@ -11,15 +11,31 @@ export function initGithub(element, username) {
       <div class="github-chart-wrapper">
         <div class="github-contributions-title">Last 50 weeks of Github Contributions</div>
         <img
-          src="https://ssr-contributions-svg.vercel.app/_/${username}?chart=calendar&flatten=2&weeks=50&format=svg&dark=true&colors=ee75f412,ee75f455,ee75f499,ee75f4cc,ee75f4ff"
+          src="https://ssr-contributions-svg.vercel.app/_/${username}?chart=calendar&flatten=2&weeks=50&format=svg&dark=true&colors=ee75f412,ee75f455,ee75f4aa,ee75f4dd,ee75f4ff"
           alt="GitHub Contribution Calendar"
           class="github-chart"
-          loading="lazy"
+          loading="eager"
         />
       </div>
       <span class="github-tooltip">Visit GitHub Profile</span>
     </a>
   `;
+
+  // Update Locomotive Scroll after image loads
+  const img = element.querySelector(".github-chart");
+  if (img) {
+    img.addEventListener("load", () => {
+      if (window.locomotiveScroll) {
+        window.locomotiveScroll.update();
+      }
+    });
+    // If image is already cached/loaded
+    if (img.complete) {
+      if (window.locomotiveScroll) {
+        window.locomotiveScroll.update();
+      }
+    }
+  }
 
   // Fade in animation on scroll
   const observerOptions = {

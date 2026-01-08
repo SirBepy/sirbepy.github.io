@@ -91,7 +91,8 @@ const updateVideoClipping = (scrollY) => {
   const footerRect = footerSection.getBoundingClientRect();
 
   // If timeline or footer is taking up significant viewport space, lock to timeline video
-  const timelineInView = timelineRect.top < viewportHeight * 0.5 && timelineRect.bottom > 0;
+  const timelineInView =
+    timelineRect.top < viewportHeight * 0.5 && timelineRect.bottom > 0;
   const footerInView = footerRect.top < viewportHeight && footerRect.bottom > 0;
 
   if (timelineInView || footerInView) {
@@ -124,10 +125,22 @@ const updateVideoClipping = (scrollY) => {
 
 scroll.on("scroll", (args) => updateVideoClipping(args.scroll.y));
 updateVideoClipping(0);
-setTimeout(() => scroll.update(), 200);
+
+setTimeout(() => scroll.update(), 100);
+setTimeout(() => scroll.update(), 1000);
 
 window.addEventListener("load", () => {
   scroll.update();
 });
+
+let resizeTimeout;
+window.addEventListener("resize", () => {
+  clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(() => {
+    scroll.update();
+  }, 150);
+});
+
+window.locomotiveScroll = scroll;
 
 console.log("Portfolio app initialized with Locomotive Scroll");

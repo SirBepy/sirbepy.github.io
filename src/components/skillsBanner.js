@@ -382,6 +382,13 @@ export class SkillsBanner {
     if (tabId === "overview") {
       this.initializeGithubContributions();
     }
+
+    // Update Locomotive Scroll after content height changes
+    setTimeout(() => {
+      if (window.locomotiveScroll) {
+        window.locomotiveScroll.update();
+      }
+    }, 50);
   }
 }
 
