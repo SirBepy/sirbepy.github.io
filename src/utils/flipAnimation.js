@@ -21,49 +21,13 @@ export function performFlip(heroEl, stickyEl, showSticky, delay = 0) {
   if (activeFlipTimeouts.has(stickyEl))
     clearTimeout(activeFlipTimeouts.get(stickyEl));
 
-  // 1. FIRST: Capture position of the element that is currently visible
-  const firstEl = showSticky ? heroEl : stickyEl;
-  const firstRect = firstEl.getBoundingClientRect();
-
-  // 2. LAST: Temporarily toggle states to capture final position
-  if (showSticky) {
-    stickyEl.classList.add("visible");
-    heroEl.classList.add(
-      heroEl.id === "hero-name" ? "hero-name-hidden" : "hero-link-hidden"
-    );
-  } else {
-    stickyEl.classList.remove("visible");
-    heroEl.classList.remove(
-      heroEl.id === "hero-name" ? "hero-name-hidden" : "hero-link-hidden"
-    );
-  }
-
-  // Capture position of the element that will be visible
-  const lastEl = showSticky ? stickyEl : heroEl;
-  const lastRect = lastEl.getBoundingClientRect();
-
-  // REVERT: Immediately revert to initial state so it stays hidden/visible until delay
-  if (showSticky) {
-    stickyEl.classList.remove("visible");
-    heroEl.classList.remove(
-      heroEl.id === "hero-name" ? "hero-name-hidden" : "hero-link-hidden"
-    );
-  } else {
-    stickyEl.classList.add("visible");
-    heroEl.classList.add(
-      heroEl.id === "hero-name" ? "hero-name-hidden" : "hero-link-hidden"
-    );
-  }
-
-  // 3. INVERT: Calculate deltas
-  const deltaX = firstRect.left - lastRect.left;
-  const deltaY = firstRect.top - lastRect.top;
-  const scaleX = firstRect.width / lastRect.width;
-  const scaleY = firstRect.height / lastRect.height;
-
-  // 4. PLAY (Delayed)
+  // 4. PLAY (Delayed) - Move FLIP calculation inside timeout to capture live positions
   const timeoutId = setTimeout(() => {
-    // Apply final state
+    // 1. FIRST: Capture position of the element that is currently visible (RIGHT NOW)
+    const firstEl = showSticky ? heroEl : stickyEl;
+    const firstRect = firstEl.getBoundingClientRect();
+
+    // 2. LAST: Temporarily toggle states to capture final position
     if (showSticky) {
       stickyEl.classList.add("visible");
       heroEl.classList.add(
@@ -76,6 +40,17 @@ export function performFlip(heroEl, stickyEl, showSticky, delay = 0) {
       );
     }
 
+    // Capture position of the element that will be visible
+    const lastEl = showSticky ? stickyEl : heroEl;
+    const lastRect = lastEl.getBoundingClientRect();
+
+    // 3. INVERT: Calculate deltas
+    const deltaX = firstRect.left - lastRect.left;
+    const deltaY = firstRect.top - lastRect.top;
+    const scaleX = firstRect.width / lastRect.width;
+    const scaleY = firstRect.height / lastRect.height;
+
+    // Apply the inverted transform immediately
     lastEl.style.transformOrigin = "top left";
     lastEl.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(${scaleX}, ${scaleY})`;
     lastEl.style.transition = "none";

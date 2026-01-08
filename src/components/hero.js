@@ -141,9 +141,9 @@ export function initHero(element, locomotiveScroll) {
 
     // 1. Handle Name Sticky State
     const nameRect = heroName.getBoundingClientRect();
-    // Threshold for when the name is considered "at the top" (near its original position)
-    const nameThreshold = 100; // Buffer zone near top
-    const isNearTop = currentScrollY < nameThreshold;
+    // Check if the name is visible in the viewport (with some buffer)
+    const nameVisibleThreshold = 50; // Start animation when name is 50px below top
+    const isNameVisible = nameRect.top > nameVisibleThreshold;
 
     if (isScrollingDown && nameRect.top < 0 && !isNameSticky) {
       // Show sticky header when scrolling DOWN past the hero name
@@ -155,8 +155,8 @@ export function initHero(element, locomotiveScroll) {
       stickyHeader.classList.add("show-sticky");
       element.classList.add("hide-hero-elements");
       performFlip(heroName, stickyLogo, true);
-    } else if (!isScrollingDown && isNearTop && isNameSticky) {
-      // Hide sticky header ONLY when scrolling UP and near the top
+    } else if (!isScrollingDown && isNameVisible && isNameSticky) {
+      // Hide sticky header when scrolling UP and the hero name becomes visible
       isNameSticky = false;
       element.classList.remove("hide-hero-elements");
       if (!stickyLinksState.some((s) => s)) {
@@ -174,6 +174,9 @@ export function initHero(element, locomotiveScroll) {
     heroLinks.forEach((link, index) => {
       const linkRect = link.getBoundingClientRect();
       const shouldLinkBeSticky = linkRect.top < 0;
+      // Check if link is visible with a buffer
+      const linkVisibleThreshold = 50;
+      const isLinkVisible = linkRect.top > linkVisibleThreshold;
       const sLink = stickyLinks[index];
 
       if (isScrollingDown && shouldLinkBeSticky && !stickyLinksState[index]) {
@@ -185,8 +188,8 @@ export function initHero(element, locomotiveScroll) {
         }
         stickyHeader.classList.add("show-sticky");
         if (sLink) performFlip(link, sLink, true, index * 150);
-      } else if (!isScrollingDown && isNearTop && stickyLinksState[index]) {
-        // Hide link only when scrolling back to top
+      } else if (!isScrollingDown && isLinkVisible && stickyLinksState[index]) {
+        // Hide link when scrolling up and the hero link becomes visible
         stickyLinksState[index] = false;
         if (!isNameSticky && !stickyLinksState.some((s) => s)) {
           const maxDelay = (heroLinks.length - 1) * 150 + 1000;
