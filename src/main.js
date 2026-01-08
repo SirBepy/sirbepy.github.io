@@ -4,6 +4,7 @@ import "./styles/skills.css";
 import "./styles/github.css";
 import "./styles/timeline.css";
 import "./styles/cursor.css";
+import "./styles/footer.css";
 import "locomotive-scroll/dist/locomotive-scroll.css";
 
 import { initHero } from "./components/hero.js";
@@ -27,6 +28,7 @@ appElement.innerHTML = `
         <div class="skills-grid"></div>
       </section>
       <section id="timeline-section" data-scroll-section></section>
+      <section id="footer-section" data-scroll-section></section>
     </main>
   </div>
 `;
@@ -34,6 +36,8 @@ appElement.innerHTML = `
 import { initSkillsBanner } from "./components/skillsBanner.js";
 import { skillsData, timelineData } from "./data/portfolioData.js";
 import { initTimeline } from "./components/timeline.js";
+import { initGithub } from "./components/github.js";
+import { initFooter } from "./components/footer.js";
 
 // Initialize Backgrounds
 setupSeamlessLoop(
@@ -76,17 +80,35 @@ skillsSection.appendChild(githubContainer);
 initSkillsBanner(bannerContainer, skillsData);
 initGithub(githubContainer, "SirBepy");
 initTimeline(document.querySelector("#timeline-section"), timelineData, scroll);
+initFooter(document.querySelector("#footer-section"));
 
 const bgHero = document.querySelector("#bg-hero");
 const bgTimeline = document.querySelector("#bg-timeline");
+const timelineSection = document.querySelector("#timeline-section");
+const footerSection = document.querySelector("#footer-section");
 
 const updateVideoClipping = (scrollY) => {
   if (!skillsSection || !bgHero || !bgTimeline) return;
 
+  const viewportHeight = window.innerHeight;
+
+  // Check if timeline or footer sections are in view
+  const timelineRect = timelineSection.getBoundingClientRect();
+  const footerRect = footerSection.getBoundingClientRect();
+
+  // If timeline or footer is taking up significant viewport space, lock to timeline video
+  const timelineInView = timelineRect.top < viewportHeight * 0.5 && timelineRect.bottom > 0;
+  const footerInView = footerRect.top < viewportHeight && footerRect.bottom > 0;
+
+  if (timelineInView || footerInView) {
+    bgHero.style.clipPath = `inset(0 0 100% 0)`;
+    bgTimeline.style.clipPath = `inset(0 0 0 0)`;
+    return;
+  }
+
   // Get skills banner position relative to viewport
   const skillsRect = skillsSection.getBoundingClientRect();
   const skillsTopInViewport = skillsRect.top;
-  const viewportHeight = window.innerHeight;
 
   // Calculate the split point as a percentage (where skills banner is in viewport)
   // 0% = skills at top of viewport, 100% = skills at bottom of viewport
