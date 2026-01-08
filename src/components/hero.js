@@ -33,7 +33,8 @@ export function initHero(element, locomotiveScroll) {
     const skillsAbsoluteTop = skillsRect.top + window.scrollY;
     const skillsHeight = skillsRect.height;
 
-    const centeredScrollPosition = skillsAbsoluteTop - (viewportHeight - skillsHeight) / 2;
+    const centeredScrollPosition =
+      skillsAbsoluteTop - (viewportHeight - skillsHeight) / 2;
 
     locomotiveScroll.scrollTo(centeredScrollPosition);
 
@@ -109,11 +110,16 @@ export function initHero(element, locomotiveScroll) {
       stickyLinksState = new Array(heroLinks.length).fill(false);
     }
 
-    const nameRect = heroName.getBoundingClientRect();
-    const nameVisibleThreshold = 50;
-    const isNameVisible = nameRect.top > nameVisibleThreshold;
+    const nameOffsetInSection = heroName.offsetTop;
+    const nameAbsolutePosition = nameOffsetInSection;
 
-    if (isScrollingDown && nameRect.top < 0 && !isNameSticky) {
+    const nameVisibleThreshold = 100;
+    const hasScrolledPastName =
+      currentScrollY > nameAbsolutePosition + nameVisibleThreshold;
+    const isNameVisible =
+      currentScrollY < nameAbsolutePosition + nameVisibleThreshold;
+
+    if (isScrollingDown && hasScrolledPastName && !isNameSticky) {
       isNameSticky = true;
       if (stickyHeaderTimeout) {
         clearTimeout(stickyHeaderTimeout);
@@ -137,13 +143,16 @@ export function initHero(element, locomotiveScroll) {
     }
 
     heroLinks.forEach((link, index) => {
-      const linkRect = link.getBoundingClientRect();
-      const shouldLinkBeSticky = linkRect.top < 0;
-      const linkVisibleThreshold = 50;
-      const isLinkVisible = linkRect.top > linkVisibleThreshold;
+      const linkOffsetInSection = link.offsetTop;
+      const linkAbsolutePosition = linkOffsetInSection;
+      const linkVisibleThreshold = 100;
+      const hasScrolledPastLink =
+        currentScrollY > linkAbsolutePosition + linkVisibleThreshold;
+      const isLinkVisible =
+        currentScrollY < linkAbsolutePosition + linkVisibleThreshold;
       const sLink = stickyLinks[index];
 
-      if (isScrollingDown && shouldLinkBeSticky && !stickyLinksState[index]) {
+      if (isScrollingDown && hasScrolledPastLink && !stickyLinksState[index]) {
         stickyLinksState[index] = true;
         if (stickyHeaderTimeout) {
           clearTimeout(stickyHeaderTimeout);
