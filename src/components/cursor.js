@@ -254,12 +254,11 @@ class StarCursor {
 
     document.addEventListener("mousedown", (e) => {
       if (e.button !== 0) return; // Only left-click
+
+      if (this.gatherTimer) clearInterval(this.gatherTimer);
+
       this.isMouseDown = true;
-
-      // Gather existing particles first!
       this.gatherExisting();
-
-      // Start spawning new gather particles
       this.gatherTimer = setInterval(() => {
         for (let i = 0; i < 2; i++) {
           this.spawnGather(this.cursorX, this.cursorY);
@@ -272,6 +271,14 @@ class StarCursor {
       this.isMouseDown = false;
       if (this.gatherTimer) clearInterval(this.gatherTimer);
       this.explode();
+    });
+
+    document.addEventListener("mouseleave", () => {
+      if (this.isMouseDown) {
+        this.isMouseDown = false;
+        if (this.gatherTimer) clearInterval(this.gatherTimer);
+        this.explode();
+      }
     });
   }
 }
