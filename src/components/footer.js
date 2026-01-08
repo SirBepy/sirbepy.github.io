@@ -9,7 +9,7 @@ export function initFooter(element) {
     .map(
       (link) => `
     <a href="${link.url}"
-       class="footer-link"
+       class="footer-link underline-hover"
        target="_blank"
        rel="noopener noreferrer"
        aria-label="${link.name}">

@@ -29,30 +29,11 @@
 #hero-name {
   cursor: pointer;
   transition: color var(--transition-fast), transform var(--transition-fast);
-  position: relative;
-}
-
-#hero-name::after {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 2px;
-  bottom: 0;
-  left: 0;
-  background-color: var(--color-primary);
-  transform: scaleX(0);
-  transform-origin: bottom right;
-  transition: transform 0.3s ease-out;
 }
 
 #hero-name:hover {
   color: var(--color-primary);
   transform: scale(1.05);
-}
-
-#hero-name:hover::after {
-  transform: scaleX(1);
-  transform-origin: bottom left;
 }
 
 .hero-content p:not(.subheading) {
@@ -69,17 +50,6 @@
 
 .hero-content .subheading b {
   color: var(--color-primary);
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 @media (max-width: 768px) {
@@ -164,40 +134,17 @@
   }
 }
 
-.hero-nav-buttons {
-  display: none;
-}
-
 .hero-text-link {
   color: var(--color-primary);
   cursor: pointer;
-  position: relative;
   font-weight: 700;
   transition: all var(--transition-fast);
   display: inline-block;
 }
 
-.hero-text-link::after {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 2px;
-  bottom: 0;
-  left: 0;
-  background-color: var(--color-primary);
-  transform: scaleX(0);
-  transform-origin: bottom right;
-  transition: transform 0.3s ease-out;
-}
-
 .hero-text-link:hover {
   color: var(--color-accent);
   transform: translateY(-2px);
-}
-
-.hero-text-link:hover::after {
-  transform: scaleX(1);
-  transform-origin: bottom left;
 }
 
 /* Sticky Header Styles */
@@ -231,32 +178,13 @@
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   display: inline-block;
   will-change: transform;
-  opacity: 0; /* Hidden until FLIP triggers */
+  opacity: 0;
   cursor: pointer;
   transition: color var(--transition-fast), opacity 0.3s ease;
-  position: relative;
-}
-
-.sticky-logo::after {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 2px;
-  bottom: 0;
-  left: 0;
-  background-color: var(--color-primary);
-  transform: scaleX(0);
-  transform-origin: bottom right;
-  transition: transform 0.3s ease-out;
 }
 
 .sticky-logo:hover {
   color: var(--color-primary);
-}
-
-.sticky-logo:hover::after {
-  transform: scaleX(1);
-  transform-origin: bottom left;
 }
 
 .sticky-logo.visible {

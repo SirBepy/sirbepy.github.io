@@ -21,7 +21,6 @@ export function initGithub(element, username) {
     </a>
   `;
 
-  // Update Locomotive Scroll after image loads
   const img = element.querySelector(".github-chart");
   if (img) {
     img.addEventListener("load", () => {
@@ -29,7 +28,7 @@ export function initGithub(element, username) {
         window.locomotiveScroll.update();
       }
     });
-    // If image is already cached/loaded
+
     if (img.complete) {
       if (window.locomotiveScroll) {
         window.locomotiveScroll.update();
@@ -37,7 +36,6 @@ export function initGithub(element, username) {
     }
   }
 
-  // Fade in animation on scroll
   const observerOptions = {
     root: null,
     rootMargin: "0px",

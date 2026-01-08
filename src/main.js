@@ -1,6 +1,7 @@
 import "./styles/main.css";
+import "./styles/utilities.css";
 import "./styles/hero.css";
-import "./styles/skills.css";
+import "./styles/skillsBanner.css";
 import "./styles/github.css";
 import "./styles/timeline.css";
 import "./styles/cursor.css";
@@ -38,7 +39,6 @@ import { skillsData, timelineData } from "./data/portfolioData.js";
 import { initTimeline } from "./components/timeline.js";
 import { initFooter } from "./components/footer.js";
 
-// Initialize Backgrounds
 setupSeamlessLoop(
   document.querySelector("#bg-hero"),
   "/videos/hero-video.mp4",
@@ -52,7 +52,6 @@ setupSeamlessLoop(
   1.0
 );
 
-// Initialize Locomotive Scroll
 const scroll = new LocomotiveScroll({
   el: document.querySelector("[data-scroll-container]"),
   smooth: true,
@@ -86,11 +85,9 @@ const updateVideoClipping = (scrollY) => {
 
   const viewportHeight = window.innerHeight;
 
-  // Check if timeline or footer sections are in view
   const timelineRect = timelineSection.getBoundingClientRect();
   const footerRect = footerSection.getBoundingClientRect();
 
-  // If timeline or footer is taking up significant viewport space, lock to timeline video
   const timelineInView =
     timelineRect.top < viewportHeight * 0.5 && timelineRect.bottom > 0;
   const footerInView = footerRect.top < viewportHeight && footerRect.bottom > 0;
@@ -101,25 +98,15 @@ const updateVideoClipping = (scrollY) => {
     return;
   }
 
-  // Get skills banner position relative to viewport
   const skillsRect = skillsSection.getBoundingClientRect();
   const skillsTopInViewport = skillsRect.top;
 
-  // Calculate the split point as a percentage (where skills banner is in viewport)
-  // 0% = skills at top of viewport, 100% = skills at bottom of viewport
   const splitPercent = Math.max(
     0,
     Math.min(100, (skillsTopInViewport / viewportHeight) * 100)
   );
 
-  // Hero video: clip from bottom based on split point
-  // When split is at 100% (skills at bottom/top of page) = show full hero
-  // When split is at 0% (skills at top/scrolled past) = hide hero
   bgHero.style.clipPath = `inset(0 0 ${100 - splitPercent}% 0)`;
-
-  // Timeline video: clip from top based on split point
-  // When split is at 100% (top of page) = hide timeline
-  // When split is at 0% (scrolled past skills) = show full timeline
   bgTimeline.style.clipPath = `inset(${splitPercent}% 0 0 0)`;
 };
 
@@ -142,5 +129,3 @@ window.addEventListener("resize", () => {
 });
 
 window.locomotiveScroll = scroll;
-
-console.log("Portfolio app initialized with Locomotive Scroll");

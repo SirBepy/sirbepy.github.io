@@ -118,16 +118,6 @@
   font-weight: 500;
 }
 
-.timeline-location {
-  font-size: 0.875rem;
-  color: var(--color-text-light);
-  margin-bottom: var(--spacing-sm);
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  display: none;
-}
-
 .timeline-date {
   font-size: 0.875rem;
   color: var(--color-text-light);
@@ -172,9 +162,5 @@
   .timeline-item.right .timeline-dot {
     left: 12px;
     right: auto;
-  }
-
-  .timeline-item.left .timeline-location {
-    justify-content: flex-start;
   }
 }

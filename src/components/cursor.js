@@ -1,16 +1,8 @@
 const CONFIG = {
   poolSize: 70,
-  colors: [
-    // "#41ECCA",
-    // "#C8ECE9",
-    // "#9AE5EC",
-    // "#343DEC",
-    "#B3EC15",
-    "#1DEC51",
-    "#51EC26",
-  ],
+  colors: ["#B3EC15", "#1DEC51", "#51EC26"],
   spawnChance: 0.25,
-  cursorLag: 0.1, // 0-1, lower is smoother/slower
+  cursorLag: 0.1,
 
   // Physics
   shoveStrength: 5,
@@ -95,14 +87,12 @@ class StarCursor {
   }
 
   gatherExisting() {
-    // Find active floating particles and pull them in
     this.pool.forEach((p) => {
       if (p.active && p.state === STATE_FLOATING) {
         p.state = STATE_GATHERING;
-        p.life = 1.0; // Refill life
+        p.life = 1.0;
         p.decay = 0;
 
-        // Set target to current cursor pos
         p.targetX = this.cursorX;
         p.targetY = this.cursorY;
         p.gatherSpeed = CONFIG.gatherSpeed + Math.random() * 0.05;
@@ -163,7 +153,6 @@ class StarCursor {
       if (p.state === STATE_GATHERING || p.state === STATE_JITTERING) {
         p.state = STATE_FLOATING;
 
-        // Explode outwards!
         const angle = Math.random() * Math.PI * 2;
         const speed =
           CONFIG.explodeSpeedMin +
@@ -178,11 +167,9 @@ class StarCursor {
   }
 
   update() {
-    // Update cursor lag
     this.cursorX += (this.mouseX - this.cursorX) * CONFIG.cursorLag;
     this.cursorY += (this.mouseY - this.cursorY) * CONFIG.cursorLag;
 
-    // Spawn trails if moving
     const mouseDist = Math.hypot(
       this.mouseX - this.prevMouseX,
       this.mouseY - this.prevMouseY
@@ -206,13 +193,11 @@ class StarCursor {
         p.x += p.vx;
         p.y += p.vy;
 
-        // Physics
         p.vx *= CONFIG.friction;
         p.vy += (CONFIG.floatSpeed - p.vy) * 0.05;
 
         p.life -= p.decay;
       } else if (p.state === STATE_GATHERING) {
-        // Move towards lagged cursor
         p.targetX = this.cursorX;
         p.targetY = this.cursorY;
 
@@ -224,7 +209,6 @@ class StarCursor {
           p.state = STATE_JITTERING;
         }
       } else if (p.state === STATE_JITTERING) {
-        // Jitter around lagged cursor
         p.x = this.cursorX + (Math.random() - 0.5) * CONFIG.jitterAmount;
         p.y = this.cursorY + (Math.random() - 0.5) * CONFIG.jitterAmount;
         p.life = 1.0;

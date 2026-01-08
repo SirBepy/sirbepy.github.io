@@ -6,23 +6,21 @@ export class SkillsBanner {
     this.container = container;
     this.rawData = data;
     this.processData();
-    this.activeTabId = this.data[0].id; // Default to first tab
+    this.activeTabId = this.data[0].id;
     this.init();
   }
 
   renderTechTag(tech) {
     const url = technologyLinks[tech];
     if (url) {
-      return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="tech-tag tech-tag-link">${tech}</a>`;
+      return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="badge badge-tech tech-tag-link">${tech}</a>`;
     }
-    return `<span class="tech-tag">${tech}</span>`;
+    return `<span class="badge badge-tech">${tech}</span>`;
   }
 
   processData() {
-    // Create a deep copy of the data to avoid mutating the original
     this.data = JSON.parse(JSON.stringify(this.rawData));
 
-    // Helper to sort projects by year (desc) then length (desc)
     const sortProjects = (projects) => {
       return projects.sort((a, b) => {
         if (b.year !== a.year) {
@@ -32,7 +30,6 @@ export class SkillsBanner {
       });
     };
 
-    // Calculate project counts and sort projects for specific categories
     this.data.forEach((item) => {
       if (item.projects) {
         item.projectCount = item.projects.length;
@@ -40,7 +37,6 @@ export class SkillsBanner {
       }
     });
 
-    // Handle Overview pooling and global sorting
     const overview = this.data.find((item) => item.id === "overview");
     if (overview) {
       const web = this.data.find((item) => item.id === "web");
@@ -51,18 +47,15 @@ export class SkillsBanner {
       const mobileProjects = mobile?.projects || [];
       const gamedevProjects = gamedev?.projects || [];
 
-      // Pool all projects together
       const allProjects = [
         ...webProjects,
         ...mobileProjects,
         ...gamedevProjects,
       ];
 
-      // Sort the entire pool globally by year then length
       overview.projects = sortProjects(allProjects);
       overview.projectCount = overview.projects.length;
 
-      // Calculate total hackathons and gamejams
       let totalHackathons = 0;
       if (web?.hackathons) totalHackathons += web.hackathons;
       if (mobile?.hackathons) totalHackathons += mobile.hackathons;
@@ -79,12 +72,10 @@ export class SkillsBanner {
     this.attachEvents();
     this.attachScrollLock();
 
-    // Initialize GitHub contributions if overview is active
     if (this.activeTabId === "overview") {
       this.initializeGithubContributions();
     }
 
-    // Listen for external switch events
     document.addEventListener("switch-skill-tab", (e) => {
       this.switchTab(e.detail.tabId);
     });
@@ -95,7 +86,6 @@ export class SkillsBanner {
     if (githubContainer && !githubContainer.hasChildNodes()) {
       import("./github.js").then(({ initGithub }) => {
         initGithub(githubContainer, "SirBepy");
-        // GitHub component handles scroll update after image loads
       });
     }
   }
@@ -167,7 +157,7 @@ export class SkillsBanner {
                   <span class="stat-number">${item.hackathons}</span>
                   ${
                     item.hackathonNote
-                      ? `<span class="won-tag">${item.hackathonNote}</span>`
+                      ? `<span class="badge badge-success won-tag">${item.hackathonNote}</span>`
                       : ""
                   }
                 </div>
@@ -236,7 +226,7 @@ export class SkillsBanner {
                     <span class="stat-number">${item.hackathons}</span>
                     ${
                       item.hackathonNote
-                        ? `<span class="won-tag">${item.hackathonNote}</span>`
+                        ? `<span class="badge badge-success won-tag">${item.hackathonNote}</span>`
                         : ""
                     }
                   </div>
@@ -270,7 +260,7 @@ export class SkillsBanner {
             <div class="projects-header">
               <h3>Projects: ${item.projectCount}</h3>
             </div>
-            <div class="projects-list">
+            <div class="projects-list scrollbar-custom">
               ${
                 item.projects
                   ? item.projects
@@ -281,7 +271,7 @@ export class SkillsBanner {
                       <span class="project-name">${proj.name}</span>
                       ${
                         proj.isOngoing
-                          ? '<span class="ongoing-badge">Ongoing</span>'
+                          ? '<span class="badge badge-info ongoing-badge">Ongoing</span>'
                           : ""
                       }
                     </div>
@@ -336,15 +326,13 @@ export class SkillsBanner {
           const scrollHeight = list.scrollHeight;
           const clientHeight = list.clientHeight;
 
-          // Prevent scrolling the page when scrolling within the projects list
           if (
-            (delta < 0 && scrollTop === 0) || // Scrolling up at the top
-            (delta > 0 && scrollTop + clientHeight >= scrollHeight) // Scrolling down at the bottom
+            (delta < 0 && scrollTop === 0) ||
+            (delta > 0 && scrollTop + clientHeight >= scrollHeight)
           ) {
             e.preventDefault();
           }
 
-          // Always stop propagation to prevent page scroll
           e.stopPropagation();
         },
         { passive: false }
@@ -355,10 +343,7 @@ export class SkillsBanner {
   switchTab(tabId) {
     if (this.activeTabId === tabId) return;
 
-    // Update state
     this.activeTabId = tabId;
-
-    // Update UI
     const tabs = this.container.querySelectorAll(".skill-tab");
     const panels = this.container.querySelectorAll(".skill-content-panel");
 
@@ -378,12 +363,10 @@ export class SkillsBanner {
       }
     });
 
-    // Initialize GitHub contributions when switching to overview
     if (tabId === "overview") {
       this.initializeGithubContributions();
     }
 
-    // Update Locomotive Scroll after content height changes
     setTimeout(() => {
       if (window.locomotiveScroll) {
         window.locomotiveScroll.update();

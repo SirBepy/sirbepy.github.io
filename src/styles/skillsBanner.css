@@ -186,26 +186,9 @@
   gap: var(--spacing-xs);
 }
 
-.tech-tag {
-  background: #4b589c;
-  padding: 4px 12px;
-  border-radius: 9999px;
-  font-size: 0.85rem;
-  color: var(--color-text);
-  border: 1px solid var(--color-border);
-  transition: all var(--transition-fast);
-  display: inline-block;
-}
-
 .tech-tag-link {
   text-decoration: none;
   cursor: pointer;
-}
-
-.tech-tag:hover {
-  border-color: var(--color-primary);
-  color: var(--color-primary);
-  transform: translateY(-1px);
 }
 
 .skill-stats {
@@ -248,15 +231,8 @@
 }
 
 .won-tag {
-  background: rgba(16, 185, 129, 0.1);
-  color: #10b981;
-  padding: 4px 10px;
-  border-radius: 6px;
   font-size: 0.75rem;
-  font-weight: 600;
-  border: 1px solid rgba(16, 185, 129, 0.2);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  padding: 4px 10px;
 }
 
 /* Project List Tooltip */
@@ -309,20 +285,6 @@
   max-height: 400px;
   overflow-y: auto;
   padding-right: var(--spacing-xs);
-}
-
-/* Custom Scrollbar for Tooltip */
-.tooltip-content::-webkit-scrollbar {
-  width: 4px;
-}
-
-.tooltip-content::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.tooltip-content::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 2px;
 }
 
 .project-item {
@@ -402,26 +364,6 @@
   padding: 0 var(--spacing-sm) var(--spacing-xl) 0;
 }
 
-/* Custom Scrollbar for Projects List */
-.projects-list::-webkit-scrollbar {
-  width: 6px;
-}
-
-.projects-list::-webkit-scrollbar-track {
-  background: var(--color-card-secondary-bg);
-  border-radius: 3px;
-}
-
-.projects-list::-webkit-scrollbar-thumb {
-  background: var(--color-border);
-  border-radius: 3px;
-  transition: background var(--transition-fast);
-}
-
-.projects-list::-webkit-scrollbar-thumb:hover {
-  background: var(--color-primary);
-}
-
 /* Project Card Styles */
 .project-card {
   background: var(--color-card-secondary-bg);
@@ -448,15 +390,8 @@
 }
 
 .ongoing-badge {
-  background: rgba(59, 130, 246, 0.1);
-  color: #3b82f6;
   padding: 2px 8px;
-  border-radius: 6px;
   font-size: 0.7rem;
-  font-weight: 600;
-  border: 1px solid rgba(59, 130, 246, 0.2);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
 }
 
 .project-meta {
@@ -495,17 +430,6 @@
   color: var(--color-text-light);
   line-height: 1.5;
   margin: 0;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 /* Responsive */
