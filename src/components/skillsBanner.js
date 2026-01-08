@@ -150,7 +150,7 @@ export class SkillsBanner {
                         item.hackathons !== undefined
                           ? `
                         <div class="stat-group">
-                          <h4>Hackathons</h4>
+                          <span class="tech-label">Hackathons:</span>
                           <div class="stat-value-row">
                             <span class="stat-number">${item.hackathons}</span>
                             ${
@@ -168,7 +168,7 @@ export class SkillsBanner {
                         item.gamejams !== undefined
                           ? `
                         <div class="stat-group">
-                          <h4>Gamejams</h4>
+                          <span class="tech-label">Gamejams:</span>
                           <div class="stat-value-row">
                             <span class="stat-number">${item.gamejams}</span>
                           </div>
@@ -198,20 +198,32 @@ export class SkillsBanner {
                           <div class="project-card">
                             <div class="project-card-header">
                               <span class="project-name">${proj.name}</span>
-                              ${proj.isOngoing ? '<span class="ongoing-badge">Ongoing</span>' : ""}
+                              ${
+                                proj.isOngoing
+                                  ? '<span class="ongoing-badge">Ongoing</span>'
+                                  : ""
+                              }
                             </div>
                             <div class="project-meta">
-                              <span class="project-company">${proj.company}</span>
+                              <span class="project-company">${
+                                proj.company
+                              }</span>
                               <span class="project-separator">•</span>
                               <span class="project-length">${
                                 proj.length < 1
-                                  ? `${Math.round(proj.length * 4)} week${Math.round(proj.length * 4) !== 1 ? 's' : ''}`
+                                  ? `${Math.round(proj.length * 4)} week${
+                                      Math.round(proj.length * 4) !== 1
+                                        ? "s"
+                                        : ""
+                                    }`
                                   : `${proj.length} mo`
                               }</span>
                               <span class="project-separator">•</span>
                               <span class="project-year">${proj.year}</span>
                             </div>
-                            <p class="project-description">${proj.description}</p>
+                            <p class="project-description">${
+                              proj.description
+                            }</p>
                           </div>
                         `
                               )
@@ -247,23 +259,27 @@ export class SkillsBanner {
     const projectsLists = this.container.querySelectorAll(".projects-list");
 
     projectsLists.forEach((list) => {
-      list.addEventListener("wheel", (e) => {
-        const delta = e.deltaY;
-        const scrollTop = list.scrollTop;
-        const scrollHeight = list.scrollHeight;
-        const clientHeight = list.clientHeight;
+      list.addEventListener(
+        "wheel",
+        (e) => {
+          const delta = e.deltaY;
+          const scrollTop = list.scrollTop;
+          const scrollHeight = list.scrollHeight;
+          const clientHeight = list.clientHeight;
 
-        // Prevent scrolling the page when scrolling within the projects list
-        if (
-          (delta < 0 && scrollTop === 0) || // Scrolling up at the top
-          (delta > 0 && scrollTop + clientHeight >= scrollHeight) // Scrolling down at the bottom
-        ) {
-          e.preventDefault();
-        }
+          // Prevent scrolling the page when scrolling within the projects list
+          if (
+            (delta < 0 && scrollTop === 0) || // Scrolling up at the top
+            (delta > 0 && scrollTop + clientHeight >= scrollHeight) // Scrolling down at the bottom
+          ) {
+            e.preventDefault();
+          }
 
-        // Always stop propagation to prevent page scroll
-        e.stopPropagation();
-      }, { passive: false });
+          // Always stop propagation to prevent page scroll
+          e.stopPropagation();
+        },
+        { passive: false }
+      );
     });
   }
 
