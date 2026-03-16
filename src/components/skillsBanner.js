@@ -82,7 +82,9 @@ export class SkillsBanner {
   }
 
   initializeGithubContributions() {
-    const githubContainer = document.getElementById("overview-github-container");
+    const githubContainer = document.getElementById(
+      "overview-github-container",
+    );
     if (githubContainer && !githubContainer.hasChildNodes()) {
       import("./github.js").then(({ initGithub }) => {
         initGithub(githubContainer, "SirBepy");
@@ -103,7 +105,7 @@ export class SkillsBanner {
                  data-id="${item.id}">
               ${item.title}
             </div>
-          `
+          `,
             )
             .join("")}
         </div>
@@ -121,7 +123,7 @@ export class SkillsBanner {
                   : this.renderRegularPanel(item)
               }
             </div>
-          `
+          `,
             )
             .join("")}
         </div>
@@ -257,9 +259,6 @@ export class SkillsBanner {
           item.projectCount !== undefined
             ? `
           <div class="skill-projects-column">
-            <div class="projects-header">
-              <h3>Projects: ${item.projectCount}</h3>
-            </div>
             <div class="projects-list scrollbar-custom">
               ${
                 item.projects
@@ -290,7 +289,7 @@ export class SkillsBanner {
                     </div>
                     <p class="project-description">${proj.description}</p>
                   </div>
-                `
+                `,
                       )
                       .join("")
                   : '<div class="no-projects">No detailed projects listed.</div>'
@@ -335,7 +334,7 @@ export class SkillsBanner {
 
           e.stopPropagation();
         },
-        { passive: false }
+        { passive: false },
       );
     });
   }

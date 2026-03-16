@@ -3,7 +3,8 @@
   background: var(--color-card-bg);
   border-radius: 24px;
   border: 1px solid var(--color-border);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
     0 10px 10px -5px rgba(0, 0, 0, 0.04);
   min-height: 400px;
   position: relative; /* Ensure it's a positioning context */
@@ -49,10 +50,10 @@
 /* Right Side - Content */
 .skills-content {
   flex: 1;
-  padding: var(--spacing-xl) var(--spacing-xl) 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  height: 100%;
 }
 
 .skill-content-panel {
@@ -77,6 +78,7 @@
   flex-direction: column;
   gap: var(--spacing-md);
   min-height: auto;
+  padding: var(--spacing-xl) var(--spacing-lg) 0;
 }
 
 .overview-layout .skill-title {
@@ -119,14 +121,14 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-md);
+  padding: var(--spacing-xl) 0 0 var(--spacing-xl);
 }
 
 .skill-projects-column {
   flex: 1;
   display: flex;
   flex-direction: column;
-  border-left: 1px solid var(--color-border);
-  padding-left: var(--spacing-xl);
+  padding-left: var(--spacing-sm);
   max-height: 600px;
 }
 
@@ -361,7 +363,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-md);
-  padding: 0 var(--spacing-sm) var(--spacing-xl) 0;
+  padding: var(--spacing-xl) var(--spacing-md) var(--spacing-xxl) 0;
 }
 
 /* Project Card Styles */
