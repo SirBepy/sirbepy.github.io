@@ -5,6 +5,7 @@
   position: relative;
   z-index: 10;
   padding: var(--spacing-xxl) var(--spacing-md);
+  display: none;
 }
 
 body.modal-open {
@@ -220,7 +221,9 @@ body.modal-open {
   justify-content: center;
   opacity: 0;
   visibility: hidden;
-  transition: opacity var(--transition-normal), visibility var(--transition-normal);
+  transition:
+    opacity var(--transition-normal),
+    visibility var(--transition-normal);
 }
 
 .pp-popup-overlay.visible {
@@ -319,8 +322,12 @@ body.modal-open {
     height: 40px;
     font-size: 1.5rem;
   }
-  .pp-popup-nav-prev { left: 10px; }
-  .pp-popup-nav-next { right: 10px; }
+  .pp-popup-nav-prev {
+    left: 10px;
+  }
+  .pp-popup-nav-next {
+    right: 10px;
+  }
 }
 
 /* ── Content Wrapper ── */
@@ -343,7 +350,9 @@ body.modal-open {
 }
 
 .pp-popup-content {
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
 }
 
 /* ── Header ── */
@@ -410,8 +419,8 @@ body.modal-open {
 }
 
 /* ── Markdown Content ── */
-.markdown-content h1, 
-.markdown-content h2, 
+.markdown-content h1,
+.markdown-content h2,
 .markdown-content h3 {
   color: var(--color-primary);
   margin-top: 1.5em;
@@ -423,7 +432,7 @@ body.modal-open {
   margin-bottom: 1em;
 }
 
-.markdown-content ul, 
+.markdown-content ul,
 .markdown-content ol {
   margin-bottom: 1em;
   padding-left: 1.5em;
