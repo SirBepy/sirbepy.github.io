@@ -1,19 +1,19 @@
 # AI Prompt — Project Documentation Template
 
 Copy and paste the prompt below into any AI assistant to generate the `.portfolio-data/` files for a project.
-No modifications are needed before use — the AI will ask clarifying questions first.
+No modifications are needed before use — the AI will ask all necessary questions before writing anything.
 
 ---
 
 ## The Prompt
 
-```
+````
 I need your help writing the `.portfolio-data/` documentation for one of my personal projects. This folder lives in the project's own repository and contains two files:
 
 1. `metadata.json` — structured data consumed by my portfolio site's GitHub Action at build time
 2. `PORTFOLIO.md` — a free-form Markdown description shown in the project popup on the portfolio
 
-Before writing anything, please ask me the following questions. Do not guess or assume any answers — if you're missing information, ask.
+**Important:** Do not write either file until you have asked all the questions below and I have answered them. If any of my answers are unclear or incomplete for a required field, ask a follow-up question and wait for my response before proceeding. Never fill in required fields by guessing.
 
 ---
 
@@ -21,7 +21,7 @@ Before writing anything, please ask me the following questions. Do not guess or 
 
 1. What is the project called? (the display title, not the repo name)
 2. In one sentence, what does the project do? (this becomes `shortDescription` — keep it short, punchy, under 100 characters if possible)
-3. What type of project is it? (e.g. Game, Web App, CLI Tool, Library, Bot, Mobile App, Script, Other — you can suggest one based on context)
+3. What type of project is it? (e.g. Game, Web App, CLI Tool, Library, Bot, Mobile App, Script, Other — you can suggest one based on context but confirm with me)
 4. What is the current status?
    - `finished` — the project is complete and won't change much
    - `in-progress` — actively being worked on
@@ -30,15 +30,15 @@ Before writing anything, please ask me the following questions. Do not guess or 
 5. What programming languages did you use? (list all, e.g. TypeScript, Lua, Python)
 6. What frameworks, libraries, or platforms were involved? (e.g. React, Roblox, Express, Tailwind — list all major ones)
 7. Is there a live URL where people can view or use the project? If yes, what is it? If no, say null.
-8. Is the repository public? If yes, what is the GitHub repo URL? If no, say null.
-9. What year did you start (or primarily work on) the project?
-10. How often is / was the project used?
-    - `Daily` — used every day
-    - `Occasionally` — used a few times a week or month
-    - `Rarely` — used only sometimes
-    - `No longer used` — not in active use anymore
-11. Do you have any screenshots or images for the project? If yes, list the filenames you plan to add (e.g. screenshot.png, demo.gif). One of them should be the "main" image shown on the card — which one?
-12. For the long description (`PORTFOLIO.md`), tell me:
+   (Note: the repository URL is derived automatically from GitHub visibility — do not ask for it)
+8. What year did you start (or primarily work on) the project?
+9. How often is / was the project used?
+   - `Daily` — used every day
+   - `Occasionally` — used a few times a week or month
+   - `Rarely` — used only sometimes
+   - `No longer used` — not in active use anymore
+10. Do you have any screenshots or images for the project? If yes, list the filenames you plan to add (e.g. screenshot.png, demo.gif). Which one should be the main image shown on the card?
+11. For the long description (`PORTFOLIO.md`), tell me:
     a. What is the project and what problem does it solve?
     b. How was it built — what were the key technical decisions or interesting parts?
     c. Who is it for / what is it used for?
@@ -48,32 +48,25 @@ Before writing anything, please ask me the following questions. Do not guess or 
 
 ---
 
-Once I answer all your questions, produce the two files:
+Once I have answered all your questions (and you have asked follow-ups for any unclear or missing required fields), produce the two files:
 
 **File 1: `metadata.json`**
 
-Use this exact schema. All fields are required unless noted:
+Use this exact schema. All fields are required:
 
-```json
-{
-  "title": "string — display name of the project",
-  "shortDescription": "string — one sentence, under 100 chars ideally",
-  "type": "string — free text e.g. Game, Web App, CLI Tool, Library, Bot, Script",
-  "status": "one of: finished | in-progress | abandoned | archived",
-  "languages": ["array of language name strings, e.g. TypeScript, Lua, Python"],
-  "frameworks": ["array of framework/library/platform name strings"],
-  "liveUrl": "string URL or null if none",
-  "repoUrl": "string GitHub URL or null if private/not applicable",
-  "mainImage": "filename string e.g. screenshot.png, or null if no images",
-  "images": ["array of image filename strings — empty array if none"],
-  "usageFrequency": "one of: Daily | Occasionally | Rarely | No longer used",
-  "year": 2025
-}
-```
+- `title` — display name of the project (string)
+- `shortDescription` — one sentence, under 100 chars ideally (string)
+- `type` — free text e.g. Game, Web App, CLI Tool, Library, Bot, Script (string)
+- `status` — must be exactly one of: `"finished"` | `"in-progress"` | `"abandoned"` | `"archived"`
+- `languages` — array of language name strings, e.g. `["TypeScript", "Lua"]`
+- `frameworks` — array of framework/library/platform name strings
+- `liveUrl` — string URL, or `null` if none
+- `mainImage` — image filename string e.g. `"screenshot.png"`, or `null` if no images
+- `images` — array of image filename strings; empty array if none
+- `usageFrequency` — must be exactly one of: `"Daily"` | `"Occasionally"` | `"Rarely"` | `"No longer used"`
+- `year` — integer year, e.g. `2025`
 
-**Valid enum values (exact strings, case-sensitive):**
-- `status`: `"finished"` | `"in-progress"` | `"abandoned"` | `"archived"`
-- `usageFrequency`: `"Daily"` | `"Occasionally"` | `"Rarely"` | `"No longer used"`
+Note: `repoUrl` is NOT part of this file. It is derived automatically by the portfolio's ingestion script based on whether the repository is public or private.
 
 **File 2: `PORTFOLIO.md`**
 
@@ -89,8 +82,8 @@ Keep the tone clear and direct — this will be read by developers, recruiters, 
 
 ---
 
-Present both files in separate code blocks, ready to copy. If any of my answers were ambiguous, note what assumption you made and why.
-```
+Present both files in separate code blocks, ready to copy.
+````
 
 ---
 
@@ -99,4 +92,4 @@ Present both files in separate code blocks, ready to copy. If any of my answers 
 - Place `metadata.json` and `PORTFOLIO.md` in a `.portfolio-data/` folder at the root of the project repo.
 - Image files referenced in `metadata.json` should also be placed in `.portfolio-data/` (e.g. `.portfolio-data/screenshot.png`).
 - The portfolio's GitHub Action picks up `.portfolio-data/` automatically on every deploy — no changes needed in the portfolio repo.
-- `repoUrl` in `metadata.json` is only for the portfolio display. Leaving it `null` for private repos is fine and expected.
+- `repoUrl` is intentionally absent from `metadata.json`. The ingestion script sets it automatically: public repos get their GitHub URL, private repos get `null`.
