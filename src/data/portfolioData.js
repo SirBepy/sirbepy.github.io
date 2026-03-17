@@ -1,3 +1,26 @@
+// Language name → GitHub Linguist hex color
+export const languageColors = {
+  JavaScript: "#f1e05a",
+  TypeScript: "#3178c6",
+  Dart: "#00b4ab",
+  Lua: "#000080",
+  Python: "#3572A5",
+  HTML: "#e34c26",
+  CSS: "#563d7c",
+  "C#": "#178600",
+  "C++": "#f34b7d",
+  C: "#555555",
+  Java: "#b07219",
+  Rust: "#dea584",
+  Go: "#00ADD8",
+  Ruby: "#701516",
+  PHP: "#4F5D95",
+  Swift: "#F05138",
+  Kotlin: "#A97BFF",
+  Shell: "#89e051",
+  Vue: "#41b883",
+};
+
 // Technology links mapping for clickable skill tags
 export const technologyLinks = {
   // Languages

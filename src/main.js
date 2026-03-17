@@ -4,6 +4,7 @@ import "./styles/hero.css";
 import "./styles/skillsBanner.css";
 import "./styles/github.css";
 import "./styles/timeline.css";
+import "./styles/personalProjects.css";
 import "./styles/cursor.css";
 import "./styles/footer.css";
 import "locomotive-scroll/dist/locomotive-scroll.css";
@@ -28,6 +29,7 @@ appElement.innerHTML = `
       <section id="skills-section" data-scroll-section>
         <div class="skills-grid"></div>
       </section>
+      <section id="personal-projects-section" data-scroll-section></section>
       <section id="timeline-section" data-scroll-section></section>
       <section id="footer-section" data-scroll-section></section>
     </main>
@@ -35,6 +37,7 @@ appElement.innerHTML = `
 `;
 
 import { initSkillsBanner } from "./components/skillsBanner.js";
+import { initPersonalProjects } from "./components/personalProjects.js";
 import { skillsData, timelineData } from "./data/portfolioData.js";
 import { initTimeline } from "./components/timeline.js";
 import { initFooter } from "./components/footer.js";
@@ -72,6 +75,7 @@ bannerContainer.style.margin = "0 auto";
 skillsSection.appendChild(bannerContainer);
 
 initSkillsBanner(bannerContainer, skillsData);
+initPersonalProjects(document.querySelector("#personal-projects-section"), scroll);
 initTimeline(document.querySelector("#timeline-section"), timelineData, scroll);
 initFooter(document.querySelector("#footer-section"));
 
