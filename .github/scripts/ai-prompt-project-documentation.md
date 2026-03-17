@@ -1,19 +1,14 @@
-# AI Prompt — Project Documentation Template
-
-Copy and paste the prompt below into any AI assistant to generate the `.portfolio-data/` files for a project.
-No modifications are needed before use — the AI will ask all necessary questions before writing anything.
-
----
-
 ## The Prompt
 
-````
+```
 I need your help writing the `.portfolio-data/` documentation for one of my personal projects. This folder lives in the project's own repository and contains two files:
 
 1. `metadata.json` — structured data consumed by my portfolio site's GitHub Action at build time
 2. `PORTFOLIO.md` — a free-form Markdown description shown in the project popup on the portfolio
 
-**Important:** Do not write either file until you have asked all the questions below and I have answered them. If any of my answers are unclear or incomplete for a required field, ask a follow-up question and wait for my response before proceeding. Never fill in required fields by guessing.
+If the files or folder is missing then please add them.
+
+**Important:** Do not write either file until you have thought about all the questions below. If you arent very sure about the answer to a question, then ask me. If any of my answers are unclear or incomplete for a required field, ask a follow-up question and wait for my response before proceeding. Never fill in required fields by guessing.
 
 ---
 
@@ -83,7 +78,7 @@ Keep the tone clear and direct — this will be read by developers, recruiters, 
 ---
 
 Present both files in separate code blocks, ready to copy.
-````
+```
 
 ---
 
