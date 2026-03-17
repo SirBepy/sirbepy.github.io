@@ -30,6 +30,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Fetch GitHub projects data
+        run: node .github/scripts/fetch-projects.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.PORTFOLIO_GITHUB_TOKEN }}
+          GITHUB_USERNAME: SirBepy
+
       - name: Build
         run: npm run build
 
