@@ -80,11 +80,72 @@
   padding: var(--spacing-xs);
 }
 
-.github-chart {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 4px;
+.gh-calendar {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  font-size: 0;
+}
+
+.gh-calendar.gh-loading,
+.gh-error {
+  font-size: 0.85rem;
+  color: var(--color-text-muted, #888);
+  padding: var(--spacing-sm);
+}
+
+.gh-row {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+}
+
+.gh-row + .gh-row {
+  margin-top: 3px;
+}
+
+.gh-day-label {
+  width: 28px;
+  font-size: 0.6rem;
+  color: var(--color-text-muted, #888);
+  text-align: right;
+  padding-right: 4px;
+  flex-shrink: 0;
+}
+
+.gh-year-row {
+  margin-bottom: 1px;
+}
+
+.gh-year-label {
+  flex: 1;
+  min-width: 0;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--color-text, #ccc);
+}
+
+.gh-month-row {
+  margin-bottom: 2px;
+}
+
+.gh-month-label {
+  flex: 1;
+  min-width: 0;
+  font-size: 0.6rem;
+  color: var(--color-text-muted, #888);
+  text-align: left;
+}
+
+.gh-cell {
+  flex: 1;
+  min-width: 0;
+  aspect-ratio: 1;
+  border-radius: 2px;
+}
+
+.gh-cell.gh-empty {
+  background: transparent;
 }
 
 /* Responsive */
@@ -99,5 +160,22 @@
 
   .github-title {
     font-size: 0.95rem;
+  }
+
+  .gh-row {
+    gap: 2px;
+  }
+
+  .gh-row + .gh-row {
+    margin-top: 2px;
+  }
+
+  .gh-day-label {
+    width: 22px;
+    font-size: 0.5rem;
+  }
+
+  .gh-month-label {
+    font-size: 0.5rem;
   }
 }
