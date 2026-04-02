@@ -5,7 +5,6 @@
   position: relative;
   z-index: 10;
   padding: var(--spacing-xxl) var(--spacing-md);
-  display: none;
 }
 
 body.modal-open {
