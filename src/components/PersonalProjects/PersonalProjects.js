@@ -1,5 +1,6 @@
-import "./PersonalProjects.css";
-import { languageColors } from "../../data/portfolioData.js";
+import "../styles/personalProjects.css";
+import { languageColors } from "../data/portfolioData.js";
+import { fetchProjects } from "../utils/fetchProjects.js";
 import { marked } from "marked";
 import DOMPurify from "dompurify";
 
@@ -34,9 +35,7 @@ export class PersonalProjects {
 
   async loadData() {
     try {
-      const response = await fetch("/projects.json");
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      const data = await response.json();
+      const data = await fetchProjects();
       this.projects = data.projects || [];
       this.undocumentedCount = data.undocumentedCount || 0;
     } catch {

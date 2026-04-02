@@ -42,22 +42,6 @@ jobs:
 
       - run: ${{ steps.detect-pm.outputs.install }}
 
-      - name: Fetch GitHub projects data
-        run: node .github/scripts/fetch-projects.mjs
-        env:
-          GITHUB_TOKEN: ${{ secrets.PORTFOLIO_GITHUB_TOKEN }}
-          GITHUB_USERNAME: SirBepy
-
-      - name: Bump version
-        run: npm version patch --no-git-tag-version
-
-      - name: Inject build info
-        run: |
-          BUILD_TIME=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
-          PROJECT=$(basename "$GITHUB_REPOSITORY")
-          sed -i "s|BUILD_TIMESTAMP_PLACEHOLDER|$BUILD_TIME|g" index.html
-          sed -i "s|PROJECT_NAME_PLACEHOLDER|$PROJECT|g" index.html
-
       - name: Build
         run: npx vite build
 
