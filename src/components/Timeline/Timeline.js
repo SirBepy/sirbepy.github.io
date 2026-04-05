@@ -1,5 +1,5 @@
-import { setupSeamlessLoop } from "../utils/video.js";
-import { calculateDuration } from "../utils/dateHelpers.js";
+import { setupSeamlessLoop } from "../../utils/video.js";
+import { calculateDuration } from "../../utils/dateHelpers.js";
 
 export function initTimeline(element, data, locomotiveScroll) {
   if (!element || !data) return;

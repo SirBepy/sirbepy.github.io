@@ -1,4 +1,4 @@
-@import "./variables.css";
+@import "../../styles/base.css";
 
 #personal-projects-section {
   background-color: var(--color-background);
@@ -38,7 +38,7 @@ body.modal-open {
   border-radius: 20px;
   border: 1px solid var(--color-border);
   background: transparent;
-  color: var(--color-text-light);
+  color: var(--color-text-muted);
   font-family: var(--font-body);
   font-size: 0.85rem;
   cursor: pointer;
@@ -80,9 +80,9 @@ body.modal-open {
 
 /* ── Card ── */
 .pp-card {
-  background: var(--color-card-bg);
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: 12px;
+  border-radius: var(--radius-card);
   overflow: hidden;
   cursor: pointer;
   transition:
@@ -137,7 +137,7 @@ body.modal-open {
 
 .pp-card-desc {
   font-size: 0.8rem;
-  color: var(--color-text-light);
+  color: var(--color-text-muted);
   line-height: 1.5;
   margin-bottom: var(--spacing-sm);
   display: -webkit-box;
@@ -159,7 +159,7 @@ body.modal-open {
   padding: 3px 10px;
   border-radius: 10px;
   border: 1px solid var(--color-border);
-  color: var(--color-text-light);
+  color: var(--color-text-muted);
 }
 
 .pp-badge-type {
@@ -184,13 +184,13 @@ body.modal-open {
 
 .pp-badge-neutral {
   border-color: var(--color-border);
-  color: var(--color-text-light);
+  color: var(--color-text-muted);
 }
 
 /* ── Undocumented Label ── */
 .personal-projects-undoc {
   text-align: center;
-  color: var(--color-text-light);
+  color: var(--color-text-muted);
   font-size: 0.85rem;
   margin-top: var(--spacing-lg);
   opacity: 0.6;
@@ -200,7 +200,7 @@ body.modal-open {
 .personal-projects-empty {
   grid-column: 1 / -1;
   text-align: center;
-  color: var(--color-text-light);
+  color: var(--color-text-muted);
   font-size: 0.9rem;
   padding: var(--spacing-xl) 0;
   opacity: 0.6;
@@ -244,7 +244,7 @@ body.modal-open {
 
 /* ── Popup Modal ── */
 .pp-popup-modal {
-  background: var(--color-card-bg);
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: 20px;
   position: relative;
@@ -372,7 +372,7 @@ body.modal-open {
   display: flex;
   gap: var(--spacing-md);
   margin-bottom: var(--spacing-sm);
-  color: var(--color-text-light);
+  color: var(--color-text-muted);
   font-size: 0.9rem;
 }
 
@@ -404,7 +404,7 @@ body.modal-open {
 
 .pp-popup-gallery img {
   height: 250px;
-  border-radius: 12px;
+  border-radius: var(--radius-card);
   object-fit: cover;
   flex-shrink: 0;
   border: 1px solid var(--color-border);

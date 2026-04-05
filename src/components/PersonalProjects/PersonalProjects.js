@@ -1,5 +1,5 @@
-import "../styles/personalProjects.css";
-import { languageColors } from "../data/portfolioData.js";
+import "./PersonalProjects.css";
+import { languageColors } from "../../data/portfolioData.js";
 import { marked } from "marked";
 import DOMPurify from "dompurify";
 

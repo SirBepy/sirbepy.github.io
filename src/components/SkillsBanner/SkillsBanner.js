@@ -1,5 +1,5 @@
-import "../styles/skillsBanner.css";
-import { technologyLinks } from "../data/portfolioData.js";
+import "./SkillsBanner.css";
+import { technologyLinks } from "../../data/portfolioData.js";
 
 export class SkillsBanner {
   constructor(container, data) {

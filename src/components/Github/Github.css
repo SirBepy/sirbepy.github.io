@@ -7,7 +7,7 @@
 .github-card {
   display: block;
   padding: var(--spacing-md);
-  border-radius: 12px;
+  border-radius: var(--radius-card);
   text-decoration: none;
   opacity: 0;
   transform: translateY(20px);
@@ -36,7 +36,7 @@
   bottom: -30px;
   left: 50%;
   transform: translateX(-50%) translateY(-10px);
-  background-color: var(--color-card-bg);
+  background-color: var(--color-surface);
   color: var(--color-text);
   padding: var(--spacing-xs) var(--spacing-sm);
   border-radius: 8px;
@@ -47,7 +47,7 @@
   z-index: 100;
   transition: all var(--transition-fast);
   border: 1px solid var(--color-border);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-card);
 }
 
 .github-tooltip::before {

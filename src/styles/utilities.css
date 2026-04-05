@@ -33,7 +33,7 @@
 
 .scrollbar-custom {
   scrollbar-width: thin;
-  scrollbar-color: var(--color-border) var(--color-card-secondary-bg);
+  scrollbar-color: var(--color-border) var(--color-surface-alt);
 }
 
 .scrollbar-custom::-webkit-scrollbar {
@@ -41,7 +41,7 @@
 }
 
 .scrollbar-custom::-webkit-scrollbar-track {
-  background: var(--color-card-secondary-bg);
+  background: var(--color-surface-alt);
   border-radius: 3px;
 }
 
@@ -57,7 +57,7 @@
 
 .badge {
   padding: 4px 12px;
-  border-radius: 9999px;
+  border-radius: var(--radius-badge);
   font-size: 0.85rem;
   color: var(--color-text);
   border: 1px solid var(--color-border);
@@ -66,7 +66,7 @@
 }
 
 .badge-tech {
-  background: #4b589c;
+  background: var(--color-surface-alt);
 }
 
 .badge-tech:hover {
@@ -94,10 +94,10 @@
 }
 
 .card {
-  background: var(--color-card-bg);
-  border-radius: 12px;
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
   padding: var(--spacing-md);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-card);
   border: 1px solid var(--color-border);
   transition: transform var(--transition-fast);
 }
