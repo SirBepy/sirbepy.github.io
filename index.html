@@ -12,9 +12,6 @@
   <link rel="icon" type="image/png" href="assets/images/favicon.png" />
   <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
   <link rel="apple-touch-icon" href="/images/og-image.png">
-  <link rel="manifest" href="manifest.json" />
-  <meta name="theme-color" content="#9d7dfc" />
-
   <!-- Open Graph / Social Media Preview -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Josip Mužić - Portfolio" />
@@ -28,8 +25,6 @@
   <meta name="twitter:description" content="Josip Mužić - Frontend and Game Developer." />
   <meta name="twitter:image" content="/images/og-image.png" />
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sirbepy/bepy-project-init@main/styleguide.css" />
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code&display=swap"
@@ -39,15 +34,6 @@
 <body>
   <div id="app"></div>
   <script type="module" src="/src/app.js"></script>
-  <!-- Settings widget - comment out to disable -->
-  <script src="https://cdn.jsdelivr.net/gh/sirbepy/bepy-project-init@main/widget/settings.js"></script>
-  <!-- Animated background. To disable: set window.BEPY_BACKGROUND = false before this tag. To use a custom SVG: set window.BEPY_BG_PATTERN = 'your-pattern.svg' before this tag. -->
-  <script src="https://cdn.jsdelivr.net/gh/sirbepy/bepy-project-init@main/widget/background.js"></script>
-  <script>
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("/sw.js");
-    }
-  </script>
 </body>
 
 </html>
