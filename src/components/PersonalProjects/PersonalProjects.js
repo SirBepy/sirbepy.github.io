@@ -23,6 +23,28 @@ export class PersonalProjects {
     this.initPopup();
   }
 
+  preloadImages() {
+    const heroUrls = this.projects
+      .map((p) => p.mainImage)
+      .filter(Boolean);
+
+    const otherUrls = this.projects
+      .flatMap((p) => (p.images || []).filter((img) => img !== p.mainImage))
+      .filter(Boolean);
+
+    const load = (src) =>
+      new Promise((resolve) => {
+        const img = new Image();
+        img.onload = resolve;
+        img.onerror = resolve;
+        img.src = src;
+      });
+
+    Promise.all(heroUrls.map(load)).then(() => {
+      otherUrls.forEach((src) => load(src));
+    });
+  }
+
   // Simple HTML escape helper
   escapeHTML(str) {
     if (!str) return "";
@@ -43,6 +65,7 @@ export class PersonalProjects {
       this.projects = [];
       this.undocumentedCount = 0;
     }
+    this.preloadImages();
     this.render();
     this.attachEvents();
     this.scheduleScrollUpdate();
@@ -56,11 +79,24 @@ export class PersonalProjects {
     this.popupElement.innerHTML = `
       <div class="pp-popup-container">
         <div class="pp-popup-modal" role="dialog" aria-modal="true">
-          <button class="pp-popup-close" aria-label="Close popup">&times;</button>
-          <button class="pp-popup-nav pp-popup-nav-prev" aria-label="Previous project">&lsaquo;</button>
-          <button class="pp-popup-nav pp-popup-nav-next" aria-label="Next project">&rsaquo;</button>
+          <div class="pp-popup-hero">
+            <div class="pp-popup-hero-img"></div>
+            <div class="pp-popup-hero-overlay"></div>
+            <div class="pp-popup-hero-badges"></div>
+            <button class="pp-popup-close" aria-label="Close popup">&times;</button>
+          </div>
           <div class="pp-popup-content-wrapper">
             <div class="pp-popup-content"></div>
+          </div>
+          <div class="pp-popup-footer">
+            <button class="pp-popup-footer-btn pp-popup-footer-prev" aria-label="Previous project">
+              <span class="pp-popup-footer-arrow">&lsaquo;</span>
+              <span class="pp-popup-footer-label"></span>
+            </button>
+            <button class="pp-popup-footer-btn pp-popup-footer-next" aria-label="Next project">
+              <span class="pp-popup-footer-label"></span>
+              <span class="pp-popup-footer-arrow">&rsaquo;</span>
+            </button>
           </div>
         </div>
       </div>
@@ -78,8 +114,8 @@ export class PersonalProjects {
     this.popupElement.querySelector(".pp-popup-close").addEventListener("click", () => this.closePopup());
 
     // Navigation
-    this.popupElement.querySelector(".pp-popup-nav-prev").addEventListener("click", () => this.navigatePopup(-1));
-    this.popupElement.querySelector(".pp-popup-nav-next").addEventListener("click", () => this.navigatePopup(1));
+    this.popupElement.querySelector(".pp-popup-footer-prev").addEventListener("click", () => this.navigatePopup(-1));
+    this.popupElement.querySelector(".pp-popup-footer-next").addEventListener("click", () => this.navigatePopup(1));
 
     // Keyboard listener
     this.handleKeyDown = (e) => {
@@ -201,21 +237,24 @@ export class PersonalProjects {
             )
             .join("")}
         </div>
-        <div class="personal-projects-grid">
-          ${
-            !hasProjects
-              ? `<p class="personal-projects-empty">No documented projects yet.</p>`
-              : filtered.length === 0
-              ? `<p class="personal-projects-empty">No projects in this category.</p>`
-              : filtered
-                  .map((project) => {
-                    const originalIndex = this.projects.indexOf(project);
-                    return this.renderCard(project, originalIndex);
-                  })
-                  .join("")
-          }
+        <div class="personal-projects-scroll-wrapper">
+          <button class="pp-scroll-arrow pp-scroll-arrow-prev" aria-label="Scroll left">&lsaquo;</button>
+          <button class="pp-scroll-arrow pp-scroll-arrow-next" aria-label="Scroll right">&rsaquo;</button>
+          <div class="personal-projects-grid">
+            ${
+              !hasProjects
+                ? `<p class="personal-projects-empty">No documented projects yet.</p>`
+                : filtered.length === 0
+                ? `<p class="personal-projects-empty">No projects in this category.</p>`
+                : filtered
+                    .map((project) => {
+                      const originalIndex = this.projects.indexOf(project);
+                      return this.renderCard(project, originalIndex);
+                    })
+                    .join("")
+            }
+          </div>
         </div>
-        <p class="personal-projects-undoc">+ ${this.undocumentedCount} undocumented repos</p>
       </div>
     `;
   }
@@ -235,12 +274,10 @@ export class PersonalProjects {
       card.addEventListener("click", () => {
         const originalIndex = parseInt(card.dataset.projectIndex, 10);
         const filtered = this.getFilteredProjects();
-        // Find position in current filtered list
         const filteredIndex = filtered.findIndex(p => this.projects.indexOf(p) === originalIndex);
         this.openPopup(filteredIndex, filtered);
       });
-      
-      // Handle Enter/Space for accessibility
+
       card.addEventListener("keydown", (e) => {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
@@ -248,6 +285,38 @@ export class PersonalProjects {
         }
       });
     });
+
+    // Scroll arrows
+    const grid = this.element.querySelector(".personal-projects-grid");
+    const prevBtn = this.element.querySelector(".pp-scroll-arrow-prev");
+    const nextBtn = this.element.querySelector(".pp-scroll-arrow-next");
+    if (grid && prevBtn && nextBtn) {
+      const updateArrows = () => {
+        const canScrollLeft = grid.scrollLeft > 0;
+        const canScrollRight = grid.scrollLeft < grid.scrollWidth - grid.clientWidth - 1;
+        prevBtn.classList.toggle("visible", canScrollLeft);
+        nextBtn.classList.toggle("visible", canScrollRight);
+      };
+
+      const getScrollAmount = () => {
+        const card = grid.querySelector(".pp-card");
+        if (!card) return grid.clientWidth;
+        const cardWidth = card.offsetWidth;
+        const gap = parseFloat(getComputedStyle(grid).gap) || 0;
+        const fullVisible = Math.floor(grid.clientWidth / (cardWidth + gap));
+        return Math.max(1, fullVisible) * (cardWidth + gap);
+      };
+
+      prevBtn.addEventListener("click", () => {
+        grid.scrollBy({ left: -getScrollAmount() });
+      });
+      nextBtn.addEventListener("click", () => {
+        grid.scrollBy({ left: getScrollAmount() });
+      });
+
+      grid.addEventListener("scroll", updateArrows, { passive: true });
+      updateArrows();
+    }
   }
 
   scheduleScrollUpdate() {
@@ -325,67 +394,94 @@ export class PersonalProjects {
     const project = this.currentFilteredProjects[this.currentProjectIndex];
     if (!project) return;
 
+    const primaryLanguage = project.languages?.[0];
+    const color = languageColors[primaryLanguage] || "#3572A5";
+
+    // Hero image or gradient
+    const heroImg = this.popupElement.querySelector(".pp-popup-hero-img");
+    if (project.mainImage) {
+      heroImg.style.backgroundImage = `url('${this.escapeHTML(project.mainImage)}')`;
+      heroImg.style.background = "";
+      heroImg.style.backgroundImage = `url('${this.escapeHTML(project.mainImage)}')`;
+      heroImg.style.backgroundSize = "cover";
+      heroImg.style.backgroundPosition = "center";
+    } else {
+      heroImg.style.backgroundImage = "";
+      heroImg.style.background = `linear-gradient(135deg, ${color} 0%, #131929 100%)`;
+    }
+
+    // Clear hero badges
+    this.popupElement.querySelector(".pp-popup-hero-badges").innerHTML = "";
+
+    // Content
     const contentArea = this.popupElement.querySelector(".pp-popup-content");
-    
+
+    const hasLinks = project.liveUrl || project.repoUrl;
+    const linksHtml = hasLinks ? `
+      <div class="pp-popup-links">
+        ${project.liveUrl ? `<a href="${this.escapeHTML(project.liveUrl)}" target="_blank" rel="noopener noreferrer" class="pp-btn pp-btn-primary">Live Demo</a>` : ""}
+        ${project.repoUrl ? `<a href="${this.escapeHTML(project.repoUrl)}" target="_blank" rel="noopener noreferrer" class="pp-btn pp-btn-outline">Repository</a>` : ""}
+      </div>
+    ` : "";
+
+    const rawMarkdownContent = project.longDescriptionMarkdown
+      ? marked.parse(project.longDescriptionMarkdown)
+      : (project.description || "No detailed description available.");
+    const markdownContent = DOMPurify.sanitize(rawMarkdownContent);
+
     const images = project.images || (project.mainImage ? [project.mainImage] : []);
-    const galleryHtml = images.length > 0 
+    const galleryHtml = images.length > 1
       ? `<div class="pp-popup-gallery">
           ${images.map(img => `<img src="${this.escapeHTML(img)}" alt="${this.escapeHTML(project.title)}" loading="lazy">`).join("")}
          </div>`
       : "";
 
-    const metaRow = `
-      <div class="pp-popup-meta">
-        ${project.year ? `<span class="pp-popup-meta-item"><strong>Year:</strong> ${this.escapeHTML(project.year)}</span>` : ""}
-        ${project.usageFrequency ? `<span class="pp-popup-meta-item"><strong>Usage:</strong> ${this.escapeHTML(project.usageFrequency)}</span>` : ""}
-      </div>
-    `;
-
+    const statusIcon = this.getStatusIcon(project.status);
     const techBadges = [
       ...(project.languages || []),
       ...(project.frameworks || [])
     ].map(tech => `<span class="pp-badge pp-badge-neutral">${this.escapeHTML(tech)}</span>`).join("");
 
-    const externalLinks = `
-      <div class="pp-popup-links">
-        ${project.liveUrl ? `<a href="${this.escapeHTML(project.liveUrl)}" target="_blank" rel="noopener noreferrer" class="pp-btn pp-btn-primary">Live Demo</a>` : ""}
-        ${project.repoUrl ? `<a href="${this.escapeHTML(project.repoUrl)}" target="_blank" rel="noopener noreferrer" class="pp-btn pp-btn-outline">Repository</a>` : ""}
-      </div>
-    `;
-
-    const rawMarkdownContent = project.longDescriptionMarkdown 
-      ? marked.parse(project.longDescriptionMarkdown)
-      : (project.description || "No detailed description available.");
-    
-    // Sanitize the markdown output
-    const markdownContent = DOMPurify.sanitize(rawMarkdownContent);
+    const metaItems = [
+      project.type ? this.escapeHTML(project.type) : "",
+      project.year ? this.escapeHTML(project.year) : "",
+    ].filter(Boolean).join(" \u00b7 ");
 
     contentArea.innerHTML = `
-      <div class="pp-popup-header">
-        <h2 class="pp-popup-title">${this.escapeHTML(project.title)}</h2>
-        <div class="pp-card-badges">
-          ${project.type ? `<span class="pp-badge pp-badge-type">${this.escapeHTML(project.type)}</span>` : ""}
-          ${project.status ? `<span class="pp-badge ${this.getStatusClass(project.status)}">${this.escapeHTML(this.getStatusLabel(project.status))}</span>` : ""}
-        </div>
-      </div>
-      
-      ${metaRow}
-      
-      <div class="pp-popup-tech-row">
-        ${techBadges}
-      </div>
-
+      <h2 class="pp-popup-title">${this.escapeHTML(project.title)}</h2>
+      ${linksHtml}
       ${galleryHtml}
-
       <div class="pp-popup-description markdown-content">
         ${markdownContent}
       </div>
-
-      ${externalLinks}
+      <div class="pp-popup-meta-section">
+        <div class="pp-popup-meta-row">
+          ${statusIcon}
+          ${project.status ? `<span class="pp-popup-meta-status">${this.escapeHTML(this.getStatusLabel(project.status))}</span>` : ""}
+          ${metaItems ? `<span class="pp-popup-meta-sep">\u00b7</span><span class="pp-popup-meta-text">${metaItems}</span>` : ""}
+        </div>
+        ${techBadges ? `<div class="pp-popup-tech-row">${techBadges}</div>` : ""}
+      </div>
     `;
-    
-    // Reset scroll position of the content wrapper
+
     this.popupElement.querySelector(".pp-popup-content-wrapper").scrollTop = 0;
+
+    // Footer navigation labels
+    const len = this.currentFilteredProjects.length;
+    const prevBtn = this.popupElement.querySelector(".pp-popup-footer-prev");
+    const nextBtn = this.popupElement.querySelector(".pp-popup-footer-next");
+
+    if (len <= 1) {
+      prevBtn.style.visibility = "hidden";
+      nextBtn.style.visibility = "hidden";
+    } else {
+      const prevIndex = (this.currentProjectIndex - 1 + len) % len;
+      const nextIndex = (this.currentProjectIndex + 1) % len;
+      prevBtn.style.visibility = "";
+      nextBtn.style.visibility = "";
+      prevBtn.querySelector(".pp-popup-footer-label").textContent = this.currentFilteredProjects[prevIndex].title;
+      nextBtn.querySelector(".pp-popup-footer-label").textContent = this.currentFilteredProjects[nextIndex].title;
+    }
   }
 }
 
