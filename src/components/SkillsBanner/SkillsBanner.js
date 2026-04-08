@@ -86,7 +86,7 @@ export class SkillsBanner {
       "overview-github-container",
     );
     if (githubContainer && !githubContainer.hasChildNodes()) {
-      import("./github.js").then(({ initGithub }) => {
+      import("../Github/Github.js").then(({ initGithub }) => {
         initGithub(githubContainer, "SirBepy");
       });
     }

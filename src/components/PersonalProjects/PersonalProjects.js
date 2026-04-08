@@ -1,6 +1,6 @@
-import "../styles/personalProjects.css";
-import { languageColors } from "../data/portfolioData.js";
-import { fetchProjects } from "../utils/fetchProjects.js";
+import "./PersonalProjects.css";
+import { languageColors } from "../../data/portfolioData.js";
+import { fetchProjects } from "../../utils/fetchProjects.js";
 import { marked } from "marked";
 import DOMPurify from "dompurify";
 import { createElement, CircleCheck, CircleX, Clock, Archive } from "lucide";
