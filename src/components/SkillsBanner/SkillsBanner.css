@@ -461,7 +461,7 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .skills-banner {
     flex-direction: column;
     min-height: auto;
@@ -502,5 +502,16 @@
 
   .projects-list {
     max-height: 300px;
+  }
+
+  .overview-github-row {
+    margin-left: calc(-1 * (var(--spacing-lg) + var(--spacing-lg)));
+    margin-right: calc(-1 * (var(--spacing-lg) + var(--spacing-lg)));
+    width: auto;
+  }
+
+  .overview-github-row .github-card-container {
+    max-width: 100%;
+    padding: 0 var(--spacing-xs);
   }
 }
