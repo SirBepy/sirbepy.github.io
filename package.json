@@ -17,6 +17,7 @@
   "dependencies": {
     "dompurify": "^3.3.3",
     "locomotive-scroll": "^4.1.4",
+    "lucide": "^1.7.0",
     "marked": "^17.0.4"
   }
 }

@@ -84,6 +84,8 @@ body.modal-open {
   border-radius: var(--radius-card);
   overflow: hidden;
   cursor: pointer;
+  position: relative;
+  height: 200px;
   transition:
     border-color var(--transition-fast),
     transform var(--transition-fast),
@@ -104,8 +106,9 @@ body.modal-open {
 /* ── Card Media ── */
 .pp-card-media {
   width: 100%;
-  height: 140px;
+  height: 100%;
   overflow: hidden;
+  position: relative;
 }
 
 .pp-card-img {
@@ -120,8 +123,84 @@ body.modal-open {
   height: 100%;
 }
 
+.pp-card-media-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: flex-start;
+  padding: var(--spacing-xs);
+  pointer-events: none;
+}
+
+.pp-card-overlay-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pp-card-media-overlay .pp-badge {
+  pointer-events: auto;
+  background: rgba(10, 14, 26, 0.65);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.pp-card-status-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  background: rgba(10, 14, 26, 0.65);
+}
+
+.pp-card-status-icon svg {
+  display: block;
+}
+
+.pp-status-finished {
+  border: 1px solid rgba(74, 222, 128, 0.5);
+  color: #4ade80;
+}
+
+.pp-status-in-progress {
+  border: 1px solid rgba(96, 165, 250, 0.5);
+  color: #60a5fa;
+}
+
+.pp-status-abandoned {
+  border: 1px solid rgba(248, 113, 113, 0.5);
+  color: #f87171;
+}
+
+.pp-status-archived {
+  border: 1px solid var(--color-border);
+  color: var(--color-text-light);
+}
+
+.pp-status-archived svg {
+  width: 11px;
+  height: 11px;
+}
+
 /* ── Card Body ── */
 .pp-card-body {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background: var(--color-card-bg);
+  transition: padding 0.35s cubic-bezier(0.25, 0.1, 0.25, 1);
+  z-index: 2;
+}
+
+.pp-card:hover .pp-card-body {
   padding: var(--spacing-sm);
 }
 
@@ -130,7 +209,7 @@ body.modal-open {
   font-size: 1rem;
   font-weight: 600;
   color: var(--color-text);
-  margin-bottom: 6px;
+  margin-bottom: 0;
   line-height: 1.3;
 }
 
@@ -138,12 +217,24 @@ body.modal-open {
   font-size: 0.8rem;
   color: var(--color-text-muted);
   line-height: 1.5;
-  margin-bottom: var(--spacing-sm);
   display: -webkit-box;
   -webkit-line-clamp: 2;
   line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  margin: 0;
+  transition:
+    max-height 0.35s cubic-bezier(0.25, 0.1, 0.25, 1),
+    opacity 0.35s cubic-bezier(0.25, 0.1, 0.25, 1),
+    margin 0.35s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.pp-card:hover .pp-card-desc {
+  max-height: 3.2em;
+  opacity: 1;
+  margin-top: 6px;
 }
 
 /* ── Badges ── */

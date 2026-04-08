@@ -3,6 +3,7 @@ import { languageColors } from "../data/portfolioData.js";
 import { fetchProjects } from "../utils/fetchProjects.js";
 import { marked } from "marked";
 import DOMPurify from "dompurify";
+import { createElement, CircleCheck, CircleX, Clock, Archive } from "lucide";
 
 export class PersonalProjects {
   constructor(element, locomotiveScroll) {
@@ -129,6 +130,20 @@ export class PersonalProjects {
     return map[status] || status;
   }
 
+  getStatusIcon(status) {
+    const icons = {
+      finished: { icon: CircleCheck, class: "pp-status-finished", label: "Finished" },
+      "in-progress": { icon: Clock, class: "pp-status-in-progress", label: "In Progress" },
+      abandoned: { icon: CircleX, class: "pp-status-abandoned", label: "Abandoned" },
+      archived: { icon: Archive, class: "pp-status-archived", label: "Archived" },
+    };
+    const entry = icons[status];
+    if (!entry) return "";
+    const svg = createElement(entry.icon, { size: 14, strokeWidth: 2.5 });
+    const svgHtml = svg.outerHTML;
+    return `<span class="pp-card-status-icon ${entry.class}" title="${entry.label}">${svgHtml}</span>`;
+  }
+
   getStatusClass(status) {
     const map = {
       finished: "pp-badge-success",
@@ -147,16 +162,22 @@ export class PersonalProjects {
       ? `<img class="pp-card-img" src="${this.escapeHTML(project.mainImage)}" alt="${this.escapeHTML(project.title)}" loading="lazy">`
       : `<div class="pp-card-img pp-card-gradient" style="background: linear-gradient(135deg, ${color} 0%, #131929 100%)"></div>`;
 
+    const statusIcon = this.getStatusIcon(project.status);
+
     return `
       <div class="pp-card" data-project-index="${originalIndex}" role="button" tabindex="0">
-        <div class="pp-card-media">${mediaHtml}</div>
+        <div class="pp-card-media">
+          ${mediaHtml}
+          <div class="pp-card-media-overlay">
+            <div class="pp-card-overlay-left">
+              ${statusIcon}
+              ${project.type ? `<span class="pp-badge pp-badge-type">${this.escapeHTML(project.type)}</span>` : ""}
+            </div>
+          </div>
+        </div>
         <div class="pp-card-body">
           <h3 class="pp-card-title">${this.escapeHTML(project.title)}</h3>
           <p class="pp-card-desc">${this.escapeHTML(project.shortDescription || "")}</p>
-          <div class="pp-card-badges">
-            ${project.type ? `<span class="pp-badge pp-badge-type">${this.escapeHTML(project.type)}</span>` : ""}
-            ${project.status ? `<span class="pp-badge ${this.getStatusClass(project.status)}">${this.escapeHTML(this.getStatusLabel(project.status))}</span>` : ""}
-          </div>
         </div>
       </div>
     `;
