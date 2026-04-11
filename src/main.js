@@ -46,13 +46,13 @@ setupSeamlessLoop(
   document.querySelector("#bg-hero"),
   "/videos/hero-video.mp4",
   "hero-video",
-  1.0
+  1.0,
 );
 setupSeamlessLoop(
   document.querySelector("#bg-timeline"),
   "/videos/bottom-video.mp4",
   "timeline-video",
-  1.0
+  1.0,
 );
 
 const scroll = new LocomotiveScroll({
@@ -75,7 +75,10 @@ bannerContainer.style.margin = "0 auto";
 skillsSection.appendChild(bannerContainer);
 
 initSkillsBanner(bannerContainer, skillsData);
-initPersonalProjects(document.querySelector("#personal-projects-section"), scroll);
+initPersonalProjects(
+  document.querySelector("#personal-projects-section"),
+  scroll,
+);
 initTimeline(document.querySelector("#timeline-section"), timelineData, scroll);
 initFooter(document.querySelector("#footer-section"));
 
@@ -107,7 +110,7 @@ const updateVideoClipping = (scrollY) => {
 
   const splitPercent = Math.max(
     0,
-    Math.min(100, (skillsTopInViewport / viewportHeight) * 100)
+    Math.min(100, (skillsTopInViewport / viewportHeight) * 100),
   );
 
   bgHero.style.clipPath = `inset(0 0 ${100 - splitPercent}% 0)`;

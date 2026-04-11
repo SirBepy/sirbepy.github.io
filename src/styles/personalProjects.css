@@ -5,6 +5,7 @@
   position: relative;
   z-index: 10;
   padding: var(--spacing-xxl) var(--spacing-md);
+  margin-top: -10px;
   display: none;
 }
 

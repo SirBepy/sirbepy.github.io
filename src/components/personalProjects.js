@@ -10,7 +10,7 @@ export class PersonalProjects {
     this.projects = [];
     this.undocumentedCount = 0;
     this.activeFilter = "all";
-    
+
     // Popup state
     this.isPopupOpen = false;
     this.currentProjectIndex = -1;
@@ -69,17 +69,26 @@ export class PersonalProjects {
 
     // Close on backdrop click
     this.popupElement.addEventListener("click", (e) => {
-      if (e.target === this.popupElement || e.target.classList.contains("pp-popup-container")) {
+      if (
+        e.target === this.popupElement ||
+        e.target.classList.contains("pp-popup-container")
+      ) {
         this.closePopup();
       }
     });
 
     // Close button
-    this.popupElement.querySelector(".pp-popup-close").addEventListener("click", () => this.closePopup());
+    this.popupElement
+      .querySelector(".pp-popup-close")
+      .addEventListener("click", () => this.closePopup());
 
     // Navigation
-    this.popupElement.querySelector(".pp-popup-nav-prev").addEventListener("click", () => this.navigatePopup(-1));
-    this.popupElement.querySelector(".pp-popup-nav-next").addEventListener("click", () => this.navigatePopup(1));
+    this.popupElement
+      .querySelector(".pp-popup-nav-prev")
+      .addEventListener("click", () => this.navigatePopup(-1));
+    this.popupElement
+      .querySelector(".pp-popup-nav-next")
+      .addEventListener("click", () => this.navigatePopup(1));
 
     // Keyboard listener
     this.handleKeyDown = (e) => {
@@ -87,11 +96,11 @@ export class PersonalProjects {
       if (e.key === "Escape") this.closePopup();
       if (e.key === "ArrowLeft") this.navigatePopup(-1);
       if (e.key === "ArrowRight") this.navigatePopup(1);
-      
+
       // Focus trap
       if (e.key === "Tab") {
         const focusableElements = this.popupElement.querySelectorAll(
-          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
         );
         const firstElement = focusableElements[0];
         const lastElement = focusableElements[focusableElements.length - 1];
@@ -177,7 +186,7 @@ export class PersonalProjects {
             .map(
               (type) => `
             <button class="filter-tab ${this.activeFilter === type ? "active" : ""}" data-filter="${this.escapeHTML(type)}">${this.escapeHTML(type)}</button>
-          `
+          `,
             )
             .join("")}
         </div>
@@ -186,13 +195,13 @@ export class PersonalProjects {
             !hasProjects
               ? `<p class="personal-projects-empty">No documented projects yet.</p>`
               : filtered.length === 0
-              ? `<p class="personal-projects-empty">No projects in this category.</p>`
-              : filtered
-                  .map((project) => {
-                    const originalIndex = this.projects.indexOf(project);
-                    return this.renderCard(project, originalIndex);
-                  })
-                  .join("")
+                ? `<p class="personal-projects-empty">No projects in this category.</p>`
+                : filtered
+                    .map((project) => {
+                      const originalIndex = this.projects.indexOf(project);
+                      return this.renderCard(project, originalIndex);
+                    })
+                    .join("")
           }
         </div>
         <p class="personal-projects-undoc">+ ${this.undocumentedCount} undocumented repos</p>
@@ -216,10 +225,12 @@ export class PersonalProjects {
         const originalIndex = parseInt(card.dataset.projectIndex, 10);
         const filtered = this.getFilteredProjects();
         // Find position in current filtered list
-        const filteredIndex = filtered.findIndex(p => this.projects.indexOf(p) === originalIndex);
+        const filteredIndex = filtered.findIndex(
+          (p) => this.projects.indexOf(p) === originalIndex,
+        );
         this.openPopup(filteredIndex, filtered);
       });
-      
+
       // Handle Enter/Space for accessibility
       card.addEventListener("keydown", (e) => {
         if (e.key === "Enter" || e.key === " ") {
@@ -250,7 +261,7 @@ export class PersonalProjects {
   setModalState(isOpen) {
     this.isPopupOpen = isOpen;
     this.popupElement.setAttribute("aria-hidden", !isOpen);
-    
+
     if (isOpen) {
       document.body.classList.add("modal-open");
       if (this.scroll) this.scroll.stop();
@@ -286,14 +297,17 @@ export class PersonalProjects {
     // Fade out current content
     const content = this.popupElement.querySelector(".pp-popup-content");
     content.style.opacity = "0";
-    content.style.transform = direction > 0 ? "translateX(-20px)" : "translateX(20px)";
+    content.style.transform =
+      direction > 0 ? "translateX(-20px)" : "translateX(20px)";
 
     setTimeout(() => {
-      this.currentProjectIndex = (this.currentProjectIndex + direction + len) % len;
+      this.currentProjectIndex =
+        (this.currentProjectIndex + direction + len) % len;
       this.renderPopupContent();
-      
+
       // Fade in new content
-      content.style.transform = direction > 0 ? "translateX(20px)" : "translateX(-20px)";
+      content.style.transform =
+        direction > 0 ? "translateX(20px)" : "translateX(-20px)";
       // Trigger reflow
       content.offsetHeight;
       content.style.opacity = "1";
@@ -306,13 +320,15 @@ export class PersonalProjects {
     if (!project) return;
 
     const contentArea = this.popupElement.querySelector(".pp-popup-content");
-    
-    const images = project.images || (project.mainImage ? [project.mainImage] : []);
-    const galleryHtml = images.length > 0 
-      ? `<div class="pp-popup-gallery">
-          ${images.map(img => `<img src="${this.escapeHTML(img)}" alt="${this.escapeHTML(project.title)}" loading="lazy">`).join("")}
+
+    const images =
+      project.images || (project.mainImage ? [project.mainImage] : []);
+    const galleryHtml =
+      images.length > 0
+        ? `<div class="pp-popup-gallery">
+          ${images.map((img) => `<img src="${this.escapeHTML(img)}" alt="${this.escapeHTML(project.title)}" loading="lazy">`).join("")}
          </div>`
-      : "";
+        : "";
 
     const metaRow = `
       <div class="pp-popup-meta">
@@ -323,8 +339,13 @@ export class PersonalProjects {
 
     const techBadges = [
       ...(project.languages || []),
-      ...(project.frameworks || [])
-    ].map(tech => `<span class="pp-badge pp-badge-neutral">${this.escapeHTML(tech)}</span>`).join("");
+      ...(project.frameworks || []),
+    ]
+      .map(
+        (tech) =>
+          `<span class="pp-badge pp-badge-neutral">${this.escapeHTML(tech)}</span>`,
+      )
+      .join("");
 
     const externalLinks = `
       <div class="pp-popup-links">
@@ -333,10 +354,10 @@ export class PersonalProjects {
       </div>
     `;
 
-    const rawMarkdownContent = project.longDescriptionMarkdown 
+    const rawMarkdownContent = project.longDescriptionMarkdown
       ? marked.parse(project.longDescriptionMarkdown)
-      : (project.description || "No detailed description available.");
-    
+      : project.description || "No detailed description available.";
+
     // Sanitize the markdown output
     const markdownContent = DOMPurify.sanitize(rawMarkdownContent);
 
@@ -363,7 +384,7 @@ export class PersonalProjects {
 
       ${externalLinks}
     `;
-    
+
     // Reset scroll position of the content wrapper
     this.popupElement.querySelector(".pp-popup-content-wrapper").scrollTop = 0;
   }
