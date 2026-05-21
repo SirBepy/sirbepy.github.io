@@ -4,7 +4,7 @@ import "./components/Hero/Hero.css";
 import "./components/SkillsBanner/SkillsBanner.css";
 import "./components/Github/Github.css";
 import "./components/Timeline/Timeline.css";
-import "./components/PersonalProjects/PersonalProjects.css";
+// import "./components/PersonalProjects/PersonalProjects.css";
 import "./components/Cursor/Cursor.css";
 import "./components/Footer/Footer.css";
 import "locomotive-scroll/dist/locomotive-scroll.css";
@@ -29,7 +29,7 @@ appElement.innerHTML = `
       <section id="skills-section" data-scroll-section>
         <div class="skills-grid"></div>
       </section>
-      <section id="personal-projects-section" data-scroll-section></section>
+      <!-- <section id="personal-projects-section" data-scroll-section></section> -->
       <section id="timeline-section" data-scroll-section></section>
       <section id="footer-section" data-scroll-section></section>
     </main>
@@ -37,7 +37,7 @@ appElement.innerHTML = `
 `;
 
 import { initSkillsBanner } from "./components/SkillsBanner/SkillsBanner.js";
-import { initPersonalProjects } from "./components/PersonalProjects/PersonalProjects.js";
+// import { initPersonalProjects } from "./components/PersonalProjects/PersonalProjects.js";
 import { skillsData, timelineData } from "./data/portfolioData.js";
 import { initTimeline } from "./components/Timeline/Timeline.js";
 import { initFooter } from "./components/Footer/Footer.js";
@@ -75,10 +75,10 @@ bannerContainer.style.margin = "0 auto";
 skillsSection.appendChild(bannerContainer);
 
 initSkillsBanner(bannerContainer, skillsData);
-initPersonalProjects(
-  document.querySelector("#personal-projects-section"),
-  scroll,
-);
+// initPersonalProjects(
+//   document.querySelector("#personal-projects-section"),
+//   scroll,
+// );
 initTimeline(document.querySelector("#timeline-section"), timelineData, scroll);
 initFooter(document.querySelector("#footer-section"));
 
