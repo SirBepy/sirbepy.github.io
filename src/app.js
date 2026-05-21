@@ -1,17 +1,17 @@
-import "./styles/main.css";
+import "./styles/styles.css";
 import "./styles/utilities.css";
-import "./styles/hero.css";
-import "./styles/skillsBanner.css";
-import "./styles/github.css";
-import "./styles/timeline.css";
-import "./styles/personalProjects.css";
-import "./styles/cursor.css";
-import "./styles/footer.css";
+import "./components/Hero/Hero.css";
+import "./components/SkillsBanner/SkillsBanner.css";
+import "./components/Github/Github.css";
+import "./components/Timeline/Timeline.css";
+import "./components/PersonalProjects/PersonalProjects.css";
+import "./components/Cursor/Cursor.css";
+import "./components/Footer/Footer.css";
 import "locomotive-scroll/dist/locomotive-scroll.css";
 
-import { initHero } from "./components/hero.js";
-import { initLinks } from "./components/links.js";
-import { initCursor } from "./components/cursor.js";
+import { initHero } from "./components/Hero/Hero.js";
+import { initLinks } from "./components/Links/Links.js";
+import { initCursor } from "./components/Cursor/Cursor.js";
 import LocomotiveScroll from "locomotive-scroll";
 
 import { setupSeamlessLoop } from "./utils/video.js";
@@ -36,11 +36,11 @@ appElement.innerHTML = `
   </div>
 `;
 
-import { initSkillsBanner } from "./components/skillsBanner.js";
-import { initPersonalProjects } from "./components/personalProjects.js";
+import { initSkillsBanner } from "./components/SkillsBanner/SkillsBanner.js";
+import { initPersonalProjects } from "./components/PersonalProjects/PersonalProjects.js";
 import { skillsData, timelineData } from "./data/portfolioData.js";
-import { initTimeline } from "./components/timeline.js";
-import { initFooter } from "./components/footer.js";
+import { initTimeline } from "./components/Timeline/Timeline.js";
+import { initFooter } from "./components/Footer/Footer.js";
 
 setupSeamlessLoop(
   document.querySelector("#bg-hero"),

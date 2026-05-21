@@ -3,16 +3,19 @@
   --color-secondary: #9487ff;
   --color-accent: #ee75f4;
   --color-background: #252e5c;
+  --color-surface: #354076;
+  --color-surface-alt: #3b467f;
   --color-text: #f1f5f9;
-  --color-text-light: #94a3b8;
-  --color-white: #ffffff;
-  --color-card-bg: #354076;
-  --color-card-secondary-bg: #3b467f;
+  --color-text-muted: #94a3b8;
   --color-border: #334155;
 
   --font-heading: "Fredoka", system-ui, -apple-system, sans-serif;
   --font-body: "Inter", system-ui, -apple-system, sans-serif;
   --font-mono: "Fira Code", monospace;
+
+  --radius-card: 12px;
+  --radius-badge: 9999px;
+  --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 
   --spacing-xs: 0.5rem;
   --spacing-sm: 1rem;

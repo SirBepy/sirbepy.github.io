@@ -1,4 +1,4 @@
-import { socialLinks } from "../data/portfolioData.js";
+import { socialLinks } from "../../data/portfolioData.js";
 
 export function initFooter(element) {
   if (!element) return;

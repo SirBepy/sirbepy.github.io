@@ -1,5 +1,5 @@
-import { heroContent } from "../data/portfolioData.js";
-import { performFlip } from "../utils/flipAnimation.js";
+import { heroContent } from "../../data/portfolioData.js";
+import { performFlip } from "../../utils/flipAnimation.js";
 
 export function initHero(element, locomotiveScroll) {
   if (!element) return;
