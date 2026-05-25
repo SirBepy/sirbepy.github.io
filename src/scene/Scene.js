@@ -3,6 +3,7 @@ import { buildRoom } from "./Room.js";
 import { buildCharacter } from "./Character.js";
 import { Lights } from "./Lights.js";
 import { Camera } from "./Camera.js";
+import { Particles } from "./Particles.js";
 import { store } from "../state/store.js";
 
 export class Scene {
@@ -47,6 +48,25 @@ export class Scene {
 
     this.scene.add(buildCharacter());
 
+    this.particles = new Particles();
+    this.scene.add(this.particles.points);
+
+    this.raycaster = new THREE.Raycaster();
+    this.cursorPlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0); // plane z=0 facing camera (rough)
+    this.mouseNDC = new THREE.Vector2(0, 0);
+    this.cursorWorld = new THREE.Vector3();
+    this.cursorActive = false;
+
+    const onMouse = (e) => {
+      this.mouseNDC.x = (e.clientX / window.innerWidth) * 2 - 1;
+      this.mouseNDC.y = -((e.clientY / window.innerHeight) * 2 - 1);
+      this.cursorActive = true;
+    };
+    const onLeave = () => { this.cursorActive = false; };
+    window.addEventListener("mousemove", onMouse);
+    window.addEventListener("mouseout", onLeave);
+    this._mouseHandlers = { onMouse, onLeave };
+
     this.paused = false;
     this.onResize = this.onResize.bind(this);
     this.loop = this.loop.bind(this);
@@ -71,6 +91,15 @@ export class Scene {
     if (this.paused) return;
     this.cam.update(t);
     this.lights.update(t);
+
+    this.raycaster.setFromCamera(this.mouseNDC, this.camera);
+    this.raycaster.ray.intersectPlane(this.cursorPlane, this.cursorWorld);
+    this.particles.setCursor(this.cursorWorld, this.cursorActive);
+
+    const dt = this.lastT ? (t - this.lastT) : 16;
+    this.lastT = t;
+    this.particles.update(dt);
+
     this.renderer.render(this.scene, this.camera);
     requestAnimationFrame(this.loop);
   }
@@ -78,6 +107,8 @@ export class Scene {
   dispose() {
     window.removeEventListener("resize", this.onResize);
     document.removeEventListener("visibilitychange", this.onVisibilityChange);
+    window.removeEventListener("mousemove", this._mouseHandlers.onMouse);
+    window.removeEventListener("mouseout", this._mouseHandlers.onLeave);
     this.cam.dispose();
     this.unsubStore?.();
     this.renderer.dispose();
