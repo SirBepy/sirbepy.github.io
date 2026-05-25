@@ -4,7 +4,9 @@ import { Menu } from "./menu/Menu.js";
 import { BioView } from "./menu/views/BioView/BioView.js";
 import { ProjectsView } from "./menu/views/ProjectsView/ProjectsView.js";
 import { CreditsView } from "./menu/views/CreditsView/CreditsView.js";
+import { SettingsView } from "./menu/views/SettingsView/SettingsView.js";
 import { store } from "./state/store.js";
+import { setMusic } from "./utils/audio.js";
 
 const canvas = document.getElementById("scene-canvas");
 const menuRoot = document.getElementById("menu-root");
@@ -12,7 +14,7 @@ const menuRoot = document.getElementById("menu-root");
 new Scene(canvas);
 new Menu(menuRoot);
 
-const viewClasses = { bio: BioView, projects: ProjectsView, credits: CreditsView };
+const viewClasses = { bio: BioView, projects: ProjectsView, credits: CreditsView, settings: SettingsView };
 let currentSubview = null;
 
 store.subscribe((s, p) => {
@@ -26,3 +28,6 @@ store.subscribe((s, p) => {
     currentSubview = new Cls(menuRoot);
   }
 });
+
+// Restore music state on load (autoplay may be blocked until user interaction)
+if (store.get().music) setMusic(true);

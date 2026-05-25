@@ -1,0 +1,56 @@
+.settings-view {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(20, 14, 10, 0.7);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  transition: opacity 300ms ease;
+  pointer-events: auto;
+}
+.settings-view.open { opacity: 1; }
+
+.settings-panel {
+  width: 420px;
+  background: rgba(50, 35, 22, 0.95);
+  border: 2px solid rgba(255, 184, 74, 0.5);
+  padding: 32px;
+  color: var(--fg);
+}
+
+.settings-panel h2 { font-size: 28px; margin-bottom: 24px; }
+
+.setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 184, 74, 0.2);
+}
+.setting-row:last-child { border-bottom: none; }
+
+.toggle {
+  background: rgba(20, 14, 10, 0.7);
+  border: 1px solid rgba(255, 184, 74, 0.4);
+  color: var(--fg);
+  font-size: 14px;
+  padding: 6px 14px;
+  cursor: pointer;
+  min-width: 80px;
+}
+.toggle.on { background: var(--accent); color: #1a1410; border-color: var(--accent); }
+.toggle:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.settings-back {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: none;
+  border: 1px solid rgba(255, 184, 74, 0.4);
+  color: var(--fg);
+  font-size: 14px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
