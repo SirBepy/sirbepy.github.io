@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { buildRoom } from "./Room.js";
+import { Lights } from "./Lights.js";
 
 export class Scene {
   constructor(canvas) {
@@ -24,11 +25,8 @@ export class Scene {
 
     this.scene.add(buildRoom());
 
-    // Temporary lights so the placeholder is visible
-    const sun = new THREE.DirectionalLight(0xffd8a0, 1.2);
-    sun.position.set(5, 10, 5);
-    this.scene.add(sun);
-    this.scene.add(new THREE.AmbientLight(0x4a3520, 0.6));
+    this.lights = new Lights(this.scene);
+    this.lights.addTorch([7.5, 5.9, -5.8]); // matches room-config torch head position
 
     this.paused = false;
     this.onResize = this.onResize.bind(this);
@@ -53,6 +51,7 @@ export class Scene {
 
   loop(t) {
     if (this.paused) return;
+    this.lights.update(t);
     this.renderer.render(this.scene, this.camera);
     requestAnimationFrame(this.loop);
   }
