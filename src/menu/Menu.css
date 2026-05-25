@@ -1,0 +1,81 @@
+.menu {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto;
+  padding: 48px 64px;
+  pointer-events: none;
+}
+
+.menu.hidden { opacity: 0; pointer-events: none; transition: opacity 400ms ease; }
+.menu.visible { opacity: 1; transition: opacity 400ms ease; }
+
+.menu-title {
+  font-size: 64px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  color: var(--fg);
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
+  pointer-events: auto;
+}
+
+.menu-title small {
+  display: block;
+  font-size: 16px;
+  font-weight: 500;
+  opacity: 0.7;
+  margin-top: 4px;
+}
+
+.menu-actions {
+  align-self: end;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 320px;
+  pointer-events: auto;
+}
+
+.menu-button {
+  background: rgba(20, 14, 10, 0.65);
+  border: 2px solid rgba(255, 184, 74, 0.4);
+  color: var(--fg);
+  font-size: 22px;
+  font-weight: 600;
+  padding: 14px 24px;
+  text-align: left;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: transform 150ms, border-color 150ms, background 150ms;
+}
+
+.menu-button:hover {
+  background: rgba(255, 184, 74, 0.18);
+  border-color: var(--accent);
+  transform: translateX(6px);
+}
+
+.menu-footer {
+  align-self: end;
+  justify-self: end;
+  display: flex;
+  gap: 12px;
+  pointer-events: auto;
+}
+
+.menu-icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(20, 14, 10, 0.65);
+  border: 2px solid rgba(255, 184, 74, 0.4);
+  color: var(--fg);
+  font-size: 22px;
+  cursor: pointer;
+  transition: border-color 150ms, background 150ms;
+}
+
+.menu-icon:hover { border-color: var(--accent); background: rgba(255, 184, 74, 0.18); }
