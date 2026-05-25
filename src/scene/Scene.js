@@ -74,6 +74,10 @@ export class Scene {
 
     window.addEventListener("resize", this.onResize);
     document.addEventListener("visibilitychange", this.onVisibilityChange);
+
+    this.fpsSamples = [];
+    this.degraded = false;
+
     requestAnimationFrame(this.loop);
   }
 
@@ -98,6 +102,23 @@ export class Scene {
 
     const dt = this.lastT ? (t - this.lastT) : 16;
     this.lastT = t;
+
+    // FPS sampling for auto-degrade
+    if (dt > 0) {
+      const fps = 1000 / dt;
+      this.fpsSamples.push(fps);
+      if (this.fpsSamples.length > 120) this.fpsSamples.shift();
+    }
+    if (!this.degraded && this.fpsSamples.length >= 120) {
+      const avg = this.fpsSamples.reduce((a, b) => a + b, 0) / this.fpsSamples.length;
+      if (avg < 30) {
+        this.degraded = true;
+        this.scene.remove(this.particles.points);
+        this.renderer.shadowMap.enabled = false;
+        console.warn("FPS below 30 average, particles + shadows disabled");
+      }
+    }
+
     this.particles.update(dt);
 
     this.renderer.render(this.scene, this.camera);
