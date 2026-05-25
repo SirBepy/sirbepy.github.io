@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { buildRoom } from "./Room.js";
 
 export class Scene {
   constructor(canvas) {
@@ -21,12 +22,7 @@ export class Scene {
     this.camera.position.set(8, 6, 8);
     this.camera.lookAt(0, 2, 0);
 
-    // Temporary cube so we can see something rendering
-    const placeholder = new THREE.Mesh(
-      new THREE.BoxGeometry(1, 1, 1),
-      new THREE.MeshStandardMaterial({ color: 0xc4985a })
-    );
-    this.scene.add(placeholder);
+    this.scene.add(buildRoom());
 
     // Temporary lights so the placeholder is visible
     const sun = new THREE.DirectionalLight(0xffd8a0, 1.2);
