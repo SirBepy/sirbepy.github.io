@@ -1,4 +1,5 @@
 import "./styles/styles.css";
+import { Scene } from "./scene/Scene.js";
 
-// scene + menu mount in later tasks
-console.log("portfolio bootstrap");
+const canvas = document.getElementById("scene-canvas");
+new Scene(canvas);
