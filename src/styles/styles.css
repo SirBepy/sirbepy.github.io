@@ -1,130 +1,33 @@
-@import "./base.css";
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+:root {
+  --bg: #1a1410;
+  --fg: #f4e8d3;
+  --accent: #ffb84a;
 }
 
-html.has-scroll-smooth {
-  overflow: hidden;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-html.has-scroll-dragging {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-.has-scroll-smooth body {
-  overflow: hidden;
-}
-
-.has-scroll-smooth [data-scroll-container] {
-  min-height: 100vh;
-}
-
-body {
-  font-family: var(--font-body);
-  color: var(--color-text);
-  line-height: 1.6;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--font-heading);
-  line-height: 1.2;
-  color: var(--color-primary);
-  font-weight: 500;
-}
-
-img {
-  max-width: 100%;
-  display: block;
-}
-
-button {
-  cursor: pointer;
-  border: none;
-  background: none;
-  font-family: inherit;
-}
-
-#app {
+html, body, #app {
   width: 100%;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: system-ui, sans-serif;
 }
 
-main {
-  flex: 1;
-  width: 100%;
-}
-
-.c-scrollbar {
-  z-index: 11;
-}
-
-.fixed-backgrounds {
+#scene-canvas {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+#menu-root {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
   pointer-events: none;
 }
 
-.bg-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-.bg-container video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.global-video-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    to bottom,
-    rgba(15, 23, 42, 0.65) 0%,
-    rgba(15, 23, 42, 0.55) 30%,
-    rgba(55, 50, 69, 0.6) 70%,
-    rgba(55, 50, 69, 0.75) 100%
-  );
-  z-index: 10; /* Above videos, below content */
-}
-
-#skills-section {
-  background-color: var(--color-background);
-  position: relative;
-  z-index: 10;
-  padding: var(--spacing-xxl) var(--spacing-md);
-}
-
-#hero-section,
-#timeline-section {
-  background: transparent;
-}
+#menu-root > * { pointer-events: auto; }
