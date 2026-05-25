@@ -2,6 +2,8 @@ import * as THREE from "three";
 import { buildRoom } from "./Room.js";
 import { buildCharacter } from "./Character.js";
 import { Lights } from "./Lights.js";
+import { Camera } from "./Camera.js";
+import { store } from "../state/store.js";
 
 export class Scene {
   constructor(canvas) {
@@ -20,9 +22,23 @@ export class Scene {
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     this.renderer.outputColorSpace = THREE.SRGBColorSpace;
 
-    this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
-    this.camera.position.set(8, 6, 8);
-    this.camera.lookAt(0, 2, 0);
+    this.cam = new Camera();
+    this.camera = this.cam.camera; // keep .camera ref for renderer
+
+    const viewToFocus = {
+      main: "main",
+      bio: "desk",
+      projects: "shelf",
+      credits: "creditsWall",
+      settings: "main",
+    };
+
+    this.unsubStore = store.subscribe((s, p) => {
+      if (s.view !== p.view) {
+        const focus = viewToFocus[s.view] || "main";
+        this.cam.focusOn(focus);
+      }
+    });
 
     this.scene.add(buildRoom());
 
@@ -43,8 +59,7 @@ export class Scene {
 
   onResize() {
     this.renderer.setSize(window.innerWidth, window.innerHeight);
-    this.camera.aspect = window.innerWidth / window.innerHeight;
-    this.camera.updateProjectionMatrix();
+    this.cam.onResize();
   }
 
   onVisibilityChange() {
@@ -54,6 +69,7 @@ export class Scene {
 
   loop(t) {
     if (this.paused) return;
+    this.cam.update(t);
     this.lights.update(t);
     this.renderer.render(this.scene, this.camera);
     requestAnimationFrame(this.loop);
@@ -62,6 +78,8 @@ export class Scene {
   dispose() {
     window.removeEventListener("resize", this.onResize);
     document.removeEventListener("visibilitychange", this.onVisibilityChange);
+    this.cam.dispose();
+    this.unsubStore?.();
     this.renderer.dispose();
   }
 }
