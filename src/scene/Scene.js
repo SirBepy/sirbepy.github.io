@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { buildRoom } from "./Room.js";
+import { buildCharacter } from "./Character.js";
 import { Lights } from "./Lights.js";
 
 export class Scene {
@@ -27,6 +28,8 @@ export class Scene {
 
     this.lights = new Lights(this.scene);
     this.lights.addTorch([7.5, 5.9, -5.8]); // matches room-config torch head position
+
+    this.scene.add(buildCharacter());
 
     this.paused = false;
     this.onResize = this.onResize.bind(this);
