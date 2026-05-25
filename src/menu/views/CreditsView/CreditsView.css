@@ -1,0 +1,50 @@
+.credits-view {
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 14, 10, 0.85);
+  backdrop-filter: blur(6px);
+  overflow: hidden;
+  color: var(--fg);
+  pointer-events: auto;
+  opacity: 0;
+  transition: opacity 500ms ease;
+}
+.credits-view.open { opacity: 1; }
+
+.credits-scroll {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(640px, 90vw);
+  text-align: center;
+  animation: credits-roll 60s linear forwards;
+}
+
+@keyframes credits-roll {
+  to { top: -800px; }
+}
+
+.credits-section { margin-bottom: 60px; }
+.credits-section h3 {
+  font-size: 24px;
+  color: var(--accent);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.credits-section p { font-size: 18px; line-height: 1.8; }
+
+.credits-back {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: none;
+  border: 1px solid rgba(255, 184, 74, 0.4);
+  color: var(--fg);
+  font-size: 14px;
+  padding: 6px 12px;
+  cursor: pointer;
+  z-index: 1;
+}
+.credits-back:hover { border-color: var(--accent); background: rgba(255, 184, 74, 0.18); }
