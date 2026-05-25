@@ -2,6 +2,7 @@ import "./styles/styles.css";
 import { Scene } from "./scene/Scene.js";
 import { Menu } from "./menu/Menu.js";
 import { BioView } from "./menu/views/BioView/BioView.js";
+import { ProjectsView } from "./menu/views/ProjectsView/ProjectsView.js";
 import { store } from "./state/store.js";
 
 const canvas = document.getElementById("scene-canvas");
@@ -10,7 +11,7 @@ const menuRoot = document.getElementById("menu-root");
 new Scene(canvas);
 new Menu(menuRoot);
 
-const viewClasses = { bio: BioView };
+const viewClasses = { bio: BioView, projects: ProjectsView };
 let currentSubview = null;
 
 store.subscribe((s, p) => {
