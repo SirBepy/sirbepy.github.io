@@ -29,5 +29,11 @@ store.subscribe((s, p) => {
   }
 });
 
+window.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && store.get().view !== "main") {
+    store.setView("main");
+  }
+});
+
 // Restore music state on load (autoplay may be blocked until user interaction)
 if (store.get().music) setMusic(true);
