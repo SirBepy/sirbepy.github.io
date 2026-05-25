@@ -11,7 +11,22 @@ import { setMusic } from "./utils/audio.js";
 const canvas = document.getElementById("scene-canvas");
 const menuRoot = document.getElementById("menu-root");
 
-new Scene(canvas);
+const supportsWebGL = (() => {
+  try {
+    const c = document.createElement("canvas");
+    return !!(c.getContext("webgl2") || c.getContext("webgl"));
+  } catch {
+    return false;
+  }
+})();
+
+if (supportsWebGL) {
+  new Scene(canvas);
+} else {
+  canvas.style.display = "none";
+  document.body.classList.add("no-webgl");
+}
+
 new Menu(menuRoot);
 
 const viewClasses = { bio: BioView, projects: ProjectsView, credits: CreditsView, settings: SettingsView };

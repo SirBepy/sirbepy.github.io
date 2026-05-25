@@ -31,3 +31,9 @@ html, body, #app {
 }
 
 #menu-root > * { pointer-events: auto; }
+
+body.no-webgl {
+  background:
+    linear-gradient(rgba(26, 20, 16, 0.4), rgba(26, 20, 16, 0.4)),
+    url("/images/room-fallback.png") center / cover no-repeat;
+}
