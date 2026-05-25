@@ -20,7 +20,12 @@ const supportsWebGL = (() => {
   }
 })();
 
-if (supportsWebGL) {
+const isMobile = window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 768;
+
+if (isMobile) {
+  canvas.style.display = "none";
+  document.body.classList.add("mobile");
+} else if (supportsWebGL) {
   new Scene(canvas);
 } else {
   canvas.style.display = "none";

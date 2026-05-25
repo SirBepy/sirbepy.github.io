@@ -61,3 +61,10 @@
   cursor: pointer;
 }
 .projects-back:hover { border-color: var(--accent); background: rgba(255, 184, 74, 0.18); }
+
+@media (max-width: 768px) {
+  .projects-panel { width: 92vw; padding: 20px; }
+  .projects-panel h2 { font-size: 24px; margin-bottom: 16px; }
+  .project-list { grid-template-columns: 1fr; gap: 12px; }
+  .project-slot { padding: 12px; }
+}

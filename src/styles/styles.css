@@ -37,3 +37,9 @@ body.no-webgl {
     linear-gradient(rgba(26, 20, 16, 0.4), rgba(26, 20, 16, 0.4)),
     url("/images/room-fallback.png") center / cover no-repeat;
 }
+
+body.mobile {
+  background:
+    linear-gradient(rgba(26, 20, 16, 0.5), rgba(26, 20, 16, 0.5)),
+    url("/images/room-fallback.png") center / cover no-repeat;
+}

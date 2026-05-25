@@ -79,3 +79,12 @@
 }
 
 .menu-icon:hover { border-color: var(--accent); background: rgba(255, 184, 74, 0.18); }
+
+@media (max-width: 768px), (pointer: coarse) {
+  .menu { padding: 24px; }
+  .menu-title { font-size: 36px; }
+  .menu-title small { font-size: 13px; }
+  .menu-actions { width: 100%; }
+  .menu-button { font-size: 18px; padding: 12px 16px; }
+  .menu-footer { justify-self: stretch; justify-content: center; }
+}

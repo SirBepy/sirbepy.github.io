@@ -48,3 +48,9 @@
   z-index: 1;
 }
 .credits-back:hover { border-color: var(--accent); background: rgba(255, 184, 74, 0.18); }
+
+@media (max-width: 768px) {
+  .credits-scroll { width: 92vw; }
+  .credits-section h3 { font-size: 18px; letter-spacing: 2px; }
+  .credits-section p { font-size: 15px; }
+}
