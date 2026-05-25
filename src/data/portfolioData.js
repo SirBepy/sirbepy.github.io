@@ -338,3 +338,14 @@ export const timelineData = [
       "Built e-commerce store using React and Node.js with chat-based purchasing system.",
   },
 ];
+
+export const aboutContent = {
+  name: "Josip Mužić",
+  location: "Zagreb, Croatia",
+  pitch: "Full-stack developer (web + mobile) and Roblox game dev. RIT Croatia BSc Web & Mobile Computing, Magna Cum Laude.",
+  paragraphs: [
+    "Shipping since 2019. Built high-traffic Gatsby + Flutter products at KTO, real-time Unisport platform at Bebabit, IoT dashboards, mental-health apps, and an e-commerce store with a chat-based checkout.",
+    "Quit my Gatsby job in 2025 to start Tabs Labs and chase commercial Roblox games. First release crossed 880k+ visits in months. Currently building Shroomshire Restoration for an April 2026 launch.",
+    "I run a YouTube channel about the game dev journey (1k+ subs). Outside code: board games (top Croatian Catan rank), the dog, and the cat.",
+  ],
+};
