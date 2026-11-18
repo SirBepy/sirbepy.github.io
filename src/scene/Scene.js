@@ -44,22 +44,21 @@ export class Scene {
     this.scene.add(buildRoom());
 
     this.lights = new Lights(this.scene);
-    this.lights.addTorch([7.5, 5.9, -5.8]); // matches room-config torch head position
+    // Monitor face is at ~(4.5, 2.4, -5.42). Place the light slightly in front of it
+    // so the glow falls onto the character + desk.
+    this.lights.addMonitorLight([4.5, 2.4, -5.0]);
 
     this.scene.add(buildCharacter());
 
     this.particles = new Particles();
     this.scene.add(this.particles.points);
 
-    this.raycaster = new THREE.Raycaster();
-    this.cursorPlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0); // plane z=0 facing camera (rough)
-    this.mouseNDC = new THREE.Vector2(0, 0);
-    this.cursorWorld = new THREE.Vector3();
+    this.mousePx = { x: 0, y: 0 };
     this.cursorActive = false;
 
     const onMouse = (e) => {
-      this.mouseNDC.x = (e.clientX / window.innerWidth) * 2 - 1;
-      this.mouseNDC.y = -((e.clientY / window.innerHeight) * 2 - 1);
+      this.mousePx.x = e.clientX;
+      this.mousePx.y = e.clientY;
       this.cursorActive = true;
     };
     const onLeave = () => { this.cursorActive = false; };
@@ -96,9 +95,7 @@ export class Scene {
     this.cam.update(t);
     this.lights.update(t);
 
-    this.raycaster.setFromCamera(this.mouseNDC, this.camera);
-    this.raycaster.ray.intersectPlane(this.cursorPlane, this.cursorWorld);
-    this.particles.setCursor(this.cursorWorld, this.cursorActive);
+    this.particles.setCursor(this.camera, this.mousePx, window.innerWidth, window.innerHeight, this.cursorActive);
 
     const dt = this.lastT ? (t - this.lastT) : 16;
     this.lastT = t;

@@ -18,12 +18,11 @@ export const MATERIALS = {
   shelf: { color: 0x6b3f1f, roughness: 0.85 },
   book: { color: 0xc4985a, roughness: 0.7 },
   desk: { color: 0x4a3520, roughness: 0.85 },
-  monitor: { color: 0x1a1410, roughness: 0.4, emissive: 0x6a8aff, emissiveIntensity: 0.4 },
+  monitor: { color: 0x1a1410, roughness: 0.4, emissive: 0x6a8aff, emissiveIntensity: 1.4 },
   cork: { color: 0xb87a3f, roughness: 0.95 },
   paper: { color: 0xf4e8d3, roughness: 0.95 },
   banner: { color: 0x7a3f1f, roughness: 0.9 },
-  windowGlass: { color: 0xfff0c0, roughness: 0.1, transparent: true, opacity: 0.4, emissive: 0xffa86a, emissiveIntensity: 0.6 },
-  torchHead: { color: 0xff7a2a, emissive: 0xffaa4a, emissiveIntensity: 1.0 },
+  windowGlass: { color: 0xfff0c0, roughness: 0.1, transparent: true, opacity: 0.4, emissive: 0xffa86a, emissiveIntensity: 1.2 },
 };
 
 // Each block: { mat: key of MATERIALS, pos: [x, y, z] (center), size: [w, h, d] }
@@ -36,7 +35,7 @@ export const BLOCKS = [
   { mat: "wallWood", pos: [5.5, 4, -6], size: [5, 8, 0.4] },          // N wall right
   { mat: "wallWood", pos: [0, 7, -6], size: [6, 2, 0.4] },            // N wall above window
   { mat: "wallWood", pos: [0, 1, -6], size: [6, 2, 0.4] },            // N wall below window
-  { mat: "windowGlass", pos: [0, 4, -6], size: [6, 4, 0.1] },         // glass
+  { mat: "windowGlass", pos: [0, 4, -6], size: [6, 4, 0.1], castShadow: false }, // glass: let sun through
 
   // West wall (left in frame)
   { mat: "wallWood", pos: [-8, 4, 0], size: [0.4, 8, 12] },
@@ -72,7 +71,4 @@ export const BLOCKS = [
   { mat: "monitor", pos: [4.5, 2.4, -5.42], size: [1.8, 1.2, 0.05] },   // monitor screen
   { mat: "desk", pos: [4.5, 1.75, -5.5], size: [0.3, 0.3, 0.3] },       // stand
 
-  // Torch on N wall, far east
-  { mat: "beam", pos: [7.5, 5, -5.8], size: [0.2, 1.5, 0.2] },          // torch stick
-  { mat: "torchHead", pos: [7.5, 5.9, -5.8], size: [0.5, 0.5, 0.5] },   // torch head
 ];

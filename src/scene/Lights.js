@@ -3,46 +3,44 @@ import * as THREE from "three";
 export class Lights {
   constructor(scene) {
     this.scene = scene;
-    this.torches = [];
+    this.monitorLights = [];
 
-    // Sun (warm low-angle directional, pours through window from -Z direction outside)
-    this.sun = new THREE.DirectionalLight(0xffb070, 1.6);
+    // Sun: warm low-angle directional through the window from -Z outside.
+    this.sun = new THREE.DirectionalLight(0xffb070, 4.0);
     this.sun.position.set(2, 6, -12);
     this.sun.target.position.set(0, 2, 0);
     this.sun.castShadow = true;
     this.sun.shadow.mapSize.set(2048, 2048);
     this.sun.shadow.camera.near = 1;
-    this.sun.shadow.camera.far = 30;
-    this.sun.shadow.camera.left = -10;
-    this.sun.shadow.camera.right = 10;
-    this.sun.shadow.camera.top = 10;
-    this.sun.shadow.camera.bottom = -10;
+    this.sun.shadow.camera.far = 40;
+    this.sun.shadow.camera.left = -12;
+    this.sun.shadow.camera.right = 12;
+    this.sun.shadow.camera.top = 12;
+    this.sun.shadow.camera.bottom = -12;
+    this.sun.shadow.bias = -0.0005;
+    this.sun.shadow.normalBias = 0.04;
     scene.add(this.sun);
     scene.add(this.sun.target);
 
-    // Ambient (low warm fill)
-    this.ambient = new THREE.AmbientLight(0x4a2f1f, 0.6);
+    // Minimal ambient so shadows still read but interior isn't pitch black.
+    this.ambient = new THREE.AmbientLight(0x2a1a14, 0.25);
     scene.add(this.ambient);
 
-    // Hemisphere (sky/floor bounce)
-    this.hemi = new THREE.HemisphereLight(0xffb070, 0x3a2510, 0.4);
+    // Hemisphere bounce, very subtle.
+    this.hemi = new THREE.HemisphereLight(0xffb070, 0x1a0f08, 0.15);
     scene.add(this.hemi);
   }
 
-  addTorch(position) {
-    const light = new THREE.PointLight(0xffaa4a, 1.5, 8, 2);
+  addMonitorLight(position, { color = 0x6a8aff, intensity = 2.4, distance = 6 } = {}) {
+    const light = new THREE.PointLight(color, intensity, distance, 2);
     light.position.set(...position);
     light.castShadow = false;
     this.scene.add(light);
-    this.torches.push({ light, baseIntensity: 1.5, seed: Math.random() * 100 });
+    this.monitorLights.push(light);
   }
 
   update(t) {
-    // Flicker torches: low-amplitude noise on intensity
-    for (const torch of this.torches) {
-      const n = Math.sin(t * 0.008 + torch.seed) * 0.5 + Math.sin(t * 0.013 + torch.seed * 1.7) * 0.5;
-      torch.light.intensity = torch.baseIntensity + n * 0.25;
-    }
+    void t;
   }
 
   setMode(mode) {

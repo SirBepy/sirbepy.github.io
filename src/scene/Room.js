@@ -21,8 +21,8 @@ export const buildRoom = () => {
     const geom = new THREE.BoxGeometry(w, h, d);
     const mesh = new THREE.Mesh(geom, getMaterial(block.mat));
     mesh.position.set(...block.pos);
-    mesh.castShadow = true;
-    mesh.receiveShadow = true;
+    mesh.castShadow = block.castShadow !== false;
+    mesh.receiveShadow = block.receiveShadow !== false;
     group.add(mesh);
   }
 
